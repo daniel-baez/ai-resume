@@ -72,7 +72,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
         <DialogHeader>
           <DialogTitle>Get in Touch</DialogTitle>
           <DialogDescription>
-            I'd love to hear from you! Fill out this form and I'll get back to you as soon as possible.
+            I&apos;d love to hear from you! Fill out this form and I&apos;ll get back to you as soon as possible.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">

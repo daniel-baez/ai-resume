@@ -3,7 +3,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Mail, Calendar, Download } from "lucide-react"
+import { Calendar, Download } from "lucide-react"
 import Link from "next/link"
 import { ContactForm } from "@/components/forms/contact-form"
 

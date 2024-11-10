@@ -1,5 +1,5 @@
 // src/components/layout/footer.tsx
-import { Mail, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
