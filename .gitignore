@@ -58,7 +58,6 @@ ui-debug.log
 result
 result-*
 .direnv
-.envrc
 
 # IDE
 .idea/

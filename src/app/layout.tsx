@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import GoogleAnalytics from "@/components/analytics/google-analytics";
 import Script from "next/script";
+import { Suspense } from "react";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Suspense>
         <GoogleAnalytics />
+        </Suspense>
         <Script
           strategy="beforeInteractive"
           src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
