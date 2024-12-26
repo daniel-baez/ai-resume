@@ -4,6 +4,7 @@ import "./globals.css";
 import GoogleAnalytics from "@/components/analytics/google-analytics";
 import Script from "next/script";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,6 +44,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         {children}
+        <Toaster />
       </body>
     </html>
   );

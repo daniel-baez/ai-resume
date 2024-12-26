@@ -16,7 +16,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getCaptchaToken } from "@/lib/captcha"
-import { verifyRecaptcha } from "@/app/actions"
+import { verifyAndSendEmail } from "@/app/actions"
+import { toast } from "@/hooks/use-toast"
 
 interface ContactFormProps {
   isOpen: boolean
@@ -24,19 +25,12 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
-  // const [captcha, setCaptcha] = useState("")
-  // const [userCaptcha, setUserCaptcha] = useState("")
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   })
-
-  // const generateCaptcha = () => {
-  //   const result = Math.random().toString(36).substring(2, 8)
-  //   setCaptcha(result)
-  // }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -47,20 +41,31 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     e.preventDefault()
     const token = await getCaptchaToken();
     if (!token) {
-      console.error("Failed to get captcha token");
+      toast({
+        title: "Failed to get captcha token",
+        description: "Please try again.",
+        variant: "destructive",
+      })
       return onOpenChange(false)
     }
 
-    const success = await verifyRecaptcha(token);
+    const success = await verifyAndSendEmail(token, formData);
     if (!success) {
-      console.error("Failed to verify captcha");
+      toast({
+        title: "Failed to send email",
+        description: "Please try again.",
+        variant: "destructive",
+      })
       return onOpenChange(false)
     }
 
     console.log("Form submitted:", formData, token)
+    toast({
+      title: "Email sent successfully!",
+      description: "I'll get back to you as soon as possible.",
+    })
     onOpenChange(false)
     setFormData({ name: "", email: "", phone: "", message: "" })
-    // setUserCaptcha("")
   }
 
   return (
@@ -70,7 +75,6 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
           variant="outline" 
           className="w-full sm:w-auto bg-white hover:bg-blue-50 text-gray-700 border-gray-300"
           onClick={() => {
-            // generateCaptcha()
             onOpenChange(true)
           }}
         >
@@ -102,10 +106,6 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
             <Label htmlFor="message">Message</Label>
             <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required />
           </div>
-         {/*  <div className="space-y-2">
-            <Label htmlFor="captcha">Captcha: {captcha}</Label>
-            <Input id="captcha" value={userCaptcha} onChange={(e) => setUserCaptcha(e.target.value)} required />
-          </div> */}
           <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
             Send Message
           </Button>
