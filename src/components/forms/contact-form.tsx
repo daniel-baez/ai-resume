@@ -31,6 +31,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     phone: "",
     message: "",
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -39,6 +40,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
     const token = await getCaptchaToken();
     if (!token) {
       toast({
@@ -46,6 +48,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
         description: "Please try again.",
         variant: "destructive",
       })
+      setIsLoading(false)
       return onOpenChange(false)
     }
 
@@ -56,16 +59,17 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
         description: "Please try again.",
         variant: "destructive",
       })
+      setIsLoading(false)
       return onOpenChange(false)
     }
 
-    console.log("Form submitted:", formData, token)
     toast({
       title: "Email sent successfully!",
       description: "I'll get back to you as soon as possible.",
     })
     onOpenChange(false)
     setFormData({ name: "", email: "", phone: "", message: "" })
+    setIsLoading(false)
   }
 
   return (
@@ -106,8 +110,11 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
             <Label htmlFor="message">Message</Label>
             <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required />
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-            Send Message
+          <Button 
+            type="submit" 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            disabled={isLoading} >
+            {isLoading ? "Sending..." : "Send Message"}
           </Button>
         </form>
       </DialogContent>
