@@ -60,7 +60,7 @@
                  skipHtml={true}
                  allowedElements={['p', 'sup']}
                  components={{
-                   p: ({ node, ...props }) => <p className="text-gray-800 leading-relaxed" {...props} />,
+                   p: ({ ...props }) => <p className="text-gray-800 leading-relaxed" {...props} />,
                  }}
                >
                  {experience.content}
