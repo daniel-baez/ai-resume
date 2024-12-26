@@ -1,7 +1,7 @@
 // src/components/forms/contact-form.tsx
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
 import {
@@ -18,6 +18,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { getCaptchaToken } from "@/lib/captcha"
 import { verifyAndSendEmail } from "@/app/actions"
 import { toast } from "@/hooks/use-toast"
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 interface ContactFormProps {
   isOpen: boolean
@@ -33,9 +35,29 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
   })
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        const emailInput = document.getElementById("email")
+        const phoneInput = document.getElementById("phone")
+
+        // get the width of the email input
+        const emailWidth = emailInput?.offsetWidth
+        // set the width of the phone input to the width of the email input
+        if (phoneInput) {
+          phoneInput.style.width = `${emailWidth}px`
+        }
+      })
+    }
+  }, [isOpen])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handlePhoneChange = (value: string) => {
+    setFormData(prev => ({ ...prev, phone: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -96,24 +118,59 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
           {/* Form fields */}
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" name="name" value={formData.name} onChange={handleInputChange} required />
+            <Input 
+              id="name" 
+              name="name" 
+              value={formData.name} 
+              onChange={handleInputChange} 
+              required 
+              maxLength={200}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required />
+            <Input 
+              id="email" 
+              name="email" 
+              type="email" 
+              value={formData.email} 
+              onChange={handleInputChange} 
+              required 
+              maxLength={200}
+              // ref={emailInputRef}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
-            <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} />
+            <PhoneInput
+              country={'us'}
+              value={formData.phone}
+              onChange={handlePhoneChange}
+              inputProps={{
+                id: 'phone',
+                name: 'phone',
+                required: true,
+                maxLength: 200,
+              }}
+              containerClass="phone-input-container"
+              // ref={phoneInputRef}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="message">Message</Label>
-            <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required />
+            <Textarea 
+              id="message" 
+              name="message" 
+              value={formData.message} 
+              onChange={handleInputChange} 
+              required 
+              maxLength={1000}
+            />
           </div>
           <Button 
             type="submit" 
             className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-            disabled={isLoading} >
+            disabled={isLoading}>
             {isLoading ? "Sending..." : "Send Message"}
           </Button>
         </form>

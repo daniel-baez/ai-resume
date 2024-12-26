@@ -14,7 +14,7 @@ export function Header() {
     <header className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl mb-8 p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
       <div className="flex flex-col sm:flex-row justify-between items-center">
         <div className="text-center sm:text-left mb-6 sm:mb-0">
-          <h1 className="text-4xl font-extrabold text-blue-900 mb-2">Daniel B&aacute;ez</h1>
+          <h1 className="text-4xl font-extrabold text-blue-900 mb-2">Daniel Baez</h1>
           <p className="text-xl text-gray-700 font-light">Software Engineer</p>
           <p className="text-sm text-gray-700 font-light">Cloud Architect & IoT expert</p>
         </div>
