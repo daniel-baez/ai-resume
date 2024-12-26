@@ -55,7 +55,14 @@
                <h3 className="text-xl font-semibold text-grey-800">{experience.title}</h3>
                <p className="text-grey-600 italic">{experience.company} / {experience.period}</p>
                <p className="text-gray-600 mb-2 italic">{experience.location}</p>
-               <ReactMarkdown className="markdown-content mt-2 text-grey-700" skipHtml={true} allowedElements={['p', 'sup']}>
+               <ReactMarkdown
+                 className="markdown-content mt-2 text-grey-700"
+                 skipHtml={true}
+                 allowedElements={['p', 'sup']}
+                 components={{
+                   p: ({ node, ...props }) => <p className="text-gray-800 leading-relaxed" {...props} />,
+                 }}
+               >
                  {experience.content}
                </ReactMarkdown>
              </div>
