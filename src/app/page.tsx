@@ -15,6 +15,8 @@ const profileData = JSON.parse(fs.readFileSync(profilePath, "utf8"));
 const summaryPath = path.join(process.cwd(), "src/data/summary.md");
 const summaryContent = fs.readFileSync(summaryPath, "utf8");
 
+const info = profileData.info;
+
 // Get experience entries from src/data/experiences/*.md
 const experienceEntries = fs
   .readdirSync(path.join(process.cwd(), "src/data/experiences"))
@@ -37,7 +39,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <Header />
+        <Header {...info} />
 
         <main className="space-y-8">
           <Summary content={summaryContent} title="Professional Summary" />

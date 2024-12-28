@@ -49,3 +49,11 @@ export interface SummaryProps {
   content: string;
   title?: string;  // Making title optional as it might have a default
 }
+
+export interface HeaderProps {
+  name: string;
+  title: string;
+  subtitle: string;
+  resumeUrl: string;
+  calendlyUrl: string;
+}

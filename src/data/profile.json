@@ -1,5 +1,12 @@
 
 {
+  "info": {
+    "name": "Daniel Baez",
+    "title": "Software Engineer",
+    "subtitle": "Cloud-Native Architect & IoT Expert",
+    "resumeUrl": "/resume-2024-11.pdf",
+    "calendlyUrl": "https://calendly.com/daniel-baez"
+  },
   "education": [
     {
       "title": "Computer Engineer, Information Technology",
