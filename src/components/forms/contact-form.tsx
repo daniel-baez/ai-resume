@@ -20,6 +20,7 @@ import { verifyAndSendEmail } from "@/app/actions"
 import { toast } from "@/hooks/use-toast"
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 
 interface ContactFormProps {
   isOpen: boolean
@@ -27,6 +28,7 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
+  const { trackEvent } = useGoogleAnalytics()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,8 +96,19 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     setIsLoading(false)
   }
 
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      trackEvent({
+        action: 'open',
+        category: 'contact',
+        label: 'contact_form_open'
+      });
+    }
+    onOpenChange(open);
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button 
           variant="outline" 

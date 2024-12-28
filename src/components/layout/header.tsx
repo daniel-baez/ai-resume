@@ -48,7 +48,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
 
   return (
     <div className="md:sticky md:top-4 z-50 mb-8">
-      <header className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
+      <header className="bg-white bg-opacity-80 backdrop-filter shadow-lg rounded-2xl p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="flex justify-between items-center">
             <div className="text-left">
