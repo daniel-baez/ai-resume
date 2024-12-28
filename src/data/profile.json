@@ -1,10 +1,33 @@
-// src/components/sections/skills.tsx
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Code } from "lucide-react";
-import { SkillsProps, Skill } from "@/types/portfolio";
 
-/* skills is
+{
+  "education": [
+    {
+      "title": "Computer Engineer, Information Technology",
+      "period": "2005 - 2010",
+      "institution": "Universidad Tecnológica De Chile"
+    }
+  ],
+  "certifications": {
+    "Professional Cloud Architect": {
+      "issuer": "Google Cloud",
+      "color": "bg-blue-100",
+      "textColor": "text-gray-800",
+      "hoverColor": "hover:bg-blue-200"
+    },
+    "Professional Cloud DevOps Engineer": {
+      "issuer": "Google Cloud",
+      "color": "bg-green-100",
+      "textColor": "text-green-800",
+      "hoverColor": "hover:bg-green-200"
+    },
+    "Professional Cloud Developer": {
+      "issuer": "Google Cloud",
+      "color": "bg-purple-100",
+      "textColor": "text-purple-800",
+      "hoverColor": "hover:bg-purple-200"
+    }
+  },
+  "skills": {
     "Core Technologies": [
       {
         "name": "Cloud-Native Architecture",
@@ -72,41 +95,4 @@ import { SkillsProps, Skill } from "@/types/portfolio";
       }
     ]
   }
-}
-*/
-
-export function Skills({ skillCategories }: SkillsProps) {
-  if (!skillCategories) {
-    return null;
-  }
-
-  return (
-    <Card className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-900 flex items-center">
-          <Code className="mr-2 h-6 w-6 text-blue-600" /> Skills
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {Object.entries(skillCategories).map(([categoryName, skills], index) => (
-            <div key={index} className="space-y-2">
-              <h3 className="text-lg font-semibold text-gray-800">{categoryName}</h3>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill: Skill, idx: number) => (
-                  <Badge
-                    key={idx}
-                    variant="secondary" 
-                    className={`${skill.color} ${skill.textColor} ${skill.hoverColor}`}
-                  >
-                    {skill.name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  )
 }

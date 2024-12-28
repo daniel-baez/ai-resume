@@ -164,6 +164,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
               value={formData.message} 
               onChange={handleInputChange} 
               required 
+              rows={5}
               maxLength={1000}
             />
           </div>
