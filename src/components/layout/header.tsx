@@ -12,7 +12,7 @@ import { HeaderProps } from '@/types/portfolio'
 
 const languages = [
   { code: 'en', name: 'English', flag: '/flags/us.svg' },
-  { code: 'es', name: 'Español', flag: '/flags/es.svg' }
+  { code: 'es', name: 'Español', flag: '/flags/cl.svg' }
   // { code: 'fr', name: 'Français', flag: '/flags/fr.svg' },
   // { code: 'de', name: 'Deutsch', flag: '/flags/de.svg' }
 ]
