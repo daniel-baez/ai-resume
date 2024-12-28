@@ -17,10 +17,10 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 100;
+      const isMobile = window.innerWidth < 768; // 768px est le breakpoint md de Tailwind
+      const headerOffset = isMobile ? 20 : 100;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
       // Track the scroll event
       trackEvent({
