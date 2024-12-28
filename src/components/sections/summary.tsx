@@ -2,6 +2,7 @@
 import { SummaryProps } from "@/types/portfolio";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
 
 export function Summary({ content, title = "Professional Summary" }: SummaryProps) {
   if (!content) {
@@ -16,7 +17,18 @@ export function Summary({ content, title = "Professional Summary" }: SummaryProp
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-700 leading-relaxed">{content}</p>
+        <ReactMarkdown
+          className="markdown-content mt-2 text-grey-700"
+          skipHtml={true}
+          allowedElements={["p", "sup"]}
+          components={{
+            p: ({ ...props }) => (
+              <p style={{fontStyle: 'italic'}} className="text-gray-800 leading-relaxed" {...props} />
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </CardContent>
     </Card>
   );
