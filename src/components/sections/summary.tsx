@@ -10,7 +10,7 @@ export function Summary({ content, title = "Professional Summary" }: SummaryProp
   }
 
   return (
-    <Card className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
+    <Card id="summary" className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-blue-900 flex items-center">
           <User className="mr-2 h-6 w-6 text-blue-600" /> {title}

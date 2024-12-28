@@ -11,7 +11,7 @@ export function Experience({ experienceEntries }: ExperienceProps) {
   }
 
   return (
-    <Card className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
+    <Card id="experience" className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-blue-900 flex items-center">
           <Briefcase className="mr-2 h-6 w-6 text-blue-600" /> Work Experience
