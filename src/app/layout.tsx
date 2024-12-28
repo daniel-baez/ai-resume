@@ -5,6 +5,7 @@ import GoogleAnalytics from "@/components/analytics/google-analytics";
 import Script from "next/script";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,6 +46,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         {children}
         <Toaster />
+        <ScrollToTop />
       </body>
     </html>
   );
