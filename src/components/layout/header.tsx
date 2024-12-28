@@ -5,9 +5,17 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Calendar, Download, Menu, X } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { ContactForm } from "@/components/forms/contact-form"
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 import { HeaderProps } from '@/types/portfolio'
+
+const languages = [
+  { code: 'en', name: 'English', flag: '/flags/us.svg' },
+  { code: 'es', name: 'Español', flag: '/flags/es.svg' }
+  // { code: 'fr', name: 'Français', flag: '/flags/fr.svg' },
+  // { code: 'de', name: 'Deutsch', flag: '/flags/de.svg' }
+]
 
 export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: HeaderProps) {
   const { trackEvent } = useGoogleAnalytics()
@@ -48,7 +56,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
 
   return (
     <div className="md:sticky md:top-4 z-50 mb-8">
-      <header className="bg-white bg-opacity-80 backdrop-filter shadow-lg rounded-2xl p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
+      <header className="relative bg-white bg-opacity-80 backdrop-filter shadow-lg rounded-2xl p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="flex justify-between items-center">
             <div className="text-left">
@@ -107,6 +115,24 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
               ))}
             </nav>
           </div>
+        </div>
+        
+        <div className="absolute bottom-2 right-2 flex items-center space-x-1.5 opacity-60 hover:opacity-100 transition-opacity duration-200">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              className="w-6 h-4 overflow-hidden hover:ring-1 ring-blue-400 transition-all duration-200 transform hover:scale-110 rounded-sm"
+              title={lang.name}
+            >
+              <Image
+                src={lang.flag}
+                alt={lang.name}
+                width={24}
+                height={16}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
         </div>
       </header>
     </div>

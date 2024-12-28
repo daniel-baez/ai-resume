@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1235 650">
+  <rect width="1235" height="650" fill="#bf0a30"/>
+  <rect width="1235" height="50" y="50" fill="#fff"/>
+  <rect width="1235" height="50" y="150" fill="#fff"/>
+  <rect width="1235" height="50" y="250" fill="#fff"/>
+  <rect width="1235" height="50" y="350" fill="#fff"/>
+  <rect width="1235" height="50" y="450" fill="#fff"/>
+  <rect width="1235" height="50" y="550" fill="#fff"/>
+  <rect width="494" height="350" fill="#002868"/>
+  <g fill="#fff">
+    {/* 50 étoiles */}
+    <g id="s">
+      <g id="c">
+        <g id="r">
+          <path d="M30,15 L35,27 L47,27 L37,35 L42,47 L30,39 L18,47 L23,35 L13,27 L25,27z"/>
+        </g>
+      </g>
+    </g>
+    <use href="#s" transform="translate(494,0) scale(-1,1)"/>
+  </g>
+</svg> 
