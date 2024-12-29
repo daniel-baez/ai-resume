@@ -45,7 +45,8 @@ export default function Home() {
           <Summary content={summaryContent} title="Professional Summary" />
           <Experience experienceEntries={experienceEntries} />
           <Skills skillCategories={profileData.skills} />
-          <Education educationEntries={profileData.education} certifications={profileData.certifications} />
+          <Education educationEntries={profileData.education}
+            certifications={profileData.certifications} />
         </main>
 
         <Footer />
