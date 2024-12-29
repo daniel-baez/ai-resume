@@ -21,7 +21,7 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex justify-center space-x-6">
           <Link
-            href="https://linkedin.com/in/danielbaez"
+            href="https://linkedin.com/in/baezdaniel"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleSocialClick('linkedin')}
