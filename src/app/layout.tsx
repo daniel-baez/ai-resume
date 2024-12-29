@@ -26,6 +26,16 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icons/favicon.ico',
   },
+  openGraph: {
+    title: 'Daniel Baez - Software Engineer',
+    description: 'Senior Software Engineer specializing in cloud-native platforms & IoT solutions',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Daniel Baez - Software Engineer',
+    description: 'Senior Software Engineer specializing in cloud-native platforms & IoT solutions',
+  }
 };
 
 export default function RootLayout({
