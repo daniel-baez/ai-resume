@@ -12,6 +12,11 @@ export interface EducationEntry {
   period: string;
 }
 
+export interface LanguageEntry {
+  name: string;
+  level: string;
+}
+
 export interface SkillCategory {
   [key: string]: string[];  // If it's an object with string array values
 }
@@ -19,16 +24,10 @@ export interface SkillCategory {
 export interface CertificationEntry {
   name: string;
   issuer: string;
-  color: string;
-  textColor: string;
-  hoverColor: string;
 }
 
 export interface Skill {
   name: string;
-  color: string;
-  textColor: string;
-  hoverColor: string;
 }
 
 // Component Props
@@ -43,6 +42,7 @@ export interface ExperienceProps {
 export interface EducationProps {
   educationEntries: EducationEntry[];
   certifications: CertificationEntry[];
+  languages: LanguageEntry[];
 }
 
 export interface SummaryProps {

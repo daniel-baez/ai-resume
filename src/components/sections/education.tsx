@@ -4,8 +4,9 @@ import { EducationProps } from "@/types/portfolio";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { getNextColor } from "@/lib/colors";
 
-export function Education({ educationEntries, certifications }: EducationProps) {
+export function Education({ educationEntries, certifications, languages }: EducationProps) {
   if (!educationEntries || !certifications) {
     return null;
   }
@@ -24,19 +25,40 @@ export function Education({ educationEntries, certifications }: EducationProps) 
             <p className="text-gray-600">{education.institution} | {education.period}</p>
           </div>
         ))}
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Languages</h3>
+                <div className="flex flex-wrap gap-2">
+              {languages.map((language, index) => {
+                const color = getNextColor();
+                return (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className={`${color.color} ${color.textColor} ${color.hoverColor}`}
+              >
+                {language.name} | {language.level}
+                </Badge>
+                );
+              })}
+            </div>
+        </div>
         
         <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-3">Professional Certifications</h3>
           <div className="flex flex-wrap gap-2">
-            {Object.entries(certifications).map(([certName, cert], index) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className={`${cert.color} ${cert.textColor} ${cert.hoverColor}`}
+            {Object.entries(certifications).map(([certName, cert], index) => {
+              const color = getNextColor();
+              return (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className={`${color.color} ${color.textColor} ${color.hoverColor}`}
               >
                 {certName} - {cert.issuer}
               </Badge>
-            ))}
+              );
+            })}
           </div>
         </div>
       </CardContent>

@@ -1,7 +1,7 @@
 // src/components/layout/header.tsx
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Calendar, Download, Menu, X } from "lucide-react"
 import Link from "next/link"
@@ -13,16 +13,44 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
   const { trackEvent } = useGoogleAnalytics()
   const [isContactOpen, setIsContactOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [headerHeight, setHeaderHeight] = useState(0)
+  const headerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.getBoundingClientRect().height;
+        setHeaderHeight(height);
+      }
+    };
+
+    // Initial measurement
+    updateHeaderHeight();
+
+    // Update on resize
+    window.addEventListener('resize', updateHeaderHeight);
+    
+    return () => window.removeEventListener('resize', updateHeaderHeight);
+  }, []); // Empty dependency array means this runs once on mount
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      const isMobile = window.innerWidth < 768; // 768px est le breakpoint md de Tailwind
-      const headerOffset = isMobile ? 20 : 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    const header = document.getElementById("header");
 
-      // Track the scroll event
+    if (element) {
+      const isMobile = window.innerWidth < 768;
+      const headerOffset = 20;
+      const elementPosition = element.getBoundingClientRect().top;
+      const expandedHeaderHeight = header?.getBoundingClientRect()?.height || 0;
+
+      const offsetPosition = (() => {
+        if (isMobile) {
+          return (elementPosition - expandedHeaderHeight + window.scrollY - headerOffset + headerHeight)
+        } else {
+          return elementPosition - headerHeight + window.scrollY - headerOffset;
+        }
+      })()
+
       trackEvent({
         action: 'scroll',
         category: 'navigation',
@@ -47,7 +75,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
   }
 
   return (
-    <div className="md:sticky md:top-4 z-50 mb-8">
+    <div ref={headerRef} id="header" className="md:sticky md:top-4 z-50 mb-8">
       <header className="bg-white bg-opacity-80 backdrop-filter shadow-lg rounded-2xl p-8 transition-all duration-300 hover:shadow-xl border border-blue-100">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="flex justify-between items-center">
@@ -68,7 +96,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
             </button>
           </div>
 
-          <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4`}>
+          <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4 mt-2`}>
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={setIsContactOpen} />
               <Link href={resumeUrl} target="_blank" rel="noopener noreferrer" download className="w-full md:w-auto">
