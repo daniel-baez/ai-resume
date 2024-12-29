@@ -21,7 +21,7 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex justify-center space-x-6">
           <Link
-            href="https://linkedin.com/in/your-profile"
+            href="https://linkedin.com/in/danielbaez"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleSocialClick('linkedin')}
@@ -32,7 +32,7 @@ export function Footer() {
           </Link>
 
           <Link
-            href="https://twitter.com/your-handle"
+            href="https://twitter.com/daplay"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleSocialClick('twitter')}
@@ -43,7 +43,7 @@ export function Footer() {
           </Link>
 
           <Link
-            href="https://github.com/your-username"
+            href="https://github.com/daniel-baez"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleSocialClick('github')}
