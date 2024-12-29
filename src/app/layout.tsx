@@ -6,6 +6,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { GithubRibbon } from "@/components/ui/github-ribbon"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,14 +37,15 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Suspense>
-        <GoogleAnalytics />
+          <GoogleAnalytics />
         </Suspense>
         <Script
           strategy="beforeInteractive"
           src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <GithubRibbon />
         {children}
         <Toaster />
         <ScrollToTop />
