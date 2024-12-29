@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code } from "lucide-react";
 import { SkillsProps, Skill } from "@/types/portfolio";
-
+import { getNextColor } from "@/lib/colors";
 /* skills is
     "Core Technologies": [
       {
@@ -93,15 +93,18 @@ export function Skills({ skillCategories }: SkillsProps) {
             <div key={index} className="space-y-2">
               <h3 className="text-lg font-semibold text-gray-800">{categoryName}</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.map((skill: Skill, idx: number) => (
-                  <Badge
-                    key={idx}
-                    variant="secondary" 
-                    className={`${skill.color} ${skill.textColor} ${skill.hoverColor}`}
-                  >
-                    {skill.name}
-                  </Badge>
-                ))}
+                {skills.map((skill: Skill, idx: number) => {
+                  const color = getNextColor();
+                  return (
+                    <Badge
+                      key={idx}
+                      variant="secondary" 
+                      className={`${color.color} ${color.textColor} ${color.hoverColor}`}
+                    >
+                      {skill.name}
+                    </Badge>
+                  );
+                })}
               </div>
             </div>
           ))}

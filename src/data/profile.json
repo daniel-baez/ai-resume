@@ -14,91 +14,117 @@
       "institution": "Universidad Tecnológica De Chile"
     }
   ],
+  "languages": [
+    {
+      "name": "Spanish",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Fluent"
+    },
+    {
+      "name": "French",
+      "level": "Intermediate"
+    }
+  ],
   "certifications": {
     "Professional Cloud Architect": {
-      "issuer": "Google Cloud",
-      "color": "bg-blue-100",
-      "textColor": "text-gray-800",
-      "hoverColor": "hover:bg-blue-200"
+      "issuer": "Google Cloud"
     },
     "Professional Cloud DevOps Engineer": {
-      "issuer": "Google Cloud",
-      "color": "bg-green-100",
-      "textColor": "text-green-800",
-      "hoverColor": "hover:bg-green-200"
+      "issuer": "Google Cloud"
     },
     "Professional Cloud Developer": {
-      "issuer": "Google Cloud",
-      "color": "bg-purple-100",
-      "textColor": "text-purple-800",
-      "hoverColor": "hover:bg-purple-200"
+      "issuer": "Google Cloud"
     }
   },
   "skills": {
     "Core Technologies": [
       {
-        "name": "Cloud-Native Architecture",
-        "color": "bg-blue-100",
-        "textColor": "text-gray-800",
-        "hoverColor": "hover:bg-blue-200"
+        "name": "Amazon Web Services (AWS)"
       },
       {
-        "name": "IoT",
-        "color": "bg-purple-100",
-        "textColor": "text-purple-800",
-        "hoverColor": "hover:bg-purple-200"
+        "name": "IoT"
       },
       {
-        "name": "Microservices",
-        "color": "bg-indigo-100",
-        "textColor": "text-indigo-800",
-        "hoverColor": "hover:bg-indigo-200"
+        "name": "Microservices"
+      },
+      {
+        "name": "Google Cloud Platform (GCP)"
       }
     ],
     "Programming Languages": [
       {
-        "name": "Java",
-        "color": "bg-blue-100",
-        "textColor": "text-gray-800",
-        "hoverColor": "hover:bg-blue-200"
+        "name": "Java"
       },
       {
-        "name": "JavaScript",
-        "color": "bg-yellow-100",
-        "textColor": "text-yellow-800",
-        "hoverColor": "hover:bg-yellow-200"
+        "name": "JavaScript"
       },
       {
-        "name": "Python",
-        "color": "bg-green-100",
-        "textColor": "text-green-800",
-        "hoverColor": "hover:bg-green-200"
+        "name": "Go"
+      },
+      {
+        "name": "C"
+      },
+      {
+        "name": "PHP"
+      },
+      {
+        "name": "TypeScript"
+      },
+      {
+        "name": "Ruby"
+      },
+      {
+        "name": "Clojure(Script)"
+      },
+      {
+        "name": "Python"
+      },
+      {
+        "name": "Shell Scripting"
       }
     ],
     "Frameworks & Tools": [
       {
-        "name": "React",
-        "color": "bg-blue-100",
-        "textColor": "text-gray-800",
-        "hoverColor": "hover:bg-blue-200"
+        "name": "J2EE"
       },
       {
-        "name": "Node.js",
-        "color": "bg-green-100",
-        "textColor": "text-green-800",
-        "hoverColor": "hover:bg-green-200"
+        "name": "Rails"
       },
       {
-        "name": "MongoDB",
-        "color": "bg-indigo-100",
-        "textColor": "text-indigo-800",
-        "hoverColor": "hover:bg-indigo-200"
+        "name": "Node.js"
       },
       {
-        "name": "Redis",
-        "color": "bg-red-100",
-        "textColor": "text-red-800",
-        "hoverColor": "hover:bg-red-200"
+        "name": "Laravel/CodeIgniter"
+      },
+      {
+        "name": "React"
+      },
+      {
+        "name": "MongoDB"
+      },
+      {
+        "name": "Redis"
+      },
+      {
+        "name": "SQL"
+      },
+      {
+        "name": "Kafka"
+      },
+      {
+        "name": "RabbitMQ"
+      },
+      {
+        "name": "Memcached"
+      },
+      {
+        "name": "Terraform"
+      },
+      {
+        "name": "Kubernetes"
       }
     ]
   }

@@ -96,7 +96,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
             </button>
           </div>
 
-          <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4`}>
+          <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4 mt-2`}>
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={setIsContactOpen} />
               <Link href={resumeUrl} target="_blank" rel="noopener noreferrer" download className="w-full md:w-auto">
