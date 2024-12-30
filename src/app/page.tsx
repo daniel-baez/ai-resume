@@ -49,7 +49,8 @@ const getExperienceEntries = (lang: Language) => {
 export default function Home({
   searchParams,
 }: {
-  searchParams: { lang?: string };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: any
 }) {
   const lang = searchParams.lang
     ? AVAILABLE_LANGUAGES[searchParams.lang as keyof typeof AVAILABLE_LANGUAGES]
