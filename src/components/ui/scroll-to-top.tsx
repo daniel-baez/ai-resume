@@ -51,7 +51,7 @@ export function ScrollToTop() {
 
   return (
     <div className={`md:hidden fixed bottom-16 right-6 z-50 transition-opacity duration-300 ${
-        isVisible ? 'opacity-80' : 'opacity-0 pointer-events-none'
+        isVisible ? 'opacity-95' : 'opacity-0 pointer-events-none'
       }`}>
         <Button
           variant="default"
