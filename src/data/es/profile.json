@@ -1,0 +1,131 @@
+
+{
+  "info": {
+    "name": "Daniel Báez",
+    "title": "Ingeniero de Software",
+    "subtitle": "Arquitecto Cloud-Native & Experto en IoT",
+    "resumeUrl": "/resume-2024-11.pdf",
+    "calendlyUrl": "https://calendly.com/daniel-baez"
+  },
+  "education": [
+    {
+      "title": "Ingeniero de Software, Ingeniería Informática",
+      "period": "2005 - 2010",
+      "institution": "Universidad Tecnológica De Chile"
+    }
+  ],
+  "languages": [
+    {
+      "name": "Español",
+      "level": "Nativo"
+    },
+    {
+      "name": "Inglés",
+      "level": "Fluido"
+    },
+    {
+      "name": "Francés",
+      "level": "Intermedio"
+    }
+  ],
+  "certifications": {
+    "Professional Cloud Architect": {
+      "issuer": "Google Cloud"
+    },
+    "Professional Cloud DevOps Engineer": {
+      "issuer": "Google Cloud"
+    },
+    "Professional Cloud Developer": {
+      "issuer": "Google Cloud"
+    }
+  },
+  "skills": {
+    "Tecnologías Core": [
+      {
+        "name": "Amazon Web Services (AWS)"
+      },
+      {
+        "name": "IoT"
+      },
+      {
+        "name": "Microservicios"
+      },
+      {
+        "name": "Google Cloud Platform (GCP)"
+      }
+    ],
+    "Lenguajes de Programación": [
+      {
+        "name": "Java"
+      },
+      {
+        "name": "JavaScript"
+      },
+      {
+        "name": "Go"
+      },
+      {
+        "name": "C"
+      },
+      {
+        "name": "PHP"
+      },
+      {
+        "name": "TypeScript"
+      },
+      {
+        "name": "Ruby"
+      },
+      {
+        "name": "Clojure(Script)"
+      },
+      {
+        "name": "Python"
+      },
+      {
+        "name": "Shell Scripting"
+      }
+    ],
+    "Frameworks & Herramientas": [
+      {
+        "name": "J2EE"
+      },
+      {
+        "name": "Rails"
+      },
+      {
+        "name": "Node.js"
+      },
+      {
+        "name": "Laravel/CodeIgniter"
+      },
+      {
+        "name": "React"
+      },
+      {
+        "name": "MongoDB"
+      },
+      {
+        "name": "Redis"
+      },
+      {
+        "name": "SQL"
+      },
+      {
+        "name": "Kafka"
+      },
+      {
+        "name": "RabbitMQ"
+      },
+      {
+        "name": "Memcached"
+      },
+      {
+        "name": "Terraform"
+      },
+      {
+        "name": "Kubernetes"
+      }
+    ]
+  }
+}
