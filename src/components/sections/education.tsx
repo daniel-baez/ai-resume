@@ -4,8 +4,12 @@ import { EducationProps } from "@/types/portfolio";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { getNextColor } from "@/lib/colors";
+import { getTranslations } from "@/constants/translations"
 
-export function Education({ educationEntries, certifications }: EducationProps) {
+export function Education({ educationEntries, certifications, languages, currentLang }: EducationProps) {
+  const t = getTranslations(currentLang)
+  
   if (!educationEntries || !certifications) {
     return null;
   }
@@ -14,7 +18,7 @@ export function Education({ educationEntries, certifications }: EducationProps) 
     <Card id="education" className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-blue-900 flex items-center">
-          <GraduationCap className="mr-2 h-6 w-6 text-blue-600" /> Education
+          <GraduationCap className="mr-2 h-6 w-6 text-blue-600" /> {t.sections.education}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -24,19 +28,40 @@ export function Education({ educationEntries, certifications }: EducationProps) 
             <p className="text-gray-600">{education.institution} | {education.period}</p>
           </div>
         ))}
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">{t.sections.languages}</h3>
+                <div className="flex flex-wrap gap-2">
+              {languages.map((language, index) => {
+                const color = getNextColor();
+                return (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className={`${color.color} ${color.textColor} ${color.hoverColor}`}
+              >
+                {language.name} | {language.level}
+                </Badge>
+                );
+              })}
+            </div>
+        </div>
         
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Professional Certifications</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">{t.sections.certifications}</h3>
           <div className="flex flex-wrap gap-2">
-            {Object.entries(certifications).map(([certName, cert], index) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className={`${cert.color} ${cert.textColor} ${cert.hoverColor}`}
+            {Object.entries(certifications).map(([certName, cert], index) => {
+              const color = getNextColor();
+              return (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className={`${color.color} ${color.textColor} ${color.hoverColor}`}
               >
                 {certName} - {cert.issuer}
               </Badge>
-            ))}
+              );
+            })}
           </div>
         </div>
       </CardContent>

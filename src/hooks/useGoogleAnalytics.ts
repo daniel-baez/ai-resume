@@ -2,8 +2,8 @@ type GtagArgs = [
   type: 'event',
   action: string,
   params: {
-    event_category: string;
-    event_label: string;
+    link_url: string;
+    link_text: string;
     [key: string]: string;
   }
 ];
@@ -17,9 +17,9 @@ declare const window: WindowWithGA;
 export const useGoogleAnalytics = () => {
   const trackEvent = (event: { action: string; category: string; label: string }) => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', event.action, {
-        event_category: event.category,
-        event_label: event.label,
+      window.gtag('event', 'click', {
+        link_url: event.action,
+        link_text: event.label,
       });
     }
   };

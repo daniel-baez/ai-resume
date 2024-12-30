@@ -1,3 +1,4 @@
+import { Language } from "../constants/i18n";
 export interface ExperienceEntry {
   title: string;
   company: string;
@@ -12,6 +13,11 @@ export interface EducationEntry {
   period: string;
 }
 
+export interface LanguageEntry {
+  name: string;
+  level: string;
+}
+
 export interface SkillCategory {
   [key: string]: string[];  // If it's an object with string array values
 }
@@ -19,35 +25,33 @@ export interface SkillCategory {
 export interface CertificationEntry {
   name: string;
   issuer: string;
-  color: string;
-  textColor: string;
-  hoverColor: string;
 }
 
 export interface Skill {
   name: string;
-  color: string;
-  textColor: string;
-  hoverColor: string;
 }
 
 // Component Props
 export interface SkillsProps {
   skillCategories: Record<string, Skill[]>;
+  currentLang: Language;
 }
 
 export interface ExperienceProps {
   experienceEntries: ExperienceEntry[];
+  currentLang: Language;
 }
 
 export interface EducationProps {
   educationEntries: EducationEntry[];
   certifications: CertificationEntry[];
+  languages: LanguageEntry[];
+  currentLang: Language;
 }
 
 export interface SummaryProps {
   content: string;
-  title?: string;  // Making title optional as it might have a default
+  currentLang: Language;
 }
 
 export interface HeaderProps {

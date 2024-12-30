@@ -21,13 +21,16 @@ import { toast } from "@/hooks/use-toast"
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
+import { getTranslations } from "@/constants/translations"
+import { Language } from "@/constants/i18n"
 
 interface ContactFormProps {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
+  currentLang: Language
 }
 
-export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
+export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormProps) {
   const { trackEvent } = useGoogleAnalytics()
   const [formData, setFormData] = useState({
     name: "",
@@ -36,6 +39,7 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     message: "",
   })
   const [isLoading, setIsLoading] = useState(false)
+  const t = getTranslations(currentLang)
 
   useEffect(() => {
     if (isOpen) {
@@ -68,8 +72,8 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     const token = await getCaptchaToken();
     if (!token) {
       toast({
-        title: "Failed to get captcha token",
-        description: "Please try again.",
+        title: t.contact.error,
+        description: t.contact.errorDescription,
         variant: "destructive",
       })
       setIsLoading(false)
@@ -79,8 +83,8 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     const success = await verifyAndSendEmail(token, formData);
     if (!success) {
       toast({
-        title: "Failed to send email",
-        description: "Please try again.",
+        title: t.contact.error,
+        description: t.contact.errorDescription,
         variant: "destructive",
       })
       setIsLoading(false)
@@ -88,8 +92,8 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
     }
 
     toast({
-      title: "Email sent successfully!",
-      description: "I'll get back to you as soon as possible.",
+      title: t.contact.success,
+      description: t.contact.successDescription,
     })
     onOpenChange(false)
     setFormData({ name: "", email: "", phone: "", message: "" })
@@ -110,51 +114,26 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button 
-          variant="outline" 
-          className="w-full sm:w-auto bg-white hover:bg-blue-50 text-gray-700 border-gray-300"
-          onClick={() => {
-            onOpenChange(true)
-          }}
-        >
-          <Mail className="mr-2 h-4 w-4" /> Contact Me
+        <Button variant="outline" className="w-full sm:w-auto bg-white hover:bg-blue-50 text-gray-700 border-gray-300">
+          <Mail className="mr-2 h-4 w-4" /> {t.actions.contact}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Get in Touch</DialogTitle>
-          <DialogDescription>
-            I&apos;d love to hear from you! Fill out this form and I&apos;ll get back to you as soon as possible.
-          </DialogDescription>
+          <DialogTitle>{t.contact.title}</DialogTitle>
+          <DialogDescription>{t.contact.description}</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Form fields */}
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input 
-              id="name" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleInputChange} 
-              required 
-              maxLength={200}
-            />
+            <Label htmlFor="name">{t.contact.name}</Label>
+            <Input id="name" name="name" value={formData.name} onChange={handleInputChange} required maxLength={200} />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              id="email" 
-              name="email" 
-              type="email" 
-              value={formData.email} 
-              onChange={handleInputChange} 
-              required 
-              maxLength={200}
-              // ref={emailInputRef}
-            />
+            <Label htmlFor="email">{t.contact.email}</Label>
+            <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required maxLength={200} />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
+            <Label htmlFor="phone">{t.contact.phone}</Label>
             <PhoneInput
               country={'us'}
               value={formData.phone}
@@ -166,26 +145,14 @@ export function ContactForm({ isOpen, onOpenChange }: ContactFormProps) {
                 maxLength: 200,
               }}
               containerClass="phone-input-container"
-              // ref={phoneInputRef}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="message">Message</Label>
-            <Textarea 
-              id="message" 
-              name="message" 
-              value={formData.message} 
-              onChange={handleInputChange} 
-              required 
-              rows={5}
-              maxLength={1000}
-            />
+            <Label htmlFor="message">{t.contact.message}</Label>
+            <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={5} maxLength={1000} />
           </div>
-          <Button 
-            type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-            disabled={isLoading}>
-            {isLoading ? "Sending..." : "Send Message"}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Sending..." : t.contact.submit}
           </Button>
         </form>
       </DialogContent>
