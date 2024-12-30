@@ -9,18 +9,20 @@ function newColor(color: string, textColor: string): Color {
 }
 
 const colorPairs = [
+  // original
   ["blue", "gray"],
   ["green", "green"],
   ["purple", "purple"],
   ["indigo", "indigo"],
   ["yellow", "yellow"],
+  // new
   ["red", "red"],
   ["pink", "pink"],
   ["orange", "orange"],
   ["teal", "teal"],
   ["cyan", "cyan"],
   ["gray", "gray"],
-
+  // ai 
   ["emerald", "emerald"],
   ["sky", "sky"],
   ["violet", "violet"],
@@ -29,8 +31,6 @@ const colorPairs = [
   ["amber", "amber"],
   ["lime", "lime"],
   ["fuchsia", "fuchsia"]
-
-
 
 ];
 
