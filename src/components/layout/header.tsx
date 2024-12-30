@@ -128,7 +128,7 @@ export function Header({ name, title, subtitle, resumeUrl, calendlyUrl }: Header
                     scrollToSection(id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full md:w-auto px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 rounded-md hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full md:w-auto px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 rounded-md hover:bg-blue-50 transition-all duration-200"
                 >
                   {label}
                 </button>
