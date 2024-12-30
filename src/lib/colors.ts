@@ -15,6 +15,22 @@ const colorPairs = [
   ["indigo", "indigo"],
   ["yellow", "yellow"],
   ["red", "red"],
+  ["pink", "pink"],
+  ["orange", "orange"],
+  ["teal", "teal"],
+  ["cyan", "cyan"],
+  ["gray", "gray"],
+
+  ["emerald", "emerald"],
+  ["sky", "sky"],
+  ["violet", "violet"],
+  ["slate", "slate"],
+  ["rose", "rose"],
+  ["amber", "amber"],
+  ["lime", "lime"],
+  ["fuchsia", "fuchsia"]
+
+
 
 ];
 

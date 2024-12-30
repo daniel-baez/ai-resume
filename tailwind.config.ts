@@ -7,6 +7,17 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+	{
+		pattern: /^bg-/,
+		variants: ['hover', 'focus']
+	},
+	{
+		pattern: /^text-/,
+		variants: ['hover', 'focus']
+	},
+
+  ],
   theme: {
   	extend: {
   		colors: {
