@@ -103,6 +103,40 @@ const translations: Record<string, TranslationKeys> = {
       error: "Error al enviar el mensaje",
       errorDescription: "Por favor, inténtalo de nuevo."
     }
+  },
+  fr: {
+    navigation: {
+      about: "À propos",
+      experience: "Expérience",
+      skills: "Compétences",
+      education: "Formation"
+    },
+    sections: {
+      summary: "Résumé Professionnel",
+      experience: "Expérience",
+      skills: "Compétences",
+      education: "Formation",
+      languages: "Langues",
+      certifications: "Certifications Professionnelles"
+    },
+    actions: {
+      downloadResume: "Télécharger CV",
+      scheduleMeeting: "Planifier une Réunion",
+      contact: "Contact"
+    },
+    contact: {
+      title: "Contact",
+      description: "Je vous contacterai le plus tôt possible.",
+      name: "Nom",
+      email: "Email",
+      phone: "Téléphone",
+      message: "Message",
+      submit: "Envoyer",
+      success: "Email envoyé avec succès!",
+      successDescription: "Je vous contacterai le plus tôt possible.",
+      error: "Erreur lors de l'envoi de l'email",
+      errorDescription: "Veuillez réessayer."
+    }
   }
 }
 

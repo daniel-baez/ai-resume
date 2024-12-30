@@ -15,5 +15,10 @@ export const AVAILABLE_LANGUAGES: { [key: string]: Language } = {
         "name": "Spanish",
         "flag": "/flags/cl.svg",
         "code": "es"
+    },
+    "fr": {
+        "name": "French",
+        "flag": "/flags/fr.svg",
+        "code": "fr"
     }
 }
