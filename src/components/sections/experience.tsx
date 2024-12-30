@@ -26,8 +26,14 @@ export function Experience({ experienceEntries }: ExperienceProps) {
             <ReactMarkdown
               className="markdown-content mt-2 text-grey-700"
               skipHtml={true}
-              allowedElements={['p', 'sup']}
+              allowedElements={['p', 'sup', 'ul', 'ol', 'li', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'strong']}
               components={{
+                ul: ({ ...props }) => <ul className="list-disc list-inside text-gray-800 leading-relaxed" {...props} />,
+                ol: ({ ...props }) => <ol className="list-decimal list-inside text-gray-800 leading-relaxed" {...props} />,
+                li: ({ ...props }) => <li className="text-gray-800 leading-relaxed" {...props} />,
+                b: ({ ...props }) => <b className="text-gray-800 leading-relaxed" {...props} />,
+                strong: ({ ...props }) => <strong className="text-gray-800 leading-relaxed" {...props} />,
+                a: ({ ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
                 p: ({ ...props }) => <p className="text-gray-800 leading-relaxed" {...props} />,
               }}
             >

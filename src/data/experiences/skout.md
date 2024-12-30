@@ -1,7 +1,7 @@
 ---
 title: "Senior Software Engineer"
 company: "SKOUT"
-period: "October 2016 - December 2017"
+period: "Sept 2014 - Oct 2016"
 location: "Santiago, Chile / San Francisco, CA"
 order: 4
 ---
