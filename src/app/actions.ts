@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { isCaptchaValid } from '@/lib/captcha';
 import { isEmail } from 'validator';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { saveContactMessage, updateMessageSentStatus } from '@/lib/firebase-service';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -36,7 +37,7 @@ async function validateAndProcessFormData(formData: FormDataObject) {
 
 export async function verifyAndSendEmail(token: string, formData: FormDataObject) {
   // if the phone number doesn't start with +, prepend +
-  if (!formData.phone.startsWith('+')) {
+  if (!formData.phone.startsWith("+")) {
     formData.phone = `+${formData.phone}`;
   }
 
@@ -54,6 +55,14 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
     return false;
   }
 
+  // Save to Firebase first
+  const messageId = await saveContactMessage({
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    message: formData.message,
+  });
+
   // Send email if reCAPTCHA is verified
   try {
     await resend.emails.send({
@@ -65,6 +74,9 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
              <p>Phone: ${formData.phone}</p>
              <p>Message: ${formData.message}</p>`,
     });
+    // Update Firebase document with sent_at timestamp
+    await updateMessageSentStatus(messageId);
+
     return true;
   } catch (error) {
     console.error("Failed to send email", error);

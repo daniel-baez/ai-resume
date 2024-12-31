@@ -8,15 +8,32 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   safelist: [
-	{
-		pattern: /^bg-/,
-		variants: ['hover', 'focus']
-	},
-	{
-		pattern: /^text-/,
-		variants: ['hover', 'focus']
-	},
-
+    // Colors for badges
+    'bg-blue-100', 'bg-blue-200', 'text-gray-800',
+    'bg-green-100', 'bg-green-200', 'text-green-800',
+    'bg-purple-100', 'bg-purple-200', 'text-purple-800',
+    'bg-indigo-100', 'bg-indigo-200', 'text-indigo-800',
+    'bg-yellow-100', 'bg-yellow-200', 'text-yellow-800',
+    'bg-red-100', 'bg-red-200', 'text-red-800',
+    'bg-pink-100', 'bg-pink-200', 'text-pink-800',
+    'bg-orange-100', 'bg-orange-200', 'text-orange-800',
+    'bg-teal-100', 'bg-teal-200', 'text-teal-800',
+    'bg-cyan-100', 'bg-cyan-200', 'text-cyan-800',
+    'bg-emerald-100', 'bg-emerald-200', 'text-emerald-800',
+    'bg-sky-100', 'bg-sky-200', 'text-sky-800',
+    'bg-violet-100', 'bg-violet-200', 'text-violet-800',
+    'bg-slate-100', 'bg-slate-200', 'text-slate-800',
+    'bg-rose-100', 'bg-rose-200', 'text-rose-800',
+    'bg-amber-100', 'bg-amber-200', 'text-amber-800',
+    'bg-lime-100', 'bg-lime-200', 'text-lime-800',
+    'bg-fuchsia-100', 'bg-fuchsia-200', 'text-fuchsia-800',
+    // Hover variants
+    'hover:bg-blue-200', 'hover:bg-green-200', 'hover:bg-purple-200',
+    'hover:bg-indigo-200', 'hover:bg-yellow-200', 'hover:bg-red-200',
+    'hover:bg-pink-200', 'hover:bg-orange-200', 'hover:bg-teal-200',
+    'hover:bg-cyan-200', 'hover:bg-emerald-200', 'hover:bg-sky-200',
+    'hover:bg-violet-200', 'hover:bg-slate-200', 'hover:bg-rose-200',
+    'hover:bg-amber-200', 'hover:bg-lime-200', 'hover:bg-fuchsia-200'
   ],
   theme: {
   	extend: {
