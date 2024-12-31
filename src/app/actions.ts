@@ -47,11 +47,17 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
 
   // Validate reCAPTCHA token
   if (!(await isCaptchaValid(token))) {
+    console.log("Error validating captcha", token);
     return new Error (t.contact.captchaError);
   }
 
   // Validate form data (throws an error if the data is not valid)
-  await validateAndProcessFormData(formData, t);
+  try {
+    await validateAndProcessFormData(formData, t);
+  } catch (error) {
+    console.log("Error validating form data", error);
+    return error as Error
+  }
 
   // Save to Firebase first
   const messageId = await saveContactMessage({
@@ -77,6 +83,7 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
 
     return true;
   } catch (error) {
+    console.log("Error sending email", error);
     return new Error(t.contact.sendEmailError, { cause: error });
   }
 }

@@ -81,6 +81,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
     }
 
     const success = await verifyAndSendEmail(token, formData, currentLang);
+    console.log(success)
     if (success instanceof Error) {
       toast({
         title: t.contact.error,
@@ -108,6 +109,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
         label: 'contact_form_open'
       });
     }
+    setIsLoading(false)
     onOpenChange(open);
   };
 
