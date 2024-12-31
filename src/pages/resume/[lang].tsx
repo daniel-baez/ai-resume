@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     // Return the PDF as a response
     context.res.setHeader('Content-Type', 'application/pdf');
-    context.res.setHeader('Content-Disposition', `inline; filename="resume-${language.code}.pdf"`);
+    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}-${new Date().toISOString().split('T')[0]}.pdf"`);
     context.res.end(pdfBuffer);
 
     return { props: {} };
