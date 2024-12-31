@@ -24,5 +24,5 @@ export async function isCaptchaValid(token: string): Promise<boolean> {
   console.log("isCaptchaValid", token);
   const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`);
   const data = await response.json();
-  return data.success && data.score >= 0.5;
+  return data.success && data.score >= 0.7;
 }
