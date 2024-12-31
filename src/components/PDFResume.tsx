@@ -3,6 +3,7 @@ import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
 import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
 import path from 'path';
+import ReactMarkdown from 'react-markdown';
 
 
 // Register fonts
@@ -195,7 +196,18 @@ export const PDFResume = ({
                 <Text>{exp.location}</Text>
                 <Text>{exp.period}</Text>
               </View>
-              <Text style={styles.jobDescription}>{exp.content}</Text>
+              <ReactMarkdown
+                components={{
+                  a: ({href, children}) => (
+                    <Link src={href} style={styles.linkText}>{children}</Link>
+                  ),
+                  p: ({children}) => (
+                    <Text style={styles.jobDescription}>{children}</Text>
+                  ),
+                }}
+              >
+                {exp.content}
+              </ReactMarkdown>
             </View>
           ))}
         </View>
