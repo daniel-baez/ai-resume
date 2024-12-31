@@ -80,11 +80,11 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
       return onOpenChange(false)
     }
 
-    const success = await verifyAndSendEmail(token, formData);
-    if (!success) {
+    const success = await verifyAndSendEmail(token, formData, currentLang);
+    if (success instanceof Error) {
       toast({
         title: t.contact.error,
-        description: t.contact.errorDescription,
+        description: success.message,
         variant: "destructive",
       })
       setIsLoading(false)

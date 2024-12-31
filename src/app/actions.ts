@@ -5,6 +5,8 @@ import { isCaptchaValid } from '@/lib/captcha';
 import { isEmail } from 'validator';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { saveContactMessage, updateMessageSentStatus } from '@/lib/firebase-service';
+import { getTranslations, TranslationKeys } from '@/constants/translations';
+import { Language } from '@/constants/i18n';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -15,27 +17,29 @@ interface FormDataObject {
   message: string;
 }
 
-async function validateAndProcessFormData(formData: FormDataObject) {
+async function validateAndProcessFormData(formData: FormDataObject, t: TranslationKeys) {
   const { name, email, phone, message } = formData;
 
   // Validate email
   if (!isEmail(email)) {
-    throw new Error('Invalid email format');
+    throw new Error(t.contact.emailError);
   }
 
   // Validate phone number
   const phoneNumber = parsePhoneNumberFromString(phone);
   if (!phoneNumber || !phoneNumber.isValid()) {
-    throw new Error('Invalid phone number');
+    throw new Error(t.contact.phoneError);
   }
 
   // Validate lengths
   if (name.length > 200 || email.length > 200 || phone.length > 200 || message.length > 1000) {
-    throw new Error('Input exceeds maximum length');
+    throw new Error(t.contact.lengthError);
   }
 }
 
-export async function verifyAndSendEmail(token: string, formData: FormDataObject) {
+export async function verifyAndSendEmail(token: string, formData: FormDataObject, lang: Language): Promise<boolean | Error> {
+  const t = getTranslations(lang);
+
   // if the phone number doesn't start with +, prepend +
   if (!formData.phone.startsWith("+")) {
     formData.phone = `+${formData.phone}`;
@@ -43,17 +47,11 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
 
   // Validate reCAPTCHA token
   if (!(await isCaptchaValid(token))) {
-    console.error("Failed to verify captcha");
-    return false;
+    return new Error (t.contact.captchaError);
   }
 
-  // Validate form data
-  try {
-    await validateAndProcessFormData(formData);
-  } catch (error) {
-    console.error("Failed to validate form data", error);
-    return false;
-  }
+  // Validate form data (throws an error if the data is not valid)
+  await validateAndProcessFormData(formData, t);
 
   // Save to Firebase first
   const messageId = await saveContactMessage({
@@ -79,7 +77,6 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
 
     return true;
   } catch (error) {
-    console.error("Failed to send email", error);
-    return false;
+    return new Error(t.contact.sendEmailError, { cause: error });
   }
 }

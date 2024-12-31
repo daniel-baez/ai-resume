@@ -2,14 +2,16 @@ import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/r
 import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
 import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
+import path from 'path';
+
 
 // Register fonts
 Font.register({
   family: 'Helvetica',
   fonts: [
-    { src: '/fonts/Helvetica.ttf' },
-    { src: '/fonts/Helvetica-Bold.ttf', fontWeight: 700 },
-    { src: '/fonts/Helvetica-Oblique.ttf', fontStyle: 'italic' },
+    { src: path.join(process.cwd(), 'public/fonts/Helvetica.ttf') },
+    { src: path.join(process.cwd(), 'public/fonts/Helvetica-Bold.ttf'), fontWeight: 700 },
+    { src: path.join(process.cwd(), 'public/fonts/Helvetica-Oblique.ttf'), fontStyle: 'italic' },
   ],
 });
 
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
   },
   summaryParagraph: {
     fontSize: 10,
+    fontFamily: 'Helvetica',
     marginBottom: 8,
     lineHeight: 1.4,
     textAlign: 'justify',
@@ -172,9 +175,9 @@ export const PDFResume = ({
           <Text style={styles.location}>{profileData.info.location}</Text>
           <View style={styles.links}>
             <Text>
-              {t.pdf.links.linkedin}: <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
-              {t.pdf.links.github}: <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
-              {t.pdf.links.website}: <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
+              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
+              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
+              <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
             </Text>
           </View>
         </View>

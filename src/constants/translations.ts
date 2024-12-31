@@ -32,6 +32,11 @@ type TranslationKeys = {
     successDescription: string
     error: string
     errorDescription: string
+    captchaError: string
+    sendEmailError: string
+    lengthError: string
+    emailError: string
+    phoneError: string
   }
   pdf: {
     title: string
@@ -82,7 +87,12 @@ const translations: Record<string, TranslationKeys> = {
       success: "Email sent successfully!",
       successDescription: "I'll get back to you as soon as possible.",
       error: "Failed to send email",
-      errorDescription: "Please try again."
+      errorDescription: "Please try again.",
+      captchaError: "Error verifying captcha",
+      sendEmailError: "Error sending email",
+      lengthError: "Input exceeds maximum length",
+      emailError: "Invalid email format",
+      phoneError: "Invalid phone number"
     },
     pdf: {
       title: "Software Engineer",
@@ -131,7 +141,12 @@ const translations: Record<string, TranslationKeys> = {
       success: "¡Mensaje enviado!",
       successDescription: "Te responderé lo antes posible.",
       error: "Error al enviar el mensaje",
-      errorDescription: "Por favor, inténtalo de nuevo."
+      errorDescription: "Por favor, inténtalo de nuevo.",
+      captchaError: "Error al validar el captcha",
+      sendEmailError: "Error al enviar el correo",
+      lengthError: "El input excede el máximo de caracteres",
+      emailError: "Formato de correo inválido",
+      phoneError: "Número de teléfono inválido"
     },
     pdf: {
       title: "Ingeniero de Software",
