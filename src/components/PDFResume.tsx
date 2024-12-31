@@ -1,7 +1,7 @@
-import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
-import { ProfileData, ExperienceEntry, EducationEntry, Skill, Language as LanguageType } from '@/types/portfolio';
+import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
 import path from 'path';
 import ReactMarkdown from 'react-markdown';
 
