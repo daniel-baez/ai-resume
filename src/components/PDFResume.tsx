@@ -1,102 +1,103 @@
-import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer';
 import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
-import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
+import { ProfileData, ExperienceEntry, EducationEntry, Skill, Language as LanguageType } from '@/types/portfolio';
 import path from 'path';
 import ReactMarkdown from 'react-markdown';
 
-
 // Register fonts
 Font.register({
-  family: 'Helvetica',
+  family: 'Roboto',
   fonts: [
-    { src: path.join(process.cwd(), 'public/fonts/Helvetica.ttf') },
-    { src: path.join(process.cwd(), 'public/fonts/Helvetica-Bold.ttf'), fontWeight: 700 },
-    { src: path.join(process.cwd(), 'public/fonts/Helvetica-Oblique.ttf'), fontStyle: 'italic' },
+    { src: path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf') },
+    { src: path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), fontWeight: 700 },
+    { src: path.join(process.cwd(), 'public/fonts/Roboto-Italic.ttf'), fontStyle: 'italic' },
   ],
 });
 
-// Define color pairs similar to your web version
-const colorPairs = [
-  ['#dbeafe', '#1e40af'], // blue
-  ['#dcfce7', '#166534'], // green
-  ['#f3e8ff', '#6b21a8'], // purple
-  ['#e0e7ff', '#3730a3'], // indigo
-  ['#fef9c3', '#854d0e'], // yellow
-  ['#fee2e2', '#991b1b'], // red
-  ['#fce7f3', '#9d174d'], // pink
-  ['#ffedd5', '#9a3412'], // orange
-  ['#ccfbf1', '#115e59'], // teal
-  ['#cffafe', '#155e75'], // cyan
-  ['#d1fae5', '#065f46'], // emerald
-  ['#e0f2fe', '#075985'], // sky
-  ['#ede9fe', '#5b21b6'], // violet
-  ['#f1f5f9', '#334155'], // slate
-];
+Font.register({
+  family: 'Playfair Display',
+  fonts: [
+    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Regular.ttf') },
+    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Bold.ttf'), fontWeight: 700 },
+    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Italic.ttf'), fontStyle: 'italic' },
+  ],
+});
 
-let currentColorIndex = 0;
-const getNextColor = () => {
-  const color = colorPairs[currentColorIndex];
-  currentColorIndex = (currentColorIndex + 1) % colorPairs.length;
-  return color;
+// Define a refined color scheme
+const colors = {
+  primary: '#1a2a3a',
+  secondary: '#2c3e50',
+  accent: '#3498db',
+  background: '#f8f9fa',
+  text: '#2c3e50',
+  lightText: '#6c757d',
+  border: '#dee2e6',
 };
 
 const styles = StyleSheet.create({
   page: {
-    padding: '40 60',
-    fontFamily: 'Helvetica',
+    padding: '30 50',
+    fontFamily: 'Roboto',
     fontSize: 10,
-    lineHeight: 1.4,
+    lineHeight: 1.5,
+    backgroundColor: colors.background,
+    color: colors.text,
   },
   headerSection: {
     marginBottom: 20,
-    textAlign: 'center',
+    borderBottom: `2 solid ${colors.border}`,
+    paddingBottom: 15,
   },
   name: {
-    fontSize: 24,
+    fontFamily: 'Playfair Display',
+    fontSize: 32,
     fontWeight: 700,
-    color: '#1e3a8a', // dark blue
-    marginBottom: 10,
+    marginBottom: 15,
+    paddingBottom: 15,
+    color: colors.primary,
   },
   title: {
-    fontSize: 12,
-    color: '#1f2937', // gray-800
+    fontSize: 14,
     marginBottom: 4,
+    color: colors.secondary,
   },
   location: {
-    fontSize: 10,
-    color: '#4b5563', // gray-600
+    fontSize: 12,
     marginBottom: 4,
+    color: colors.lightText,
   },
   links: {
     fontSize: 10,
-    color: '#4b5563', // gray-600
+    marginTop: 10,
+    color: colors.lightText,
   },
   linkText: {
-    color: '#2563eb', // blue-600
-    textDecoration: 'underline',
+    color: colors.accent,
+    textDecoration: 'none',
   },
   sectionTitle: {
-    fontSize: 18,
-    marginTop: 20,
+    fontFamily: 'Playfair Display',
+    fontSize: 16,
+    marginTop: 15,
     marginBottom: 10,
-    color: '#1f2937', // gray-800
+    color: colors.primary,
+    borderBottom: `1 solid ${colors.border}`,
+    paddingBottom: 3,
   },
   paragraph: {
     fontSize: 10,
-    marginBottom: 8,
-    lineHeight: 1.4,
+    marginBottom: 10,
+    lineHeight: 1.6,
     textAlign: 'justify',
-    color: '#374151', // gray-700
   },
   summaryParagraph: {
-    fontSize: 10,
-    fontFamily: 'Helvetica',
-    marginBottom: 8,
-    lineHeight: 1.4,
-    textAlign: 'justify',
-    color: '#374151', // gray-700
+    fontSize: 11,
     fontStyle: 'italic',
+    marginBottom: 8,
+    lineHeight: 1.6,
+    textAlign: 'justify',
+    color: colors.secondary,
   },
   experienceEntry: {
     marginBottom: 15,
@@ -105,21 +106,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 700,
     marginBottom: 2,
-    color: '#1f2937', // gray-800
+    color: colors.primary,
   },
   jobDetails: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     fontSize: 10,
     fontStyle: 'italic',
-    color: '#4b5563', // gray-600
-    marginBottom: 4,
+    color: colors.lightText,
+    marginBottom: 6,
   },
   jobDescription: {
     fontSize: 10,
-    lineHeight: 1.4,
+    lineHeight: 1.6,
     textAlign: 'justify',
-    color: '#374151', // gray-700
   },
   skillsContainer: {
     flexDirection: 'row',
@@ -128,9 +128,11 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   badge: {
-    padding: '3 8',
-    borderRadius: 4,
-    fontSize: 10,
+    padding: '4 10',
+    borderRadius: 12,
+    fontSize: 9,
+    backgroundColor: colors.accent,
+    color: 'white',
   },
   educationEntry: {
     marginBottom: 15,
@@ -139,12 +141,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 700,
     marginBottom: 2,
-    color: '#1f2937', // gray-800
+    color: colors.primary,
   },
   educationDetails: {
     fontSize: 10,
     fontStyle: 'italic',
-    color: '#4b5563', // gray-600
+    color: colors.lightText,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 50,
+    right: 50,
+    textAlign: 'center',
+    fontSize: 8,
+    color: colors.lightText,
+  },
+  languagesContainer: {
+    marginBottom: 15,
+  },
+  languageItem: {
+    fontSize: 10,
+    marginBottom: 4,
+    color: colors.text,
   },
 });
 
@@ -162,7 +181,7 @@ export const PDFResume = ({
   const t = getTranslations(currentLang);
   
   const socialLinks = {
-    linkedin: "https://linkedin.com/in/danielbaez",
+    linkedin: "https://linkedin.com/in/baezdaniel",
     github: "https://github.com/danielbaez",
     website: "https://baezdaniel.cl"
   };
@@ -176,15 +195,15 @@ export const PDFResume = ({
           <Text style={styles.location}>{profileData.info.location}</Text>
           <View style={styles.links}>
             <Text>
-              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
-              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
+              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> |{' '}
+              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> |{' '}
               <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
             </Text>
           </View>
         </View>
         <View>
           <Text style={styles.sectionTitle}>{t.pdf.sections.summary}</Text>
-          <Text style={[styles.summaryParagraph, { fontStyle: 'italic' }]}>{summaryContent}</Text>
+          <Text style={styles.summaryParagraph}>{summaryContent}</Text>
         </View>
 
         <View>
@@ -211,9 +230,6 @@ export const PDFResume = ({
             </View>
           ))}
         </View>
-        </Page>
-
-        <Page size="LETTER" style={styles.page}>
         <View>
           <Text style={styles.sectionTitle}>{t.pdf.sections.education}</Text>
           {profileData.education.map((edu: EducationEntry, index: number) => (
@@ -225,32 +241,35 @@ export const PDFResume = ({
         </View>
 
         <View>
+          <Text style={styles.sectionTitle}>{t.sections.languages}</Text>
+          <View style={styles.languagesContainer}>
+            {profileData.languages.map((language, index) => (
+              <Text key={index} style={styles.languageItem}>
+                {language.name}: {language.level}
+              </Text>
+            ))}
+          </View>
+        </View>
+        <View>
           <Text style={styles.sectionTitle}>{t.pdf.sections.technicalSkills}</Text>
           {Object.entries(profileData.skills).map(([category, skills]: [string, Skill[]], index: number) => (
-            <View key={index} style={{ marginBottom: 10 }}>
-              <Text style={{ fontSize: 12, fontWeight: 700, marginBottom: 4 }}>
+            <View key={index} style={{ marginBottom: 15 }}>
+              <Text style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, color: colors.secondary }}>
                 {category}
               </Text>
               <View style={styles.skillsContainer}>
-                {skills.map((skill: Skill, idx: number) => {
-                  const [bgColor, textColor] = getNextColor();
-                  return (
-                    <Text
-                      key={idx}
-                      style={[
-                        styles.badge,
-                        { backgroundColor: bgColor, color: textColor }
-                      ]}
-                    >
-                      {skill.name}
-                    </Text>
-                  );
-                })}
+                {skills.map((skill: Skill, idx: number) => (
+                  <Text key={idx} style={styles.badge}>
+                    {skill.name}
+                  </Text>
+                ))}
               </View>
             </View>
           ))}
         </View>
+        <Text style={styles.footer}>Daniel Baez | Software Engineer | {profileData.info.location}</Text>
       </Page>
     </Document>
   );
-}; 
+};
+
