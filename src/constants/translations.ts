@@ -1,6 +1,6 @@
 import { Language } from "./i18n"
 
-type TranslationKeys = {
+export type TranslationKeys = {
   navigation: {
     about: string
     experience: string
