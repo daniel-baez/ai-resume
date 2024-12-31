@@ -78,24 +78,8 @@ export function Header({
     }
   };
 
-  const handleResumeDownload = async () => {
-    trackEvent({
-      action: 'download',
-      category: 'resume',
-      label: 'resume_download'
-    })
-    
-    // window.open(resumeUrl, '_blank')
-
-    // call the API to generate the PDF
-    const response = await fetch('/api/generate-pdf?lang=' + currentLang.code)
-    const pdfBlob = await response.blob()
-    const pdfUrl = URL.createObjectURL(pdfBlob)
-    window.open(pdfUrl, '_blank')
-  }
-
   const handleLanguageChange = (lang: Language) => {
-    const params = new URLSearchParams(searchParams)
+    const params = new URLSearchParams(searchParams?.toString() || '')
     params.set('lang', lang.code)
     router.push(`?${params.toString()}`)
   }
@@ -132,11 +116,10 @@ export function Header({
           <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4 mt-2`}>
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={setIsContactOpen} currentLang={currentLang} />
-              <Link href="/#" target="_blank" rel="noopener noreferrer" download>
+              <Link href={`/resume/${currentLang.code}`} target="_blank" rel="noopener noreferrer">
                 <Button 
                   variant="outline" 
-                  className="w-full border-gray-300 text-gray-700 hover:bg-gray-50" 
-                  onClick={handleResumeDownload}
+                  className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
                 >
                   <Download className="mr-2 h-4 w-4" /> {t.actions.downloadResume}
                 </Button>
