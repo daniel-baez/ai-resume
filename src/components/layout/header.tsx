@@ -11,22 +11,16 @@ import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 import { Language, AVAILABLE_LANGUAGES } from "@/constants/i18n"
 import { useRouter, useSearchParams } from "next/navigation"
 import { getTranslations } from "@/constants/translations"
+import { HeaderProps } from "@/types/portfolio"
 
-interface HeaderProps {
-  name: string;
-  title: string;
-  subtitle: string;
-  calendlyUrl: string;
-  currentLang: Language;
-}
 
 export function Header({
   name,
   title,
   subtitle,
   calendlyUrl,
-  currentLang,
-}: HeaderProps) {
+  currentLang
+}: HeaderProps & { currentLang: Language }) {
   const { trackEvent } = useGoogleAnalytics()
   const [isContactOpen, setIsContactOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
