@@ -22,22 +22,22 @@ async function validateAndProcessFormData(formData: FormDataObject, t: Translati
 
   // Validate email
   if (!isEmail(email)) {
-    throw new Error(t.contact.emailError);
+    throw t.contact.emailError;
   }
 
   // Validate phone number
   const phoneNumber = parsePhoneNumberFromString(phone);
   if (!phoneNumber || !phoneNumber.isValid()) {
-    throw new Error(t.contact.phoneError);
+    throw t.contact.phoneError;
   }
 
   // Validate lengths
   if (name.length > 200 || email.length > 200 || phone.length > 200 || message.length > 1000) {
-    throw new Error(t.contact.lengthError);
+    throw t.contact.lengthError;
   }
 }
 
-export async function verifyAndSendEmail(token: string, formData: FormDataObject, lang: Language): Promise<boolean | Error> {
+export async function verifyAndSendEmail(token: string, formData: FormDataObject, lang: Language): Promise<boolean | string> {
   const t = getTranslations(lang);
 
   // if the phone number doesn't start with +, prepend +
@@ -48,7 +48,7 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
   // Validate reCAPTCHA token
   if (!(await isCaptchaValid(token))) {
     console.log("Error validating captcha", token);
-    return new Error (t.contact.captchaError);
+    return t.contact.captchaError;
   }
 
   // Validate form data (throws an error if the data is not valid)
@@ -56,7 +56,7 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
     await validateAndProcessFormData(formData, t);
   } catch (error) {
     console.log("Error validating form data", error);
-    return error as Error
+    return error as string
   }
 
   // Save to Firebase first
@@ -84,6 +84,6 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
     return true;
   } catch (error) {
     console.log("Error sending email", error);
-    return new Error(t.contact.sendEmailError, { cause: error });
+    return t.contact.sendEmailError;
   }
 }

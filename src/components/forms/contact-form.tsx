@@ -82,10 +82,10 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
 
     const success = await verifyAndSendEmail(token, formData, currentLang);
     console.log(success)
-    if (success instanceof Error) {
+    if (typeof success === 'string') {
       toast({
         title: t.contact.error,
-        description: success.message,
+        description: success,
         variant: "destructive",
       })
       setIsLoading(false)
