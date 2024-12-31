@@ -4,6 +4,7 @@ company: "The Meet Group"
 period: "October 2016 - December 2017"
 location: "San Francisco, CA"
 order: 3
+pdf: true
 ---
 
 Working at The Meet Group was a fast-paced, high-impact experience where I honed my skills in system integration and technical leadership. [I joined](https://www.themeetgroup.com/blog/the-meet-group-acquires-skout) just as the company had completed a major acquisition (SKOUT was acquired by TMG), which brought unique challenges in unifying and overhauling systems to meet higher performance and scalability requirements.

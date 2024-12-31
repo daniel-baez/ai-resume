@@ -12,7 +12,7 @@ export function Skills({ skillCategories, currentLang }: SkillsProps) {
   if (!skillCategories) {
     return null;
   }
-
+  
   return (
     <Card id="skills" className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl border border-blue-100">
       <CardHeader>

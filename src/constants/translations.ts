@@ -33,6 +33,21 @@ type TranslationKeys = {
     error: string
     errorDescription: string
   }
+  pdf: {
+    title: string
+    subtitle: string
+    sections: {
+      summary: string
+      experience: string
+      education: string
+      technicalSkills: string
+    }
+    links: {
+      linkedin: string
+      github: string
+      website: string
+    }
+  }
 }
 
 const translations: Record<string, TranslationKeys> = {
@@ -68,6 +83,21 @@ const translations: Record<string, TranslationKeys> = {
       successDescription: "I'll get back to you as soon as possible.",
       error: "Failed to send email",
       errorDescription: "Please try again."
+    },
+    pdf: {
+      title: "Software Engineer",
+      subtitle: "Architect Cloud & IoT Expert",
+      sections: {
+        summary: "Summary",
+        experience: "Experience",
+        education: "Education",
+        technicalSkills: "Technical Skills"
+      },
+      links: {
+        linkedin: "LinkedIn",
+        github: "GitHub",
+        website: "Website"
+      }
     }
   },
   es: {
@@ -102,6 +132,21 @@ const translations: Record<string, TranslationKeys> = {
       successDescription: "Te responderé lo antes posible.",
       error: "Error al enviar el mensaje",
       errorDescription: "Por favor, inténtalo de nuevo."
+    },
+    pdf: {
+      title: "Ingeniero de Software",
+      subtitle: "Architecto Cloud & experto en IoT",
+      sections: {
+        summary: "Resumen",
+        experience: "Experiencia",
+        education: "Educación",
+        technicalSkills: "Habilidades Técnicas"
+      },
+      links: {
+        linkedin: "LinkedIn",
+        github: "GitHub",
+        website: "Sitio Web"
+      }
     }
   }
 }

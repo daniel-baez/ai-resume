@@ -4,6 +4,7 @@ company: "SKOUT"
 period: "Sept 2014 - Oct 2016"
 location: "Santiago, Chile / San Francisco, CA"
 order: 4
+pdf: true
 ---
 
 SKOUT marcó una transición en mi carrera donde me mudé de Chile a San Francisco, abrazar la oportunidad de trabajar estrechamente con un equipo en el desarrollo de backend central.

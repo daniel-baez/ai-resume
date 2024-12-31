@@ -6,45 +6,8 @@ import { Experience } from "@/components/sections/experience";
 import { Skills } from "@/components/sections/skills";
 import { Education } from "@/components/sections/education";
 
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { Language, AVAILABLE_LANGUAGES } from "@/constants/i18n";
-
-const getDataPath = (lang: Language) => {
-  return path.join(process.cwd(), "src/data", lang.code);
-};
-
-const getProfileData = (lang: Language) => {
-  const profilePath = path.join(getDataPath(lang), "profile.json");
-  const profileData = JSON.parse(fs.readFileSync(profilePath, "utf8"));
-  return profileData;
-};
-
-const getSummaryData = (lang: Language) => {
-  const summaryPath = path.join(getDataPath(lang), "summary.md");
-  const summaryContent = fs.readFileSync(summaryPath, "utf8");
-  return summaryContent;
-};
-
-// Get experience entries from src/data/experiences/*.md
-const getExperienceEntries = (lang: Language) => {
-  return fs.readdirSync(path.join(getDataPath(lang), "experiences"))
-    .map((file) => {
-      const filePath = path.join(getDataPath(lang), "experiences", file);
-      const fileContents = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(fileContents);
-      return {
-        title: data.title,
-        company: data.company,
-        period: data.period,
-        location: data.location,
-        content: content,
-        order: data.order,
-      };
-    })
-    .sort((a, b) => a.order - b.order);
-};
+import { getProfileData, getSummaryData, getExperienceEntries } from "@/lib/data";
+import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 
 export default function Home({
   searchParams,
