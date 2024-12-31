@@ -60,12 +60,18 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
   }
 
   // Save to Firebase first
-  const messageId = await saveContactMessage({
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    message: formData.message,
-  });
+  let messageId: string | undefined;
+  try {
+    messageId = await saveContactMessage({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+    });
+  } catch (error) {
+    console.log("Error saving contact message", error);
+    // return t.contact.saveMessageError;
+  }
 
   // Send email if reCAPTCHA is verified
   try {
@@ -79,7 +85,9 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
              <p>Message: ${formData.message}</p>`,
     });
     // Update Firebase document with sent_at timestamp
-    await updateMessageSentStatus(messageId);
+    if (messageId) {
+      await updateMessageSentStatus(messageId);
+    }
 
     return true;
   } catch (error) {
