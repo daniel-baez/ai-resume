@@ -4,6 +4,7 @@ company: "Fitbit (now part of Google)"
 period: "January 2018 - September 2019"
 location: "San Francisco, CA"
 order: 2
+pdf: true
 ---
 
 My time at Fitbit offered invaluable experience with global-scale architectures—the largest platform I’ve worked on so far. I gained hands-on exposure to industry-standard practices for Kafka and large-scale deployments over distributed systems like Mesos, a precursor to Kubernetes.

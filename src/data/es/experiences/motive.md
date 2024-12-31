@@ -4,6 +4,7 @@ company: "Motive (formerly KeepTruckin)"
 period: "October 2019 - Present"
 location: "San Francisco, CA"
 order: 1
+pdf: true
 ---
 
 Motive ha enseñado más de cualquier otra empresa. Desde el principio, creí en nuestra misión. Como chileno y lector apasionado de la historia reciente de mi país, rápidamente reconocí el papel crítico de la distribución de bienes y servicios en mantener el contrato social.

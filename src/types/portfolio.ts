@@ -5,6 +5,7 @@ export interface ExperienceEntry {
   period: string;
   location: string;
   content: string;
+  pdf: boolean;
 }
 
 export interface EducationEntry {
@@ -19,7 +20,7 @@ export interface LanguageEntry {
 }
 
 export interface SkillCategory {
-  [key: string]: string[];  // If it's an object with string array values
+  [key: string]: Skill[];
 }
 
 export interface CertificationEntry {
@@ -33,7 +34,7 @@ export interface Skill {
 
 // Component Props
 export interface SkillsProps {
-  skillCategories: Record<string, Skill[]>;
+  skillCategories: { [key: string]: Skill[] };
   currentLang: Language;
 }
 
@@ -60,4 +61,13 @@ export interface HeaderProps {
   subtitle: string;
   resumeUrl: string;
   calendlyUrl: string;
+  location: string;
+}
+
+export type ProfileData = {
+  info: HeaderProps;
+  education: EducationEntry[];
+  certifications: CertificationEntry[];
+  languages: LanguageEntry[];
+  skills: { [key: string]: Skill[] };
 }

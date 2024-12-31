@@ -16,7 +16,6 @@ interface HeaderProps {
   name: string;
   title: string;
   subtitle: string;
-  resumeUrl: string;
   calendlyUrl: string;
   currentLang: Language;
 }
@@ -25,7 +24,6 @@ export function Header({
   name,
   title,
   subtitle,
-  resumeUrl,
   calendlyUrl,
   currentLang,
 }: HeaderProps) {
@@ -86,14 +84,20 @@ export function Header({
     }
   };
 
-  const handleResumeDownload = () => {
+  const handleResumeDownload = async () => {
     trackEvent({
       action: 'download',
       category: 'resume',
       label: 'resume_download'
     })
     
-    window.open(resumeUrl, '_blank')
+    // window.open(resumeUrl, '_blank')
+
+    // call the API to generate the PDF
+    const response = await fetch('/api/generate-pdf?lang=' + currentLang.code)
+    const pdfBlob = await response.blob()
+    const pdfUrl = URL.createObjectURL(pdfBlob)
+    window.open(pdfUrl, '_blank')
   }
 
   const handleLanguageChange = (lang: Language) => {
@@ -134,7 +138,7 @@ export function Header({
           <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4 mt-2`}>
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={setIsContactOpen} currentLang={currentLang} />
-              <Link href="/resume-2024-11.pdf" target="_blank" rel="noopener noreferrer" download>
+              <Link href="/#" target="_blank" rel="noopener noreferrer" download>
                 <Button 
                   variant="outline" 
                   className="w-full border-gray-300 text-gray-700 hover:bg-gray-50" 
