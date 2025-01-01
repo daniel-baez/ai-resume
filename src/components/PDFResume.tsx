@@ -34,51 +34,60 @@ const colors = {
   lightText: '#6c757d',
   border: '#dee2e6',
 };
+// Define font sizes for consistent typography
+const fontSizes = {
+  xxl: 28, // Used for name
+  xl: 16,  // Used for section titles
+  lg: 14,  // Used for job titles
+  md: 12,  // Used for location
+  sm: 10,  // Used for body text and links
+};
 
 const styles = StyleSheet.create({
   page: {
     padding: '30 50',
     fontFamily: 'Roboto',
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     lineHeight: 1.5,
     backgroundColor: colors.background,
     color: colors.text,
   },
   headerSection: {
     marginBottom: 20,
-    borderBottom: `2 solid ${colors.border}`,
-    paddingBottom: 15,
+    backgroundColor: colors.primary,
+    padding: 20,
+    color: 'white',
   },
   name: {
     fontFamily: 'Playfair Display',
-    fontSize: 32,
+    fontSize: fontSizes.xxl,
     fontWeight: 700,
-    marginBottom: 15,
-    paddingBottom: 15,
-    color: colors.primary,
+    marginBottom: 10,
+    paddingBottom: 10,
+    color: 'white',
   },
   title: {
-    fontSize: 14,
+    fontSize: fontSizes.lg,
     marginBottom: 4,
-    color: colors.secondary,
+    color: 'white',
   },
   location: {
-    fontSize: 12,
+    fontSize: fontSizes.md,
     marginBottom: 4,
-    color: colors.lightText,
+    color: colors.background,
   },
   links: {
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     marginTop: 10,
-    color: colors.lightText,
+    color: colors.background,
   },
   linkText: {
-    color: colors.accent,
+    color: colors.background,
     textDecoration: 'none',
   },
   sectionTitle: {
     fontFamily: 'Playfair Display',
-    fontSize: 16,
+    fontSize: fontSizes.lg,
     marginTop: 15,
     marginBottom: 10,
     color: colors.primary,
@@ -86,13 +95,13 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   paragraph: {
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     marginBottom: 10,
     lineHeight: 1.6,
     textAlign: 'justify',
   },
   summaryParagraph: {
-    fontSize: 11,
+    fontSize: fontSizes.sm,
     fontStyle: 'italic',
     marginBottom: 8,
     lineHeight: 1.6,
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   jobTitle: {
-    fontSize: 12,
+    fontSize: fontSizes.lg,
     fontWeight: 700,
     marginBottom: 2,
     color: colors.primary,
@@ -111,13 +120,13 @@ const styles = StyleSheet.create({
   jobDetails: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     fontStyle: 'italic',
     color: colors.lightText,
     marginBottom: 6,
   },
   jobDescription: {
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     lineHeight: 1.6,
     textAlign: 'justify',
   },
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
   badge: {
     padding: '4 10',
     borderRadius: 12,
-    fontSize: 9,
+    fontSize: fontSizes.sm,
     backgroundColor: colors.accent,
     color: 'white',
   },
@@ -138,13 +147,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   educationTitle: {
-    fontSize: 12,
+    fontSize: fontSizes.md,
     fontWeight: 700,
     marginBottom: 2,
     color: colors.primary,
   },
   educationDetails: {
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     fontStyle: 'italic',
     color: colors.lightText,
   },
@@ -154,16 +163,29 @@ const styles = StyleSheet.create({
     left: 50,
     right: 50,
     textAlign: 'center',
-    fontSize: 8,
+    fontSize: fontSizes.sm,
     color: colors.lightText,
   },
   languagesContainer: {
     marginBottom: 15,
   },
   languageItem: {
-    fontSize: 10,
+    fontSize: fontSizes.sm,
     marginBottom: 4,
     color: colors.text,
+  },
+  certificationEntry: {
+    marginBottom: 10,
+  },
+  certificationTitle: {
+    fontSize: fontSizes.sm,
+    fontWeight: 700,
+    marginBottom: 2,
+    color: colors.primary,
+  },
+  certificationDetails: {
+    fontSize: fontSizes.sm,
+    color: colors.lightText,
   },
 });
 
@@ -195,8 +217,8 @@ export const PDFResume = ({
           <Text style={styles.location}>{profileData.info.location}</Text>
           <View style={styles.links}>
             <Text>
-              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> |{' '}
-              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> |{' '}
+              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
+              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
               <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
             </Text>
           </View>
@@ -236,6 +258,16 @@ export const PDFResume = ({
             <View key={index} style={styles.educationEntry}>
               <Text style={styles.educationTitle}>{edu.title}</Text>
               <Text style={styles.educationDetails}>{edu.institution} | {edu.period}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View>
+          <Text style={styles.sectionTitle}>{t.sections.certifications}</Text>
+          {Object.entries(profileData.certifications).map(([name, details], index) => (
+            <View key={index} style={styles.certificationEntry}>
+              <Text style={styles.certificationTitle}>{name}</Text>
+              <Text style={styles.certificationDetails}>{details.issuer}</Text>
             </View>
           ))}
         </View>
