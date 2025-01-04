@@ -81,7 +81,6 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
     }
 
     const success = await verifyAndSendEmail(token, formData, currentLang);
-    console.log(success)
     if (typeof success === 'string') {
       toast({
         title: t.contact.error,

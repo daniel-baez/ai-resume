@@ -9,6 +9,7 @@ export default {
   ],
   safelist: [
     // Colors for badges
+	'bg-gray-100', 
     'bg-blue-100', 'bg-blue-200', 'text-gray-800',
     'bg-green-100', 'bg-green-200', 'text-green-800',
     'bg-purple-100', 'bg-purple-200', 'text-purple-800',
@@ -28,6 +29,7 @@ export default {
     'bg-lime-100', 'bg-lime-200', 'text-lime-800',
     'bg-fuchsia-100', 'bg-fuchsia-200', 'text-fuchsia-800',
     // Hover variants
+	'hover:bg-gray-200',
     'hover:bg-blue-200', 'hover:bg-green-200', 'hover:bg-purple-200',
     'hover:bg-indigo-200', 'hover:bg-yellow-200', 'hover:bg-red-200',
     'hover:bg-pink-200', 'hover:bg-orange-200', 'hover:bg-teal-200',
