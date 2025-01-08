@@ -4,6 +4,7 @@ title: "Senior Software Developer"
 location: "Santiago, Chile"
 period: "Nov 2012 - Oct 2013"
 order: 6
+experience_letter: /experience_letters/clear2pay.pdf
 ---
 
 Entrusted with extending the J2EE-based payment solutions to meet the complex requirements of major banks in Chile, including Banco Estado and Banco de Chile.

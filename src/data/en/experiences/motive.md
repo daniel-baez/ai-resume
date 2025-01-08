@@ -7,10 +7,11 @@ order: 1
 pdf: true
 ---
 
-Motive has taught me more than any other company. From the start, I believed in our mission. As a Chilean and avid reader of my country’s recent history, I quickly recognized the critical role of goods and services distribution in upholding the social contract.
+Motive has been an incredible experience. From the start, I believed in our mission. As a Chilean and avid reader of my country’s recent history, I recognize the critical role of goods and services distribution in preserving the social contract.
 
 I joined when our team was small—about 40 engineers working closely with the CTO in downtown San Francisco. Those early days were very inspiring.
-Starting as an individual contributor, I implemented essential updates to our core systems. My first project was creating a cache layer to relieve our primary database, a solution that’s still operational after five years, handling tens of thousands of requests per second during peak periods.
+
+Starting as an individual contributor, I implemented essential updates to our core systems. My first project was creating a [cache layer](https://medium.com/motive-eng/how-we-reduced-db-load-with-our-language-agnostic-point-query-cache-3a628edfee4e) to relieve our primary database, a solution that’s still operational after five years, handling tens of thousands of requests per second during peak periods.
 
 Later, I focused on key backend improvements to maintain performance and reliability, such as implementing connection pooling for I/O resources like Redis and establishing a feature flagging practice for safe, low-impact feature releases—a practice that soon became standard across the company.
 As we expanded, our monolithic “platform” team split into specialized teams. I transitioned to the IoT Platform team, which is crucial as we are primarily an IoT company.

@@ -14,6 +14,7 @@ export type TranslationKeys = {
     education: string
     languages: string
     certifications: string
+    experience_letter: string
   }
   actions: {
     downloadResume: string
@@ -69,7 +70,8 @@ const translations: Record<string, TranslationKeys> = {
       skills: "Skills",
       education: "Education",
       languages: "Languages",
-      certifications: "Professional Certifications"
+      certifications: "Professional Certifications",
+      experience_letter: "Experience Letter"
     },
     actions: {
       downloadResume: "Download Resume",
@@ -123,7 +125,8 @@ const translations: Record<string, TranslationKeys> = {
       skills: "Habilidades",
       education: "Educación",
       languages: "Idiomas",
-      certifications: "Certificaciones Profesionales"
+      certifications: "Certificaciones Profesionales",
+      experience_letter: "Carta de Experiencia"
     },
     actions: {
       downloadResume: "Descargar CV",
@@ -161,6 +164,61 @@ const translations: Record<string, TranslationKeys> = {
         linkedin: "LinkedIn",
         github: "GitHub",
         website: "Sitio Web"
+      }
+    }
+  },
+  fr: {
+    navigation: {
+      about: "À propos",
+      experience: "Expérience",
+      skills: "Compétences",
+      education: "Éducation"
+    },
+    sections: {
+      summary: "Résumé Professionnel",
+      experience: "Expérience",
+      skills: "Compétences",
+      education: "Éducation",
+      languages: "Langues",
+      certifications: "Certifications Professionnelles",
+      experience_letter: "Lettre de recommandation"
+    },
+    actions: {
+      downloadResume: "Télécharger CV",
+      scheduleMeeting: "Planifier une Réunion",
+      contact: "Contact"
+    },
+    contact: {
+      title: "Contact",
+      description: "Je vous contacterai le plus tôt possible.",
+      name: "Nom",
+      email: "Email",
+      phone: "Téléphone",
+      message: "Message",
+      submit: "Envoyer",
+      success: "Message envoyé !",
+      successDescription: "Je vous contacterai le plus tôt possible.",
+      error: "Erreur lors de l'envoi du message",
+      errorDescription: "Veuillez réessayer.",
+      captchaError: "Erreur lors de la vérification du captcha",
+      sendEmailError: "Erreur lors de l'envoi de l'email",
+      lengthError: "Le champ dépasse la longueur maximale",
+      emailError: "Format d'email invalide",
+      phoneError: "Numéro de téléphone invalide"
+    },
+    pdf: {
+      title: "Ingénieur Logiciel",
+      subtitle: "Architecte Cloud & Expert en IoT",
+      sections: {
+        summary: "Résumé",
+        experience: "Expérience",
+        education: "Éducation",
+        technicalSkills: "Compétences Techniques"
+      },
+      links: {
+        linkedin: "LinkedIn",
+        github: "GitHub",
+        website: "Site Web"
       }
     }
   }

@@ -1,4 +1,5 @@
 import { Language } from "../constants/i18n";
+
 export interface ExperienceEntry {
   title: string;
   company: string;
@@ -6,6 +7,7 @@ export interface ExperienceEntry {
   location: string;
   content: string;
   pdf: boolean;
+  experience_letter?: string;
 }
 
 export interface EducationEntry {

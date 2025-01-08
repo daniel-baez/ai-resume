@@ -34,6 +34,7 @@ export const getExperienceEntries = (lang: Language, pdfVersion: boolean = false
         content: content,
         order: data.order,
         pdf: data.pdf || false,
+        experience_letter: data.experience_letter || undefined,
       };
     })
     .filter(exp => !pdfVersion || exp.pdf)

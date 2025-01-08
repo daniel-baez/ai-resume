@@ -7,7 +7,7 @@ order: 3
 pdf: true
 ---
 
-Working at The Meet Group was a fast-paced, high-impact experience where I honed my skills in system integration and technical leadership. [I joined](https://www.themeetgroup.com/blog/the-meet-group-acquires-skout) just as the company had completed a major acquisition (SKOUT was acquired by TMG), which brought unique challenges in unifying and overhauling systems to meet higher performance and scalability requirements.
+Working at The Meet Group was a fast-paced, high-impact experience where I honed my skills in system integration and technical leadership. I joined just as the company had completed a [major acquisition (SKOUT was acquired by TMG)](https://www.themeetgroup.com/blog/the-meet-group-acquires-skout), which brought unique challenges in unifying and overhauling systems to meet higher performance and scalability requirements.
 
 I played a key role in this integration effort, working on critical updates to ensure seamless functionality across platforms and services. This experience gave me a solid foundation in system migrations and the intricacies of aligning distinct tech stacks under one cohesive architecture.
 

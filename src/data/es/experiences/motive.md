@@ -7,10 +7,10 @@ order: 1
 pdf: true
 ---
 
-Motive ha enseñado más de cualquier otra empresa. Desde el principio, creí en nuestra misión. Como chileno y lector apasionado de la historia reciente de mi país, rápidamente reconocí el papel crítico de la distribución de bienes y servicios en mantener el contrato social.
+Motive ha sido una experiencia increíble. Desde el principio, reconocí la importancia de nuestra misión. Como chileno y lector apasionado de la historia reciente de mi país, entiendo el papel crítico de la distribución de bienes y servicios en preservar el contrato social.
 
 Me unió cuando nuestro equipo era pequeño—aproximadamente 40 ingenieros trabajando estrechamente con el CTO en el centro de San Francisco. Esas primeras días fueron muy inspiradores.
-Empecé como colaborador individual, implementando actualizaciones esenciales a nuestros sistemas centrales. Mi primer proyecto fue crear una capa de caché para aliviar nuestra base de datos principal, una solución que todavía está operativa después de cinco años, manejando decenas de miles de solicitudes por segundo durante los picos de tráfico.
+Empecé como colaborador individual, implementando actualizaciones esenciales a nuestros sistemas centrales. Mi primer proyecto fue crear una [capa de caché](https://medium.com/motive-eng/how-we-reduced-db-load-with-our-language-agnostic-point-query-cache-3a628edfee4e) para aliviar nuestra base de datos principal, una solución que todavía está operativa después de cinco años, manejando decenas de miles de solicitudes por segundo durante los picos de tráfico.
 
 Luego, me centré en mejoras clave en el back-end para mantener el rendimiento y la confiabilidad, como implementar el agrupamiento de conexiones para recursos de E/S como Redis y establecer una práctica de banderas de características para liberaciones de características seguras y de bajo impacto—una práctica que pronto se convirtió en estándar en la empresa.
 
