@@ -69,6 +69,14 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+
+    // Track form submission attempt
+    await trackEvent({
+      action: 'submit',
+      category: 'contact',
+      label: 'contact_form_submit'
+    });
+
     const token = await getCaptchaToken();
     if (!token) {
       toast({
@@ -82,6 +90,12 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
 
     const success = await verifyAndSendEmail(token, formData, currentLang);
     if (typeof success === 'string') {
+      // Track form submission failure
+      await trackEvent({
+        action: 'error',
+        category: 'contact',
+        label: 'contact_form_error'
+      });
       toast({
         title: t.contact.error,
         description: success,
@@ -91,6 +105,12 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
       return onOpenChange(false)
     }
 
+    // Track form submission success
+    await trackEvent({
+      action: 'success',
+      category: 'contact',
+      label: 'contact_form_success'
+    });
     toast({
       title: t.contact.success,
       description: t.contact.successDescription,
@@ -107,9 +127,17 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
         category: 'contact',
         label: 'contact_form_open'
       });
+    } else {
+      trackEvent({
+        action: 'close',
+        category: 'contact',
+        label: 'contact_form_close'
+      });
+      // Reset form data when closing
+      setFormData({ name: "", email: "", phone: "", message: "" });
     }
-    setIsLoading(false)
     onOpenChange(open);
+    setIsLoading(false);
   };
 
   return (

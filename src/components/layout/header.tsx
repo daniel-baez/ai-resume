@@ -78,7 +78,46 @@ export function Header({
     }
   };
 
+  // For contact form
+  const handleContactOpen = (open: boolean) => {
+    trackEvent({
+      action: 'click',
+      category: 'engagement',
+      label: 'open_contact_form'
+    });
+    setIsContactOpen(open);
+  };
+
+  // For resume download
+  const handleResumeClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    await trackEvent({
+      action: 'click',
+      category: 'engagement',
+      label: 'download_resume'
+    });
+    window.open(`/resume/${currentLang.code}`, '_blank', 'noopener,noreferrer');
+  };
+
+  // For calendly meeting
+  const handleCalendlyClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    await trackEvent({
+      action: 'click',
+      category: 'engagement',
+      label: 'schedule_meeting'
+    });
+    window.open(calendlyUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  // For language change
   const handleLanguageChange = (lang: Language) => {
+    trackEvent({
+      action: 'click',
+      category: 'preferences',
+      label: `change_language_${lang.code}`
+    });
+    
     const params = new URLSearchParams(searchParams?.toString() || '')
     params.set('lang', lang.code)
     router.push(`?${params.toString()}`)
@@ -115,16 +154,23 @@ export function Header({
 
           <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col items-center md:items-end space-y-4 mt-2`}>
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
-              <ContactForm isOpen={isContactOpen} onOpenChange={setIsContactOpen} currentLang={currentLang} />
-              <Link href={`/resume/${currentLang.code}`} target="_blank" rel="noopener noreferrer">
-                <Button 
-                  variant="outline" 
-                  className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
-                >
+              <ContactForm isOpen={isContactOpen} onOpenChange={handleContactOpen} currentLang={currentLang} />
+              <Link 
+                href={`/resume/${currentLang.code}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={handleResumeClick}
+              >
+                <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50">
                   <Download className="mr-2 h-4 w-4" /> {t.actions.downloadResume}
                 </Button>
               </Link>
-              <Link href={calendlyUrl} target="_blank" rel="noopener noreferrer">
+              <Link 
+                href={calendlyUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={handleCalendlyClick}
+              >
                 <Button variant="default" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                   <Calendar className="mr-2 h-4 w-4" /> {t.actions.scheduleMeeting}
                 </Button>
