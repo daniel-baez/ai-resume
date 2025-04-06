@@ -98,7 +98,7 @@ const translations: Record<string, TranslationKeys> = {
     },
     pdf: {
       title: "Software Engineer",
-      subtitle: "Architect Cloud & IoT Expert",
+      subtitle: "Cloud Architect & IoT Expert",
       sections: {
         summary: "Summary",
         experience: "Experience",

@@ -46,11 +46,15 @@
       "skills": [
         "J2EE",
         "Rails",
+        "AWS Lambda",
+        "DynamoDB",
+        "Gradle",
         "Node.js",
         "Laravel/CodeIgniter",
         "React",
         "Next.js",
         "MongoDB",
+        "Bazel",
         "Redis",
         "SQL",
         "Kafka",
@@ -59,6 +63,7 @@
         "Terraform",
         "Kubernetes",
         "Docker",
+        "Maven",
         "Jenkins",
         "Git",
         "MQTT"
