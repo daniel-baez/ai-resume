@@ -1,0 +1,68 @@
+{
+  "categories": {
+    "core": {
+      "name": {
+        "en": "Core Technologies",
+        "es": "Tecnologías Core",
+        "fr": "Technologies Principales",
+        "de": "Kerntechnologien"
+      },
+      "skills": [
+        "Amazon Web Services (AWS)",
+        "IoT",
+        "Microservices",
+        "Google Cloud Platform (GCP)",
+        "Vercel",
+        "Firebase"
+      ]
+    },
+    "languages": {
+      "name": {
+        "en": "Programming Languages",
+        "es": "Lenguajes de Programación",
+        "fr": "Langages de Programmation",
+        "de": "Programmiersprachen"
+      },
+      "skills": [
+        "Java",
+        "JavaScript",
+        "Go",
+        "C",
+        "PHP",
+        "TypeScript",
+        "Ruby",
+        "Clojure(Script)",
+        "Python",
+        "Shell Scripting"
+      ]
+    },
+    "frameworks": {
+      "name": {
+        "en": "Frameworks & Tools",
+        "es": "Frameworks & Herramientas",
+        "fr": "Frameworks & Outils",
+        "de": "Frameworks & Tools"
+      },
+      "skills": [
+        "J2EE",
+        "Rails",
+        "Node.js",
+        "Laravel/CodeIgniter",
+        "React",
+        "Next.js",
+        "MongoDB",
+        "Redis",
+        "SQL",
+        "Kafka",
+        "RabbitMQ",
+        "Memcached",
+        "Terraform",
+        "Kubernetes",
+        "Docker",
+        "Jenkins",
+        "Git",
+        "MQTT"
+      ]
+    }
+  }
+} 

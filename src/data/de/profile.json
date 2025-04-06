@@ -1,0 +1,42 @@
+{
+  "info": {
+    "name": "Daniel Báez",
+    "title": "Software-Ingenieur",
+    "subtitle": "Cloud-Native Architekt & IoT-Experte",
+    "resumeUrl": "/resume-2024-11.pdf",
+    "calendlyUrl": "https://calendly.com/daniel-baez",
+    "location": "San Francisco, CA | Remote"
+  },
+  "education": [
+    {
+      "title": "Bachelor in Informatik",
+      "period": "2005 - 2010",
+      "institution": "Universidad Tecnológica De Chile"
+    }
+  ],
+  "languages": [
+    {
+      "name": "Spanisch",
+      "level": "Muttersprache"
+    },
+    {
+      "name": "Englisch",
+      "level": "Fließend"
+    },
+    {
+      "name": "Französisch",
+      "level": "Mittelstufe"
+    }
+  ],
+  "certifications": {
+    "Professional Cloud Architekt": {
+      "issuer": "Google Cloud"
+    },
+    "Professional Cloud DevOps Engineer": {
+      "issuer": "Google Cloud"
+    },
+    "Professional Cloud Developer": {
+      "issuer": "Google Cloud"
+    }
+  }
+} 
