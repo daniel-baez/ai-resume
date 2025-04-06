@@ -5,6 +5,18 @@ import { PDFResume } from '@/components/PDFResume';
 import { getProfileData, getSummaryData, getExperienceEntries } from "@/lib/data";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 
+// I want to implekement the other function that next will use to understand all the languages that are available
+// and then use that to generate the PDF for the correct language
+
+export const getStaticPaths = async () => {
+  return {
+    paths: Object.values(AVAILABLE_LANGUAGES).map((lang) => ({
+      params: { lang: lang.code },
+    })),
+    fallback: false,
+  };
+};
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { lang } = context.params as { lang: string };
   const language = AVAILABLE_LANGUAGES[lang as keyof typeof AVAILABLE_LANGUAGES] || AVAILABLE_LANGUAGES['en'];
