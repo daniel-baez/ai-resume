@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { GithubRibbon } from "@/components/ui/github-ribbon"
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -50,6 +51,7 @@ export default function RootLayout({
         <Toaster />
         <ScrollToTop />
       </body>
+      <Analytics />
     </html>
   );
 }
