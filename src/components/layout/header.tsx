@@ -101,7 +101,9 @@ export function Header({
       category: 'engagement',
       label: 'download_resume'
     });
-    window.open(`/pdfs/resume-${currentLang.code}.pdf`, '_blank', 'noopener,noreferrer');
+    // Use the correct path without Next.js parameters
+    const pdfUrl = `/pdfs/resume-${currentLang.code}.pdf`;
+    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
   };
 
   // For calendly meeting
@@ -164,6 +166,7 @@ export function Header({
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}
+                prefetch={false}
               >
                 <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50">
                   <Download className="mr-2 h-4 w-4" /> {t.actions.downloadResume}
@@ -174,6 +177,7 @@ export function Header({
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={handleCalendlyClick}
+                prefetch={false}
               >
                 <Button variant="default" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                   <Calendar className="mr-2 h-4 w-4" /> {t.actions.scheduleMeeting}
