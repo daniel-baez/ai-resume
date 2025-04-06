@@ -96,7 +96,7 @@ export function Header({
       category: 'engagement',
       label: 'download_resume'
     });
-    window.open(`/resume/${currentLang.code}`, '_blank', 'noopener,noreferrer');
+    window.open(`/pdfs/resume-${currentLang.code}.pdf`, '_blank', 'noopener,noreferrer');
   };
 
   // For calendly meeting
@@ -156,7 +156,7 @@ export function Header({
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={handleContactOpen} currentLang={currentLang} />
               <Link 
-                href={`/resume/${currentLang.code}`} 
+                href={`/pdfs/resume-${currentLang.code}.pdf`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}

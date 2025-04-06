@@ -117,3 +117,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# Generated PDFs
+public/pdfs/
