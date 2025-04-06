@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Suspense>
+        <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
         <Script
@@ -51,9 +51,13 @@ export default function RootLayout({
         {children}
         <Toaster />
         <ScrollToTop />
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
+        <Suspense fallback={null}>
+          <SpeedInsights />
+        </Suspense>
       </body>
-      <Analytics />
-      <SpeedInsights />
     </html>
   );
 }

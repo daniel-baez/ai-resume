@@ -30,6 +30,9 @@ export function Header({
   const t = getTranslations(currentLang)
 
   useEffect(() => {
+    // Only run this on the client side
+    if (typeof window === 'undefined') return;
+
     const updateHeaderHeight = () => {
       if (headerRef.current) {
         const height = headerRef.current.getBoundingClientRect().height;
@@ -46,7 +49,10 @@ export function Header({
     return () => window.removeEventListener('resize', updateHeaderHeight);
   }, []); // Empty dependency array means this runs once on mount
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = async (sectionId: string) => {
+    // Only run this on the client side
+    if (typeof window === 'undefined') return;
+
     const element = document.getElementById(sectionId);
     const header = document.getElementById("header");
 
@@ -64,7 +70,7 @@ export function Header({
         }
       })()
 
-      trackEvent({
+      await trackEvent({
         action: 'scroll',
         category: 'navigation',
         label: `scroll_to_${sectionId}`
@@ -78,8 +84,8 @@ export function Header({
   };
 
   // For contact form
-  const handleContactOpen = (open: boolean) => {
-    trackEvent({
+  const handleContactOpen = async (open: boolean) => {
+    await trackEvent({
       action: 'click',
       category: 'engagement',
       label: 'open_contact_form'
@@ -110,8 +116,8 @@ export function Header({
   };
 
   // For language change
-  const handleLanguageChange = (lang: Language) => {
-    trackEvent({
+  const handleLanguageChange = async (lang: Language) => {
+    await trackEvent({
       action: 'click',
       category: 'preferences',
       label: `change_language_${lang.code}`
