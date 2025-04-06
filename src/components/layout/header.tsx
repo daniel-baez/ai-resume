@@ -9,7 +9,7 @@ import Image from "next/image"
 import { ContactForm } from "@/components/forms/contact-form"
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 import { Language, AVAILABLE_LANGUAGES } from "@/constants/i18n"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { getTranslations } from "@/constants/translations"
 import { HeaderProps } from "@/types/portfolio"
 
@@ -27,7 +27,6 @@ export function Header({
   const [headerHeight, setHeaderHeight] = useState(0)
   const headerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const searchParams = useSearchParams()
   const t = getTranslations(currentLang)
 
   useEffect(() => {
@@ -118,9 +117,8 @@ export function Header({
       label: `change_language_${lang.code}`
     });
     
-    const params = new URLSearchParams(searchParams?.toString() || '')
-    params.set('lang', lang.code)
-    router.push(`?${params.toString()}`)
+    // Navigate to the language-specific page
+    router.push(`/${lang.code}`);
   }
 
   const navigationItems = [
