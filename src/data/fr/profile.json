@@ -1,4 +1,3 @@
-
 {
   "info": {
     "name": "Daniel Báez",
@@ -39,94 +38,5 @@
     "Développeur Cloud Professionnel": {
       "issuer": "Google Cloud"
     }
-  },
-  "skills": {
-    "Technologies Core": [
-      {
-        "name": "Amazon Web Services (AWS)"
-      },
-      {
-        "name": "IoT"
-      },
-      {
-        "name": "Microservices"
-      },
-      {
-        "name": "Google Cloud Platform (GCP)"
-      }
-    ],
-    "Langages de Programmation": [
-      {
-        "name": "Java"
-      },
-      {
-        "name": "JavaScript"
-      },
-      {
-        "name": "Go"
-      },
-      {
-        "name": "C"
-      },
-      {
-        "name": "PHP"
-      },
-      {
-        "name": "TypeScript"
-      },
-      {
-        "name": "Ruby"
-      },
-      {
-        "name": "Clojure(Script)"
-      },
-      {
-        "name": "Python"
-      },
-      {
-        "name": "Shell Scripting"
-      }
-    ],
-    "Frameworks & Outils": [
-      {
-        "name": "J2EE"
-      },
-      {
-        "name": "Rails"
-      },
-      {
-        "name": "Node.js"
-      },
-      {
-        "name": "Laravel/CodeIgniter"
-      },
-      {
-        "name": "React"
-      },
-      {
-        "name": "MongoDB"
-      },
-      {
-        "name": "Redis"
-      },
-      {
-        "name": "SQL"
-      },
-      {
-        "name": "Kafka"
-      },
-      {
-        "name": "RabbitMQ"
-      },
-      {
-        "name": "Memcached"
-      },
-      {
-        "name": "Terraform"
-      },
-      {
-        "name": "Kubernetes"
-      }
-    ]
   }
 }

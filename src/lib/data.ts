@@ -2,15 +2,44 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Language } from "@/constants/i18n";
-import { ProfileData } from "@/types/portfolio";
+import { ProfileData, Skill } from "@/types/portfolio";
 
 export const getDataPath = (lang: Language) => {
   return path.join(process.cwd(), "src/data", lang.code);
 };
 
 export const getProfileData = (lang: Language): ProfileData => {
+  // Load the language-specific profile data
   const profilePath = path.join(getDataPath(lang), "profile.json");
   const profileData = JSON.parse(fs.readFileSync(profilePath, "utf8"));
+  
+  // Load the language-agnostic skills data
+  const skillsPath = path.join(process.cwd(), "src/data", "skills.json");
+  const skillsData = JSON.parse(fs.readFileSync(skillsPath, "utf8"));
+  
+  // Transform skills data into the expected format for the profile
+  const skills: { [key: string]: Skill[] } = {};
+  
+  // Type assertion for the skills data structure
+  type SkillCategory = {
+    name: { [langCode: string]: string };
+    skills: string[];
+  };
+  
+  Object.entries(skillsData.categories).forEach((entry) => {
+    const category = entry[1] as SkillCategory;
+    // Use the translated category name for the current language
+    const categoryName = category.name[lang.code] || category.name['en']; // Fallback to English
+    
+    // Convert skill strings to skill objects
+    skills[categoryName] = category.skills.map((skillName) => ({
+      name: skillName
+    }));
+  });
+  
+  // Replace the skills in the profile data with our transformed skills
+  profileData.skills = skills;
+  
   return profileData;
 };
 
