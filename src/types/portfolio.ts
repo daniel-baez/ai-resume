@@ -19,6 +19,10 @@ export interface EducationEntry {
 export interface LanguageEntry {
   name: string;
   level: string;
+  certification?: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface SkillCategory {

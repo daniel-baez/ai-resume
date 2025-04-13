@@ -25,7 +25,11 @@
     },
     {
       "name": "Francés",
-      "level": "Intermedio"
+      "level": "Intermedio",
+      "certification": {
+        "name": "DELF B2",
+        "url": "/certificates/french-b2.pdf"
+      }
     }
   ],
   "certifications": {

@@ -277,7 +277,12 @@ export const PDFResume = ({
           <View style={styles.languagesContainer}>
             {profileData.languages.map((language, index) => (
               <Text key={index} style={styles.languageItem}>
-                {language.name}: {language.level}
+                {language.name}: {language.level} {language.certification && (
+                  <>
+                    &nbsp;|&nbsp;
+                    <Link src={language.certification.url} style={styles.languageItem}>{language.certification.name}</Link>
+                  </>
+                )}
               </Text>
             ))}
           </View>

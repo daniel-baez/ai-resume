@@ -34,14 +34,24 @@ export function Education({ educationEntries, certifications, languages, current
                 <div className="flex flex-wrap gap-2">
               {languages.map((language, index) => {
                 const color = getNextColor();
-                return (
-                <Badge
-                  key={index}
-                  variant="secondary"
-                  className={`${color.color} ${color.textColor} ${color.hoverColor}`}
-              >
-                {language.name} | {language.level}
-                </Badge>
+                return language.certification ? (
+                  <a href={language.certification.url} target="_blank">
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className={`${color.color} ${color.textColor} ${color.hoverColor} cursor-pointer`}
+                    >
+                      {language.name}&nbsp;|&nbsp;{language.level}&nbsp;|&nbsp;{language.certification.name}
+                    </Badge>
+                  </a>
+                ) : (
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className={`${color.color} ${color.textColor} ${color.hoverColor}`}
+                  >
+                    {language.name}&nbsp;|&nbsp;{language.level}
+                  </Badge>
                 );
               })}
             </div>

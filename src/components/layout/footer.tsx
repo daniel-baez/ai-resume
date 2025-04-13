@@ -2,7 +2,7 @@
 "use client"
 
 import Link from "next/link"
-import { Linkedin, Twitter, Github } from "lucide-react"
+import { Linkedin, Github } from "lucide-react"
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 
 export function Footer() {
@@ -29,17 +29,6 @@ export function Footer() {
           >
             <Linkedin className="h-6 w-6" />
             <span className="sr-only">LinkedIn</span>
-          </Link>
-
-          <Link
-            href="https://twitter.com/daplay"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => handleSocialClick('twitter')}
-            className="text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <Twitter className="h-6 w-6" />
-            <span className="sr-only">Twitter</span>
           </Link>
 
           <Link
