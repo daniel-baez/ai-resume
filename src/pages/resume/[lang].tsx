@@ -1,23 +1,12 @@
 // src/pages/resume/[lang].tsx
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { renderToBuffer } from '@react-pdf/renderer';
+import { GetServerSideProps } from 'next';
+import { renderToStream } from '@react-pdf/renderer';
 import { PDFResume } from '@/components/PDFResume';
 import { getProfileData, getSummaryData, getExperienceEntries } from "@/lib/data";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
-import fs from 'fs';
-import path from 'path';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: Object.values(AVAILABLE_LANGUAGES).map((lang) => ({
-      params: { lang: lang.code },
-    })),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { lang } = params as { lang: string };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { lang } = context.params as { lang: string };
   const language = AVAILABLE_LANGUAGES[lang as keyof typeof AVAILABLE_LANGUAGES] || AVAILABLE_LANGUAGES['en'];
 
   try {
@@ -27,7 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const experienceEntries = getExperienceEntries(language, true);
 
     // Create PDF
-    const pdfBuffer = await renderToBuffer(
+    const pdfStream = await renderToStream(
       PDFResume({
         profileData,
         summaryContent,
@@ -36,43 +25,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       })
     );
 
-    // Ensure the public/pdfs directory exists
-    const pdfDir = path.join(process.cwd(), 'public', 'pdfs');
-    if (!fs.existsSync(pdfDir)) {
-      fs.mkdirSync(pdfDir, { recursive: true });
+    // Convert stream to Uint8Array
+    const chunks: Buffer[] = [];
+    for await (const chunk of pdfStream) {
+      chunks.push(Buffer.from(chunk));
     }
+    const pdfBuffer = Buffer.concat(chunks);
 
-    // Write PDF to public directory
-    const pdfPath = path.join(pdfDir, `resume-${language.code}.pdf`);
-    fs.writeFileSync(pdfPath, pdfBuffer);
+    // Return the PDF as a response
+    context.res.setHeader('Content-Type', 'application/pdf');
+    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}-${new Date().toISOString().split('T')[0]}.pdf"`);
+    context.res.end(pdfBuffer);
 
-    // Return minimal props as we're generating a static file
-    return {
-      props: {
-        pdfFileName: `daniel-baez-resume-${language.code}.pdf`,
-        languageCode: language.code
-      },
-    };
+    return { props: {} };
   } catch (error) {
     console.error('PDF generation error:', error);
     return { notFound: true };
   }
 };
 
-const ResumePage = ({ pdfFileName, languageCode }: { pdfFileName: string, languageCode: string }) => {
-  // Client-side redirect to the generated PDF
-  if (typeof window !== 'undefined') {
-    window.location.href = `/pdfs/${pdfFileName}`;
-    return null;
-  }
-
-  // Return minimal markup for SEO
-  return (
-    <div>
-      <p>Redirecting to resume in {languageCode}...</p>
-      <a href={`/pdfs/${pdfFileName}`}>Click here if not redirected</a>
-    </div>
-  );
-};
+const ResumePage = () => null; // This page doesn't render anything on the client
 
 export default ResumePage;
