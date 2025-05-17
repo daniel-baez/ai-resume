@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build:original": "next build",
-    "build": "next build && npm run generate-pdfs",
+    "build": "npm run clean && npm run generate-pdfs && npm run build:original",
     "start": "next start",
     "lint": "next lint",
-    "generate-pdfs": "npx ts-node --project scripts/tsconfig.json scripts/generate-pdfs.ts"
+    "generate-pdfs": "npx ts-node --project scripts/tsconfig.json scripts/generate-pdfs.ts",
+    "clean": "rm -rf public/pdfs/*.pdf"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",

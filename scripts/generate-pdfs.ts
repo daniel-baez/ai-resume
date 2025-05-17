@@ -1,24 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const { IncomingMessage, ServerResponse } = require('http');
+const supertest = require('supertest');
 const { NextServer } = require('next/dist/server/next');
 
 const LANGS = ['en', 'es', 'fr', 'de'];
-const PORT = 3333;
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'pdfs');
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-async function generatePDF(lang: string) {
-  const url = `http://localhost:${PORT}/resume/${lang}`;
+async function generatePDF(request: any, lang: string) {
+  const res = await request.get(`/resume/${lang}`).buffer();
+  if (res.status !== 200) throw new Error(`Erreur lors de la génération du PDF pour ${lang}`);
   const outPath = path.join(OUTPUT_DIR, `resume-${lang}.pdf`);
-  const res = await globalThis.fetch(url);
-  if (!res.ok) throw new Error(`Erreur lors de la génération du PDF pour ${lang}`);
-  const buffer = Buffer.from(await res.arrayBuffer());
-  fs.writeFileSync(outPath, buffer);
+  fs.writeFileSync(outPath, res.body);
   if (fs.statSync(outPath).size < 1000) throw new Error(`PDF ${outPath} trop petit, échec probable.`);
   console.log(`PDF généré: ${outPath}`);
 }
@@ -29,14 +26,14 @@ async function generatePDF(lang: string) {
   const app = next({ dev: false, dir: process.cwd() });
   await app.prepare();
   const handle = app.getRequestHandler();
-  const server = http.createServer((req: InstanceType<typeof IncomingMessage>, res: InstanceType<typeof ServerResponse>) => handle(req, res));
-  await new Promise<void>(resolve => server.listen(PORT, resolve));
-  console.log(`Next.js lancé sur http://localhost:${PORT}`);
+  const server = http.createServer((req: InstanceType<typeof http.IncomingMessage>, res: InstanceType<typeof http.ServerResponse>) => handle(req, res));
+  const request = supertest(server);
+  console.log('Next.js prêt (in-memory)');
 
   try {
     for (const lang of LANGS) {
       try {
-        await generatePDF(lang);
+        await generatePDF(request, lang);
       } catch (e) {
         console.error(e);
       }
