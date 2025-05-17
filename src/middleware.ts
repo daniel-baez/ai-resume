@@ -52,6 +52,11 @@ function isRateLimited(ip: string): boolean {
 }
 
 export function middleware(request: NextRequest) {
+  // Skip middleware for PDF generation routes
+  if (request.nextUrl.pathname.startsWith('/resume/')) {
+    return NextResponse.next()
+  }
+
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
   if (isRateLimited(ip)) {
     return new NextResponse('Too many requests', { status: 429 })
@@ -88,5 +93,14 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/resume/:lang*'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - resume (PDF generation)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!resume|_next/static|_next/image|favicon.ico).*)',
+  ],
 } 

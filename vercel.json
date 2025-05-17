@@ -2,8 +2,12 @@
   "installCommand": "npm install --legacy-peer-deps",
   "headers": [
     {
-      "source": "/pdfs/(.*)",
+      "source": "/resume/(.*)",
       "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
         {
           "key": "Cache-Control",
           "value": "public, max-age=86400, stale-while-revalidate=604800"
