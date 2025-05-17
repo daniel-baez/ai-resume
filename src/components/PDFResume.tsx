@@ -1,28 +1,9 @@
-import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
+import React from 'react';
+import { Document, Page, Text, View, StyleSheet, Link } from '@react-pdf/renderer';
 import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
 import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
-import path from 'path';
 import ReactMarkdown from 'react-markdown';
-
-// Register fonts
-Font.register({
-  family: 'Roboto',
-  fonts: [
-    { src: path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf') },
-    { src: path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), fontWeight: 700 },
-    { src: path.join(process.cwd(), 'public/fonts/Roboto-Italic.ttf'), fontStyle: 'italic' },
-  ],
-});
-
-Font.register({
-  family: 'Playfair Display',
-  fonts: [
-    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Regular.ttf') },
-    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Bold.ttf'), fontWeight: 700 },
-    { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Italic.ttf'), fontStyle: 'italic' },
-  ],
-});
 
 // Define a refined color scheme
 const colors = {
@@ -243,11 +224,11 @@ export const PDFResume = ({
                     <Link src={href} style={styles.linkText}>{children}</Link>
                   ),
                   p: ({children}) => (
-                    <Text style={styles.jobDescription}>{children}</Text>
+                    <Text style={styles.jobDescription}>{Array.isArray(children) ? children.join('') : children}</Text>
                   ),
                 }}
               >
-                {exp.content}
+                {exp.content.replace(/\n/g, ' ')}
               </ReactMarkdown>
             </View>
           ))}
