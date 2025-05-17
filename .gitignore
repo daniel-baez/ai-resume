@@ -47,6 +47,9 @@ yarn-error.log*
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 
+# Generated PDFs
+public/pdfs/
+
 # Firebase
 .firebase/
 firebase-debug.log
@@ -117,3 +120,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# Prompt files
+*.prompt.md
