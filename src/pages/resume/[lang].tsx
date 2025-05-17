@@ -1,11 +1,24 @@
 // src/pages/resume/[lang].tsx
-import { GetServerSideProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { renderToStream } from '@react-pdf/renderer';
 import { PDFResume } from '@/components/PDFResume';
 import { getProfileData, getSummaryData, getExperienceEntries } from "@/lib/data";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
+import fs from 'fs';
+import path from 'path';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = Object.keys(AVAILABLE_LANGUAGES).map((lang) => ({
+    params: { lang },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const { lang } = context.params as { lang: string };
   const language = AVAILABLE_LANGUAGES[lang as keyof typeof AVAILABLE_LANGUAGES] || AVAILABLE_LANGUAGES['en'];
 
@@ -32,18 +45,40 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     const pdfBuffer = Buffer.concat(chunks);
 
-    // Return the PDF as a response
-    context.res.setHeader('Content-Type', 'application/pdf');
-    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}-${new Date().toISOString().split('T')[0]}.pdf"`);
-    context.res.end(pdfBuffer);
+    // Ensure the static directory exists
+    const staticDir = path.join(process.cwd(), '.next/static/pdfs');
+    if (!fs.existsSync(staticDir)) {
+      fs.mkdirSync(staticDir, { recursive: true });
+    }
 
-    return { props: {} };
+    // Save the PDF file
+    const fileName = `resume-daniel-baez-${language.code}.pdf`;
+    const filePath = path.join(staticDir, fileName);
+    fs.writeFileSync(filePath, pdfBuffer);
+
+    return {
+      props: {
+        pdfUrl: `/static/pdfs/${fileName}`,
+      },
+      // Revalidate every 24 hours
+      revalidate: 86400,
+    };
   } catch (error) {
-    console.error('PDF generation error:', error);
-    return { notFound: true };
+    console.error('Error generating PDF:', error);
+    return {
+      notFound: true,
+    };
   }
 };
 
-const ResumePage = () => null; // This page doesn't render anything on the client
-
-export default ResumePage;
+export default function ResumePDF({ pdfUrl }: { pdfUrl: string }) {
+  return (
+    <div style={{ width: '100%', height: '100vh' }}>
+      <iframe
+        src={pdfUrl}
+        style={{ width: '100%', height: '100%', border: 'none' }}
+        title="Resume PDF"
+      />
+    </div>
+  );
+}

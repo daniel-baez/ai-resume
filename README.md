@@ -69,12 +69,14 @@ pdf: {{INCLUDED_IN_PDF}} # Whether the experience is included in the PDF version
 run the development server:
 
 ```bash
+npm install --legacy-peer-deps
 npm run dev
 ```
 
 ## Build
 
 ```bash
+npm install --legacy-peer-deps
 npm run build
 ```
 
