@@ -101,8 +101,8 @@ export function Header({
       category: 'engagement',
       label: 'download_resume'
     });
-    // Use the correct path without Next.js parameters
-    window.open(`/resume/${currentLang.code}`, '_blank', 'noopener,noreferrer');
+    // Use the static PDF route directly
+    window.open(`/pdf/${currentLang.code}`, '_blank', 'noopener,noreferrer');
   };
 
   // For calendly meeting
@@ -161,7 +161,7 @@ export function Header({
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={handleContactOpen} currentLang={currentLang} />
               <Link 
-                href={`/resume/${currentLang.code}`} 
+                href={`/pdf/${currentLang.code}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}

@@ -2,7 +2,7 @@
   "installCommand": "npm install --legacy-peer-deps",
   "headers": [
     {
-      "source": "/static/pdfs/(.*)",
+      "source": "/pdfs/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

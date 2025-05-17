@@ -3,7 +3,6 @@ import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
 import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
 import path from 'path';
-import ReactMarkdown from 'react-markdown';
 
 // Register fonts
 Font.register({
@@ -52,11 +51,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     color: colors.text,
   },
+  container: {
+    flex: 1,
+    // Continuous scroll document has no page breaks
+  },
   headerSection: {
     marginBottom: 20,
     backgroundColor: colors.primary,
     padding: 20,
     color: 'white',
+    borderRadius: 8, // Rounded corners for more modern look
   },
   name: {
     fontFamily: 'Playfair Display',
@@ -158,13 +162,12 @@ const styles = StyleSheet.create({
     color: colors.lightText,
   },
   footer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 50,
-    right: 50,
+    marginTop: 30,
     textAlign: 'center',
     fontSize: fontSizes.sm,
     color: colors.lightText,
+    paddingTop: 10,
+    borderTop: `1 solid ${colors.border}`,
   },
   languagesContainer: {
     marginBottom: 15,
@@ -186,6 +189,12 @@ const styles = StyleSheet.create({
   certificationDetails: {
     fontSize: fontSizes.sm,
     color: colors.lightText,
+  },
+  // New section divider for continuous document
+  sectionDivider: {
+    marginTop: 30,
+    marginBottom: 30,
+    borderBottom: `1 dashed ${colors.border}`,
   },
 });
 
@@ -210,101 +219,112 @@ export const PDFResume = ({
 
   return (
     <Document>
-      <Page size="LETTER" style={styles.page}>
-        <View style={styles.headerSection}>
-          <Text style={styles.name}>Daniel Baez</Text>
-          <Text style={styles.title}>{t.pdf.title} | {t.pdf.subtitle}</Text>
-          <Text style={styles.location}>{profileData.info.location}</Text>
-          <View style={styles.links}>
-            <Text>
-              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
-              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
-              <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.sectionTitle}>{t.pdf.sections.summary}</Text>
-          <Text style={styles.summaryParagraph}>{summaryContent}</Text>
-        </View>
-
-        <View>
-          <Text style={styles.sectionTitle}>{t.pdf.sections.experience}</Text>
-          {experienceEntries.map((exp: ExperienceEntry, index: number) => (
-            <View key={index} style={styles.experienceEntry}>
-              <Text style={styles.jobTitle}>{exp.title} at {exp.company}</Text>
-              <View style={styles.jobDetails}>
-                <Text>{exp.location}</Text>
-                <Text>{exp.period}</Text>
-              </View>
-              <ReactMarkdown
-                components={{
-                  a: ({href, children}) => (
-                    <Link src={href} style={styles.linkText}>{children}</Link>
-                  ),
-                  p: ({children}) => (
-                    <Text style={styles.jobDescription}>{children}</Text>
-                  ),
-                }}
-              >
-                {exp.content}
-              </ReactMarkdown>
-            </View>
-          ))}
-        </View>
-        <View>
-          <Text style={styles.sectionTitle}>{t.pdf.sections.education}</Text>
-          {profileData.education.map((edu: EducationEntry, index: number) => (
-            <View key={index} style={styles.educationEntry}>
-              <Text style={styles.educationTitle}>{edu.title}</Text>
-              <Text style={styles.educationDetails}>{edu.institution} | {edu.period}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View>
-          <Text style={styles.sectionTitle}>{t.sections.certifications}</Text>
-          {Object.entries(profileData.certifications).map(([name, details], index) => (
-            <View key={index} style={styles.certificationEntry}>
-              <Text style={styles.certificationTitle}>{name}</Text>
-              <Text style={styles.certificationDetails}>{details.issuer}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View>
-          <Text style={styles.sectionTitle}>{t.sections.languages}</Text>
-          <View style={styles.languagesContainer}>
-            {profileData.languages.map((language, index) => (
-              <Text key={index} style={styles.languageItem}>
-                {language.name}: {language.level} {language.certification && (
-                  <>
-                    &nbsp;|&nbsp;
-                    <Link src={language.certification.url} style={styles.languageItem}>{language.certification.name}</Link>
-                  </>
-                )}
+      {/* Use a custom page with auto-height */}
+      <Page size={[595.28, 'auto']} style={styles.page} wrap={false}>
+        <View style={styles.container}>
+          {/* Header Section */}
+          <View style={styles.headerSection}>
+            <Text style={styles.name}>Daniel Baez</Text>
+            <Text style={styles.title}>{t.pdf.title} | {t.pdf.subtitle}</Text>
+            <Text style={styles.location}>{profileData.info.location}</Text>
+            <View style={styles.links}>
+              <Text>
+                <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link>
+                <Text> | </Text>
+                <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link>
+                <Text> | </Text>
+                <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
               </Text>
+            </View>
+          </View>
+
+          {/* Summary Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.pdf.sections.summary}</Text>
+            <Text style={styles.summaryParagraph}>{summaryContent}</Text>
+          </View>
+
+          {/* Experience Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.pdf.sections.experience}</Text>
+            {experienceEntries.map((exp: ExperienceEntry, index: number) => (
+              <View key={index} style={styles.experienceEntry}>
+                <Text style={styles.jobTitle}>{exp.title} at {exp.company}</Text>
+                <View style={styles.jobDetails}>
+                  <Text>{exp.location}</Text>
+                  <Text>{exp.period}</Text>
+                </View>
+                <Text style={styles.jobDescription}>
+                  {/* Convert markdown to plain text */}
+                  {exp.content.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\n/g, ' ')}
+                </Text>
+              </View>
             ))}
           </View>
-        </View>
-        <View>
-          <Text style={styles.sectionTitle}>{t.pdf.sections.technicalSkills}</Text>
-          {Object.entries(profileData.skills).map(([category, skills]: [string, Skill[]], index: number) => (
-            <View key={index} style={{ marginBottom: 15 }}>
-              <Text style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, color: colors.secondary }}>
-                {category}
-              </Text>
-              <View style={styles.skillsContainer}>
-                {skills.map((skill: Skill, idx: number) => (
-                  <Text key={idx} style={styles.badge}>
-                    {skill.name}
-                  </Text>
-                ))}
+
+          {/* Education Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.pdf.sections.education}</Text>
+            {profileData.education.map((edu: EducationEntry, index: number) => (
+              <View key={index} style={styles.educationEntry}>
+                <Text style={styles.educationTitle}>{edu.title}</Text>
+                <Text style={styles.educationDetails}>{edu.institution} | {edu.period}</Text>
               </View>
+            ))}
+          </View>
+
+          {/* Certifications Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.sections.certifications}</Text>
+            {Object.entries(profileData.certifications).map(([name, details], index) => (
+              <View key={index} style={styles.certificationEntry}>
+                <Text style={styles.certificationTitle}>{name}</Text>
+                <Text style={styles.certificationDetails}>{details.issuer}</Text>
+              </View>
+            ))}
+          </View>
+
+          {/* Languages Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.sections.languages}</Text>
+            <View style={styles.languagesContainer}>
+              {profileData.languages.map((language, index) => (
+                <Text key={index} style={styles.languageItem}>
+                  {language.name}: {language.level} {language.certification && (
+                    <>
+                      &nbsp;|&nbsp;
+                      <Link src={language.certification.url} style={styles.languageItem}>{language.certification.name}</Link>
+                    </>
+                  )}
+                </Text>
+              ))}
             </View>
-          ))}
+          </View>
+
+          {/* Technical Skills Section */}
+          <View>
+            <Text style={styles.sectionTitle}>{t.pdf.sections.technicalSkills}</Text>
+            {Object.entries(profileData.skills).map(([category, skills]: [string, Skill[]], index: number) => (
+              <View key={index} style={{ marginBottom: 15 }}>
+                <Text style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, color: colors.secondary }}>
+                  {category}
+                </Text>
+                <View style={styles.skillsContainer}>
+                  {skills.map((skill: Skill, idx: number) => (
+                    <Text key={idx} style={styles.badge}>
+                      {skill.name}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            ))}
+          </View>
+
+          {/* Footer - now a regular element at end of document instead of absolute positioning */}
+          <View style={styles.footer}>
+            <Text>Daniel Baez | Software Engineer | {profileData.info.location}</Text>
+          </View>
         </View>
-        <Text style={styles.footer}>Daniel Baez | Software Engineer | {profileData.info.location}</Text>
       </Page>
     </Document>
   );
