@@ -1,4 +1,6 @@
 // src/pages/resume/[lang].tsx
+import fs from 'fs';
+import path from 'path';
 import { GetServerSideProps } from 'next';
 import { renderToStream } from '@react-pdf/renderer';
 import { PDFResume } from '@/components/PDFResume';
@@ -8,6 +10,16 @@ import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { lang } = context.params as { lang: string };
   const language = AVAILABLE_LANGUAGES[lang as keyof typeof AVAILABLE_LANGUAGES] || AVAILABLE_LANGUAGES['en'];
+
+  // Vérifier si le PDF statique existe
+  const staticPath = path.join(process.cwd(), 'public', 'pdfs', `resume-${language.code}.pdf`);
+  if (fs.existsSync(staticPath)) {
+    const pdfBuffer = fs.readFileSync(staticPath);
+    context.res.setHeader('Content-Type', 'application/pdf');
+    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}.pdf"`);
+    context.res.end(pdfBuffer);
+    return { props: {} };
+  }
 
   try {
     // Get data
@@ -25,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       })
     );
 
-    // Convert stream to Uint8Array
+    // Convert stream to Buffer
     const chunks: Buffer[] = [];
     for await (const chunk of pdfStream) {
       chunks.push(Buffer.from(chunk));
@@ -34,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     // Return the PDF as a response
     context.res.setHeader('Content-Type', 'application/pdf');
-    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}-${new Date().toISOString().split('T')[0]}.pdf"`);
+    context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language.code}.pdf"`);
     context.res.end(pdfBuffer);
 
     return { props: {} };
