@@ -3,11 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { GetServerSideProps } from 'next';
 import { generatePDFBuffer } from '@/lib/pdf';
-import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { lang } = context.params as { lang: string };
-  // const language = AVAILABLE_LANGUAGES[lang as keyof typeof AVAILABLE_LANGUAGES] || AVAILABLE_LANGUAGES['en'];
   const language = lang || 'en'; // Default to English if no language is provided
 
   // Vérifier si le PDF statique existe

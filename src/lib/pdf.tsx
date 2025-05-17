@@ -1,9 +1,8 @@
 import React from 'react';
 import { PDFResume } from '@/components/PDFResume';
-import { renderToStream } from '@react-pdf/renderer';
-import { getLanguageByCode, Language } from '@/constants/i18n';
+import { renderToStream, Document } from '@react-pdf/renderer';
+import { getLanguageByCode } from '@/constants/i18n';
 import { getProfileData, getSummaryData, getExperienceEntries } from './data';
-import { get } from 'http';
 
 export async function generatePDFBuffer(language_code: string): Promise<Buffer> {
   const language = getLanguageByCode(language_code);
@@ -16,14 +15,16 @@ export async function generatePDFBuffer(language_code: string): Promise<Buffer> 
   const summaryContent = getSummaryData(language);
   const experienceEntries = getExperienceEntries(language, true);
 
-  // Create PDF with explicit React.createElement
+  // Create PDF by wrapping PDFResume in a Document
   const pdfStream = await renderToStream(
-    React.createElement(PDFResume, {
-      profileData,
-      summaryContent,
-      experienceEntries,
-      currentLang: language
-    })
+    <Document>
+      <PDFResume
+        profileData={profileData}
+        summaryContent={summaryContent}
+        experienceEntries={experienceEntries}
+        currentLang={language}
+      />
+    </Document>
   );
 
   // Convert stream to Buffer
