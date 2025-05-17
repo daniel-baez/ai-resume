@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { generatePDFBuffer } from '../src/lib/pdf';
-import { Language } from '../src/constants/i18n';
 import { AVAILABLE_LANGUAGES } from '../src/constants/i18n';
 
 const LANGS: string[] = Object.keys(AVAILABLE_LANGUAGES)
