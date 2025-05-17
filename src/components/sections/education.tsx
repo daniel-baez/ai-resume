@@ -35,9 +35,8 @@ export function Education({ educationEntries, certifications, languages, current
               {languages.map((language, index) => {
                 const color = getNextColor();
                 return language.certification ? (
-                  <a href={language.certification.url} target="_blank">
+                  <a href={language.certification.url} target="_blank" key={index}>
                     <Badge
-                      key={index}
                       variant="secondary"
                       className={`${color.color} ${color.textColor} ${color.hoverColor} cursor-pointer`}
                     >
