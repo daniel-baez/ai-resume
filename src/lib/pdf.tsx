@@ -1,6 +1,6 @@
 import React from 'react';
 import { PDFResume } from '@/components/PDFResume';
-import { renderToStream, Document } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import { getLanguageByCode } from '@/constants/i18n';
 import { getProfileData, getSummaryData, getExperienceEntries } from './data';
 
@@ -15,22 +15,22 @@ export async function generatePDFBuffer(language_code: string): Promise<Buffer> 
   const summaryContent = getSummaryData(language);
   const experienceEntries = getExperienceEntries(language, true);
 
-  // Create PDF by wrapping PDFResume in a Document
-  const pdfStream = await renderToStream(
-    <Document>
+  // Create PDF using the pdf utility
+  try {
+    const doc = (
       <PDFResume
         profileData={profileData}
         summaryContent={summaryContent}
         experienceEntries={experienceEntries}
         currentLang={language}
       />
-    </Document>
-  );
+    );
 
-  // Convert stream to Buffer
-  const chunks: Buffer[] = [];
-  for await (const chunk of pdfStream) {
-    chunks.push(Buffer.from(chunk));
+    const pdfBytes = await pdf(doc).toBlob();
+    const arrayBuffer = await pdfBytes.arrayBuffer();
+    return Buffer.from(arrayBuffer);
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    throw error;
   }
-  return Buffer.concat(chunks);
 }
