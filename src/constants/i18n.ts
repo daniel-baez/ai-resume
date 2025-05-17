@@ -4,7 +4,6 @@ export type Language = {
     code: string;
 }
 
-
 export const AVAILABLE_LANGUAGES: { [key: string]: Language } = {
     "en": {
         "name": "English",
@@ -21,4 +20,8 @@ export const AVAILABLE_LANGUAGES: { [key: string]: Language } = {
         "flag": "/flags/fr.svg",
         "code": "fr"
     }
+}
+
+export const getLanguageByCode = (code: string): Language | undefined => {
+    return AVAILABLE_LANGUAGES[code];
 }

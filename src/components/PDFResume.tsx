@@ -1,3 +1,4 @@
+import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
