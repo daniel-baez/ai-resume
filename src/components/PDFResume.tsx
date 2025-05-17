@@ -12,6 +12,7 @@ Font.register({
     { src: path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), fontWeight: 700 },
     { src: path.join(process.cwd(), 'public/fonts/Roboto-Italic.ttf'), fontStyle: 'italic' },
   ],
+  debug: false
 });
 
 Font.register({
@@ -21,6 +22,7 @@ Font.register({
     { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Bold.ttf'), fontWeight: 700 },
     { src: path.join(process.cwd(), 'public/fonts/PlayfairDisplay-Italic.ttf'), fontStyle: 'italic' },
   ],
+  debug: false
 });
 
 // Define a refined color scheme
