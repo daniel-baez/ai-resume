@@ -7,10 +7,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { lang } = context.params as { lang: string };
   const language = lang || 'en'; // Default to English if no language is provided
 
-  console.log(`Generating PDF for language: ${language}`);
-
   // Vérifier si le PDF statique existe
   const staticPath = path.join(process.cwd(), 'public', 'pdfs', `resume-${language}.pdf`);
+
   if (fs.existsSync(staticPath)) {
     const pdfBuffer = fs.readFileSync(staticPath);
     context.res.setHeader('Content-Type', 'application/pdf');

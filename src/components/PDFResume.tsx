@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: fontSizes.sm,
     lineHeight: 1.5,
+    minHeight: '100%',
     backgroundColor: colors.background,
     color: colors.text,
   },
@@ -159,13 +160,11 @@ const styles = StyleSheet.create({
     color: colors.lightText,
   },
   footer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 50,
-    right: 50,
+    marginTop: 30,
     textAlign: 'center',
     fontSize: fontSizes.sm,
     color: colors.lightText,
+    paddingBottom: 20,
   },
   languagesContainer: {
     marginBottom: 15,
@@ -211,7 +210,7 @@ export const PDFResume = ({
 
   return (
     <Document>
-      <Page size="LETTER" style={styles.page}>
+      <Page size={[595.276, 'auto']} style={styles.page}>
         <View style={styles.headerSection}>
           <Text style={styles.name}>Daniel Baez</Text>
           <Text style={styles.title}>{t.pdf.title} | {t.pdf.subtitle}</Text>
