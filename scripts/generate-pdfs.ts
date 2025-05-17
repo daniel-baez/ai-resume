@@ -21,6 +21,10 @@ async function generatePDF(request: any, lang: string) {
 }
 
 (async () => {
+  // Build Next.js programmatically before starting the server
+  console.log('Running Next.js build...');
+  await require('next/dist/build').default(process.cwd(), null, false, false, false);
+
   // Démarre Next.js programmatique
   const next = require('next');
   const app = next({ dev: false, dir: process.cwd() });
