@@ -1,11 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "es2020",
+    "module": "commonjs",
     "target": "es2020",
     "esModuleInterop": true,
     "outDir": "../dist-scripts",
-    "rootDir": "."
+    "rootDir": "..",
+    "types": ["jest", "node"]
   },
-  "include": ["*.ts"]
+  "include": [
+    ".",
+    "../src/**/*"
+  ]
 }

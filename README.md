@@ -81,3 +81,51 @@ npm run build
 ## To deploy production
 
 Simply push to the main branch and the deployment will be triggered.
+
+## Testing
+
+The project includes both unit tests and smoke tests. The test suite is configured with Jest and runs in different environments based on the test type:
+
+- Unit tests (`/tests/unit`): Uses jsdom environment for testing React components and utilities
+- Smoke tests (`/tests/smoke`): Uses node environment for testing PDF generation and other system-level functionality
+
+### Running Tests
+
+Run all tests:
+```bash
+npm test
+```
+
+Run unit tests only:
+```bash
+npm run test:unit
+```
+
+Run smoke tests only:
+```bash
+npm run test:smoke
+```
+
+Run tests in watch mode during development:
+```bash
+npm run test:watch
+```
+
+Run tests in CI mode:
+```bash
+npm run test:ci
+```
+
+### Test Structure
+
+- Unit tests focus on individual components and functions
+  - Located in `/tests/unit/`
+  - Test React components, utilities, and business logic
+  - Uses mocks for external dependencies
+  
+- Smoke tests verify end-to-end functionality
+  - Located in `/tests/smoke/`
+  - Test PDF generation for all supported languages
+  - Verify file generation, size, and performance
+  - Run against the actual file system
+
