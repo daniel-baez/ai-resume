@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "generate-pdfs": "npx tsx scripts/generate-pdfs.tsx",
-    "clean": "rm -rf public/pdfs/*.pdf"
+    "clean": "rm -rf public/pdfs/*.pdf",
+    "test": "NODE_ENV=test tsx --test tests/integration/**/*.test.tsx",
+    "test:watch": "NODE_ENV=test tsx --watch --test tests/integration/**/*.test.tsx"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
@@ -17,7 +19,6 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.4",
     "@react-pdf/renderer": "^4.1.6",
-    "@shadcn/ui": "^0.0.4",
     "@vercel/analytics": "^1.5.0",
     "@vercel/edge": "^1.1.4",
     "@vercel/speed-insights": "^1.2.0",
@@ -29,27 +30,30 @@
     "libphonenumber-js": "^1.11.17",
     "lucide-react": "^0.456.0",
     "next": "15.0.3",
+    "pdf-lib": "^1.17.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-markdown": "^9.0.1",
     "react-phone-input-2": "^2.15.1",
     "resend": "^4.0.1",
-    "supertest": "^7.1.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "validator": "^13.12.0"
   },
   "devDependencies": {
     "@types/node": "^20.17.47",
+    "@types/pdfjs-dist": "^2.10.378",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/validator": "^13.12.2",
+    "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "node-fetch": "^3.3.2",
+    "pdfjs-dist": "^3.11.174",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
     "typescript": "^5"
   }
 }
