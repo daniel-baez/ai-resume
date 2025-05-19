@@ -213,7 +213,7 @@ export const PDFResume = ({
       <Page size={[595.276, 'auto']} style={styles.page}>
         <View style={styles.headerSection}>
           <Text style={styles.name}>Daniel Baez</Text>
-          <Text style={styles.title}>{t.pdf.title} | {t.pdf.subtitle}</Text>
+          <Text style={styles.title}>{profileData.info.title} | {profileData.info.subtitle}</Text>
           <Text style={styles.location}>{profileData.info.location}</Text>
           <View style={styles.links}>
             <Text>
