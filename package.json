@@ -41,6 +41,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@types/next": "^9.0.0",
     "@types/node": "^20.17.47",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/react": "^18",

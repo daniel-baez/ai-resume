@@ -31,44 +31,47 @@ export function Education({ educationEntries, certifications, languages, current
 
         <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-3">{t.sections.languages}</h3>
-                <div className="flex flex-wrap gap-2">
-              {languages.map((language, index) => {
-                const color = getNextColor();
-                return language.certification ? (
-                  <a href={language.certification.url} target="_blank" key={index}>
-                    <Badge
-                      variant="secondary"
-                      className={`${color.color} ${color.textColor} ${color.hoverColor} cursor-pointer`}
-                    >
-                      {language.name}&nbsp;|&nbsp;{language.level}&nbsp;|&nbsp;{language.certification.name}
-                    </Badge>
-                  </a>
-                ) : (
+          <div className="flex flex-col gap-2">
+            {languages.map((language, index) => {
+              const color = getNextColor();
+              return (
+                <div key={index} className="flex items-center gap-2">
                   <Badge
-                    key={index}
                     variant="secondary"
                     className={`${color.color} ${color.textColor} ${color.hoverColor}`}
                   >
                     {language.name}&nbsp;|&nbsp;{language.level}
                   </Badge>
-                );
-              })}
-            </div>
+                  {language.certification && (
+                    <a 
+                      href={language.certification.url} 
+                      target="_blank" 
+                      className="text-blue-600 hover:underline text-sm ml-1"
+                    >
+                      {language.certification.name}
+                    </a>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
         
         <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-3">{t.sections.certifications}</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2">
             {Object.entries(certifications).map(([certName, cert], index) => {
               const color = getNextColor();
               return (
+                <div key={index} className="flex items-center gap-2">
                 <Badge
                   key={index}
                   variant="secondary"
                   className={`${color.color} ${color.textColor} ${color.hoverColor}`}
-              >
-                {certName} - {cert.issuer}
-              </Badge>
+                >
+                  {certName} - {cert.issuer}
+                </Badge>
+              </div>
               );
             })}
           </div>
