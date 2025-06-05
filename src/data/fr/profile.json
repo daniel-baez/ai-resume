@@ -16,19 +16,27 @@
   ],
   "languages": [
     {
-      "name": "Spanish",
+      "name": "Espagnol",
       "level": "Langue maternelle"
     },
     {
-      "name": "English",
+      "name": "Anglais",
       "level": "Courant"
     },
     {
-      "name": "French",
+      "name": "Français",
       "level": "Intermédiaire",
       "certification": {
         "name": "DELF B2",
         "url": "/certificates/french-b2.pdf"
+      }
+    },
+    {
+      "name": "Allemand",
+      "level": "Débutant",
+      "certification": {
+        "name": "A1",
+        "url": "/certificates/german-a1.pdf"
       }
     }
   ],

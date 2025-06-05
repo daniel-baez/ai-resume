@@ -30,6 +30,14 @@
         "name": "DELF B2",
         "url": "/certificates/french-b2.pdf"
       }
+    },
+    {
+      "name": "Alemán",
+      "level": "Principiante",
+      "certification": {
+        "name": "A1",
+        "url": "/certificates/german-a1.pdf"
+      }
     }
   ],
   "certifications": {
