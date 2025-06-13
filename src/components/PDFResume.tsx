@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     color: colors.background,
   },
   linkText: {
-    color: colors.background,
-    textDecoration: 'none',
+    color: colors.accent,
+    textDecoration: 'underline',
   },
   sectionTitle: {
     fontFamily: 'Playfair Display',
