@@ -6,6 +6,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+ul.list-disc {
+  margin-bottom: 1em;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
