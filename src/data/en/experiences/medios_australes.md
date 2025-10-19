@@ -1,7 +1,7 @@
 ---
 title: "Software Engineer"
 company: "Medios Australes"
-period: "2018 - 2018 (3 months)"
+period: "2008 - 2008 (3 months)"
 location: "Santiago, Chile"
 order: 100
 ---

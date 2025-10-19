@@ -4,7 +4,6 @@ import { getTranslations } from "@/constants/translations";
 import { Language } from "@/constants/i18n";
 import { ProfileData, ExperienceEntry, EducationEntry, Skill } from '@/types/portfolio';
 import path from 'path';
-import ReactMarkdown from 'react-markdown';
 
 // Register fonts
 Font.register({
@@ -131,6 +130,41 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.sm,
     lineHeight: 1.6,
     textAlign: 'justify',
+    marginBottom: 8,
+  },
+  heading2: {
+    fontSize: fontSizes.md,
+    fontWeight: 700,
+    marginTop: 12,
+    marginBottom: 6,
+    color: colors.primary,
+  },
+  heading3: {
+    fontSize: fontSizes.sm,
+    fontWeight: 700,
+    marginTop: 8,
+    marginBottom: 4,
+    color: colors.secondary,
+  },
+  listContainer: {
+    marginLeft: 15,
+    marginBottom: 8,
+    marginTop: 4,
+  },
+  listItem: {
+    fontSize: fontSizes.sm,
+    marginBottom: 3,
+    lineHeight: 1.6,
+    flexDirection: 'row',
+  },
+  bullet: {
+    width: 15,
+    fontSize: fontSizes.sm,
+  },
+  listItemContent: {
+    flex: 1,
+    fontSize: fontSizes.sm,
+    lineHeight: 1.6,
   },
   skillsContainer: {
     flexDirection: 'row',
@@ -189,6 +223,148 @@ const styles = StyleSheet.create({
   },
 });
 
+// Parse and render markdown content manually to avoid ReactMarkdown's text node issues
+const MarkdownContent = ({ content }: { content: string }) => {
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentList: string[] = [];
+  let key = 0;
+
+  // Process inline markdown (bold, links) within text
+  const processInlineMarkdown = (text: string): React.ReactNode[] => {
+    const parts: React.ReactNode[] = [];
+    let inlineKey = 0;
+
+    // Process links first: [text](url)
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    let linkMatch;
+    let lastLinkIndex = 0;
+
+    while ((linkMatch = linkRegex.exec(text)) !== null) {
+      // Add text before link
+      if (linkMatch.index > lastLinkIndex) {
+        const beforeLink = text.substring(lastLinkIndex, linkMatch.index);
+        parts.push(...processBoldText(beforeLink, inlineKey));
+        inlineKey += 100;
+      }
+      // Add link
+      parts.push(
+        <Link key={`link-${inlineKey++}`} src={linkMatch[2]} style={styles.linkText}>
+          {linkMatch[1]}
+        </Link>
+      );
+      lastLinkIndex = linkMatch.index + linkMatch[0].length;
+    }
+
+    // Process remaining text for bold
+    if (lastLinkIndex < text.length) {
+      const afterLinks = text.substring(lastLinkIndex);
+      parts.push(...processBoldText(afterLinks, inlineKey));
+    }
+
+    return parts.length > 0 ? parts : [text];
+  };
+
+  // Process bold text: **text**
+  const processBoldText = (text: string, baseKey: number): React.ReactNode[] => {
+    const parts: React.ReactNode[] = [];
+    const boldRegex = /\*\*([^*]+)\*\*/g;
+    let lastIndex = 0;
+    let match;
+    let localKey = baseKey;
+
+    while ((match = boldRegex.exec(text)) !== null) {
+      // Add text before bold
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      // Add bold text
+      parts.push(
+        <Text key={`bold-${localKey++}`} style={{ fontWeight: 700 }}>
+          {match[1]}
+        </Text>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : [text];
+  };
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <View key={`list-${key++}`} style={styles.listContainer}>
+          {currentList.map((item, idx) => (
+            <View key={`li-${key}-${idx}`} style={styles.listItem}>
+              <Text style={styles.bullet}>• </Text>
+              <Text style={styles.listItemContent}>
+                {processInlineMarkdown(item)}
+              </Text>
+            </View>
+          ))}
+        </View>
+      );
+      currentList = [];
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    // Skip empty lines
+    if (!line) {
+      flushList();
+      continue;
+    }
+
+    // Handle H2 headers
+    if (line.startsWith('## ')) {
+      flushList();
+      elements.push(
+        <Text key={`h2-${key++}`} style={styles.heading2}>
+          {line.substring(3)}
+        </Text>
+      );
+      continue;
+    }
+
+    // Handle H3 headers
+    if (line.startsWith('### ')) {
+      flushList();
+      elements.push(
+        <Text key={`h3-${key++}`} style={styles.heading3}>
+          {line.substring(4)}
+        </Text>
+      );
+      continue;
+    }
+
+    // Handle list items
+    if (line.startsWith('- ')) {
+      currentList.push(line.substring(2));
+      continue;
+    }
+
+    // Handle regular paragraphs
+    flushList();
+    elements.push(
+      <Text key={`p-${key++}`} style={styles.jobDescription}>
+        {processInlineMarkdown(line)}
+      </Text>
+    );
+  }
+
+  // Flush any remaining list items
+  flushList();
+
+  return <>{elements}</>;
+};
+
 export const PDFResume = ({ 
   profileData, 
   summaryContent, 
@@ -237,18 +413,7 @@ export const PDFResume = ({
                 <Text>{exp.location}</Text>
                 <Text>{exp.period}</Text>
               </View>
-              <ReactMarkdown
-                components={{
-                  a: ({href, children}) => (
-                    <Link src={href} style={styles.linkText}>{children}</Link>
-                  ),
-                  p: ({children}) => (
-                    <Text style={styles.jobDescription}>{children}</Text>
-                  ),
-                }}
-              >
-                {exp.content}
-              </ReactMarkdown>
+              <MarkdownContent content={exp.content} />
             </View>
           ))}
         </View>
