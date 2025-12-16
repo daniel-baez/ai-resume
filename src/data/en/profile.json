@@ -26,18 +26,22 @@
     {
       "name": "French",
       "level": "Intermediate",
-      "certification": {
+      "certifications": [{
+
         "name": "DELF B2",
         "url": "/certificates/french-b2.pdf"
-      }
+      }]
     },
     {
       "name": "German",
       "level": "Beginner",
-      "certification": {
+      "certifications": [{
         "name": "A1",
         "url": "/certificates/german-a1.pdf"
-      }
+      }, {
+        "name": "A2",
+        "url": "/certificates/german-a2.pdf"
+      }]
     }
   ],
   "certifications": {

@@ -42,15 +42,16 @@ export function Education({ educationEntries, certifications, languages, current
                   >
                     {language.name}&nbsp;|&nbsp;{language.level}
                   </Badge>
-                  {language.certification && (
+                  {language.certifications?.map((certification) => (
                     <a 
-                      href={language.certification.url} 
+                      href={certification.url} 
                       target="_blank" 
                       className="text-blue-600 hover:underline text-sm ml-1"
+                      key={certification.name}
                     >
-                      {language.certification.name}
+                      {certification.name}
                     </a>
-                  )}
+                  ))}
                 </div>
               );
             })}

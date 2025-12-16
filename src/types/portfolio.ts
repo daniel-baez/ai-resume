@@ -10,6 +10,11 @@ export interface ExperienceEntry {
   experience_letter?: string;
 }
 
+export interface CertificationEntry {
+  name: string;
+  url: string;
+}
+
 export interface EducationEntry {
   title: string;
   institution: string;
@@ -19,10 +24,7 @@ export interface EducationEntry {
 export interface LanguageEntry {
   name: string;
   level: string;
-  certification?: {
-    name: string;
-    url: string;
-  };
+  certifications?: CertificationEntry[];
 }
 
 export interface SkillCategory {
