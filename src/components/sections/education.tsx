@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { getNextColor } from "@/lib/colors";
 import { getTranslations } from "@/constants/translations"
 
-export function Education({ educationEntries, certifications, languages, currentLang }: EducationProps) {
+export function Education({ educationEntries, certifications, languages, currentLang, softSkills}: EducationProps) {
   const t = getTranslations(currentLang)
   
   if (!educationEntries || !certifications) {
@@ -72,6 +72,33 @@ export function Education({ educationEntries, certifications, languages, current
                       {certification.name}
                     </a>
                   ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">{t.sections.softSkills}</h3>
+          <div className="flex flex-col gap-2">
+            {softSkills.map((softSkill, index) => {
+              const color = getNextColor();
+              return (
+                <div key={index} className="flex items-center gap-2">
+                  <Badge
+                    variant="secondary"
+                    className={`${color.color} ${color.textColor} ${color.hoverColor}`}
+                  >
+                    {softSkill.name}
+                  </Badge>
+                    <a 
+                      href={softSkill.url} 
+                      target="_blank" 
+                      className="text-blue-600 hover:underline text-sm ml-1"
+                      key={softSkill.name}
+                    >
+                      {softSkill.year}
+                    </a>
                 </div>
               );
             })}

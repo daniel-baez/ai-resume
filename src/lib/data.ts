@@ -12,6 +12,7 @@ export const getProfileData = (lang: Language): ProfileData => {
   // Load the language-specific profile data
   const profilePath = path.join(getDataPath(lang), "profile.json");
   const profileData = JSON.parse(fs.readFileSync(profilePath, "utf8"));
+  console.log("profileData", profileData);
   
   // Load the language-agnostic skills data
   const skillsPath = path.join(process.cwd(), "src/data", "skills.json");

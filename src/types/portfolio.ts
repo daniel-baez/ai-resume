@@ -10,6 +10,12 @@ export interface ExperienceEntry {
   experience_letter?: string;
 }
 
+export interface SoftSkillEntry {
+  name: string;
+  year: string;
+  url: string;
+}
+
 export interface CertificationEntry {
   name: string;
   url: string;
@@ -53,6 +59,7 @@ export interface ExperienceProps {
 }
 
 export interface EducationProps {
+  softSkills: SoftSkillEntry[];
   educationEntries: EducationEntry[];
   certifications: CertificationEntry[];
   languages: LanguageEntry[];
@@ -78,5 +85,6 @@ export type ProfileData = {
   education: EducationEntry[];
   certifications: CertificationEntry[];
   languages: LanguageEntry[];
+  softSkills: SoftSkillEntry[];
   skills: { [key: string]: Skill[] };
 }

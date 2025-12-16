@@ -57,6 +57,7 @@ export default async function LangPage({
           <Experience experienceEntries={experienceEntries} currentLang={lang} />
           <Skills skillCategories={profileData.skills} currentLang={lang} />
           <Education
+            softSkills={profileData.softSkills}
             educationEntries={profileData.education}
             certifications={profileData.certifications}
             languages={profileData.languages}

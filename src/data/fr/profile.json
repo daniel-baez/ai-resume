@@ -56,5 +56,12 @@
       "issuer": "Google Cloud",
       "period": "2023 - 2025"
     }
-  }
+  },
+  "softSkills": [
+    {
+      "name": "Baptiste Yoga Teacher",
+      "year": "2023",
+      "url": "/certificates/baptiste-yoga-teacher.pdf"
+    }
+  ]
 }

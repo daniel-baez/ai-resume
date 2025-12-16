@@ -47,7 +47,7 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
 
   // Validate reCAPTCHA token
   if (!(await isCaptchaValid(token))) {
-    console.log("Error validating captcha", token);
+    console.log("Error validating captcha");
     return t.contact.captchaError;
   }
 

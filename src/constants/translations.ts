@@ -13,6 +13,7 @@ export type TranslationKeys = {
     skills: string
     education: string
     languages: string
+    softSkills: string
     certifications: string
     experience_letter: string
   }
@@ -68,6 +69,7 @@ const translations: Record<string, TranslationKeys> = {
       summary: "Professional Summary",
       experience: "Experience",
       skills: "Skills",
+      softSkills: "Soft Skills",
       education: "Education",
       languages: "Languages",
       certifications: "Professional Certifications",
@@ -123,6 +125,7 @@ const translations: Record<string, TranslationKeys> = {
       summary: "Resumen Profesional",
       experience: "Experiencia",
       skills: "Habilidades",
+      softSkills: "Habilidades Blandas",
       education: "Educación",
       languages: "Idiomas",
       certifications: "Certificaciones Profesionales",
@@ -178,6 +181,7 @@ const translations: Record<string, TranslationKeys> = {
       summary: "Résumé Professionnel",
       experience: "Expérience",
       skills: "Compétences",
+      softSkills: "Compétences Humaines",
       education: "Éducation",
       languages: "Langues",
       certifications: "Certifications Professionnelles",
