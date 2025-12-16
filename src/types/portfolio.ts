@@ -13,6 +13,7 @@ export interface ExperienceEntry {
 export interface CertificationEntry {
   name: string;
   url: string;
+  period: string;
 }
 
 export interface EducationEntry {

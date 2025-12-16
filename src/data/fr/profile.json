@@ -45,13 +45,16 @@
   ],
   "certifications": {
     "Architecte Cloud Professionnel": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     },
     "Ingénieur Cloud Professionnel": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     },
     "Développeur Cloud Professionnel": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     }
   }
 }

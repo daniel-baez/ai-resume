@@ -432,7 +432,7 @@ export const PDFResume = ({
           {Object.entries(profileData.certifications).map(([name, details], index) => (
             <View key={index} style={styles.certificationEntry}>
               <Text style={styles.certificationTitle}>{name}</Text>
-              <Text style={styles.certificationDetails}>{details.issuer}</Text>
+              <Text style={styles.certificationDetails}>{details.issuer} &nbsp;|&nbsp; {details.period}</Text>
             </View>
           ))}
         </View>

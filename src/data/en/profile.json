@@ -46,13 +46,16 @@
   ],
   "certifications": {
     "Professional Cloud Architect": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     },
     "Professional Cloud DevOps Engineer": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     },
     "Professional Cloud Developer": {
-      "issuer": "Google Cloud"
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
     }
   }
 }

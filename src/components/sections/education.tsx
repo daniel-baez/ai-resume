@@ -41,7 +41,7 @@ export function Education({ educationEntries, certifications, languages, current
                   variant="secondary"
                   className={`${color.color} ${color.textColor} ${color.hoverColor}`}
                 >
-                  {certName} - {cert.issuer}
+                  {certName} - {cert.issuer} &nbsp;|&nbsp; {cert.period}
                 </Badge>
               </div>
               );
