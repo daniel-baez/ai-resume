@@ -452,6 +452,19 @@ export const PDFResume = ({
             ))}
           </View>
         </View>
+
+        <View>
+          <Text style={styles.sectionTitle}>{t.sections.softSkills}</Text>
+          <View style={styles.languagesContainer}>
+            {profileData.softSkills.map((softSkill, index) => (
+              <Text key={index} style={styles.languageItem}>
+                {softSkill.name}: &nbsp;
+                <Link src={softSkill.url} style={styles.languageItem}>{softSkill.year}</Link>
+              </Text>
+            ))}
+          </View>
+        </View>
+
         <View>
           <Text style={styles.sectionTitle}>{t.pdf.sections.technicalSkills}</Text>
           {Object.entries(profileData.skills).map(([category, skills]: [string, Skill[]], index: number) => (
