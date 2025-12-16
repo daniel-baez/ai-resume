@@ -97,7 +97,7 @@ export function Education({ educationEntries, certifications, languages, current
                       className="text-blue-600 hover:underline text-sm ml-1"
                       key={softSkill.name}
                     >
-                      {softSkill.year}
+                      {softSkill.issuer}
                     </a>
                 </div>
               );

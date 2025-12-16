@@ -60,9 +60,9 @@
   },
   "softSkills": [
     {
-      "name": "Baptiste Yoga Teacher",
-      "year": "2023",
-      "url": "/certificates/baptiste-yoga-teacher.pdf"
+      "name": "Yoga Instructor",
+      "url": "/certificates/baptiste-yoga-teacher.pdf",
+      "issuer": "Baptiste Power Yoga San Francisco"
     }
   ]
 }

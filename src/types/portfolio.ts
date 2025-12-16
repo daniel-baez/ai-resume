@@ -12,8 +12,8 @@ export interface ExperienceEntry {
 
 export interface SoftSkillEntry {
   name: string;
-  year: string;
   url: string;
+  issuer: string;
 }
 
 export interface CertificationEntry {
