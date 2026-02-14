@@ -70,11 +70,7 @@ export function Header({
         }
       })()
 
-      await trackEvent({
-        action: 'scroll',
-        category: 'navigation',
-        label: `scroll_to_${sectionId}`
-      });
+      await trackEvent('scroll_to_section', { event_label: sectionId });
 
       window.scrollTo({
         top: offsetPosition,
@@ -85,46 +81,37 @@ export function Header({
 
   // For contact form
   const handleContactOpen = async (open: boolean) => {
-    await trackEvent({
-      action: 'click',
-      category: 'engagement',
-      label: 'open_contact_form'
-    });
+    if (open) {
+      await trackEvent('contact_form_opened', { event_category: 'engagement' });
+    }
     setIsContactOpen(open);
   };
 
   // For resume download
   const handleResumeClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    await trackEvent({
-      action: 'click',
-      category: 'engagement',
-      label: 'download_resume'
+    const resumeUrl = `/resume/${currentLang.code}`;
+    await trackEvent('download_cv', {
+      event_category: 'engagement',
+      link_url: resumeUrl,
     });
-    // Use the correct path without Next.js parameters
-    window.open(`/resume/${currentLang.code}`, '_blank', 'noopener,noreferrer');
+    window.open(resumeUrl, '_blank', 'noopener,noreferrer');
   };
 
   // For calendly meeting
   const handleCalendlyClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    await trackEvent({
-      action: 'click',
-      category: 'engagement',
-      label: 'schedule_meeting'
+    await trackEvent('schedule_meeting', {
+      event_category: 'engagement',
+      link_url: calendlyUrl,
     });
     window.open(calendlyUrl, '_blank', 'noopener,noreferrer');
   };
 
   // For language change
   const handleLanguageChange = async (lang: Language) => {
-    await trackEvent({
-      action: 'click',
-      category: 'preferences',
-      label: `change_language_${lang.code}`
-    });
-    
-    // Navigate to the language-specific page
+    await trackEvent('change_language', { event_label: lang.code });
+
     router.push(`/${lang.code}`);
   }
 

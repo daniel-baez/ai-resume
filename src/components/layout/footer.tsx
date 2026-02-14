@@ -8,11 +8,10 @@ import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 export function Footer() {
   const { trackEvent } = useGoogleAnalytics()
 
-  const handleSocialClick = (platform: string) => {
-    trackEvent({
-      action: 'click',
-      category: 'social',
-      label: `social_${platform}`
+  const handleSocialClick = (platform: string, url: string) => {
+    trackEvent('social_link_click', {
+      event_label: platform,
+      link_url: url,
     });
   };
 
@@ -24,7 +23,7 @@ export function Footer() {
             href="https://linkedin.com/in/baezdaniel"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => handleSocialClick('linkedin')}
+            onClick={() => handleSocialClick('linkedin', 'https://linkedin.com/in/baezdaniel')}
             className="text-gray-600 hover:text-blue-600 transition-colors"
           >
             <Linkedin className="h-6 w-6" />
@@ -35,7 +34,7 @@ export function Footer() {
             href="https://github.com/daniel-baez"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => handleSocialClick('github')}
+            onClick={() => handleSocialClick('github', 'https://github.com/daniel-baez')}
             className="text-gray-600 hover:text-blue-600 transition-colors"
           >
             <Github className="h-6 w-6" />

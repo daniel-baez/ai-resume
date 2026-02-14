@@ -70,12 +70,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
     e.preventDefault()
     setIsLoading(true)
 
-    // Track form submission attempt
-    await trackEvent({
-      action: 'submit',
-      category: 'contact',
-      label: 'contact_form_submit'
-    });
+    await trackEvent('contact_form_submitted', { event_category: 'contact' });
 
     const token = await getCaptchaToken();
     if (!token) {
@@ -90,12 +85,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
 
     const success = await verifyAndSendEmail(token, formData, currentLang);
     if (typeof success === 'string') {
-      // Track form submission failure
-      await trackEvent({
-        action: 'error',
-        category: 'contact',
-        label: 'contact_form_error'
-      });
+      await trackEvent('contact_form_error', { event_category: 'contact' });
       toast({
         title: t.contact.error,
         description: success,
@@ -105,12 +95,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
       return onOpenChange(false)
     }
 
-    // Track form submission success
-    await trackEvent({
-      action: 'success',
-      category: 'contact',
-      label: 'contact_form_success'
-    });
+    await trackEvent('contact_form_success', { event_category: 'contact' });
     toast({
       title: t.contact.success,
       description: t.contact.successDescription,
@@ -122,18 +107,9 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
-      trackEvent({
-        action: 'open',
-        category: 'contact',
-        label: 'contact_form_open'
-      });
+      trackEvent('contact_form_opened', { event_category: 'contact' });
     } else {
-      trackEvent({
-        action: 'close',
-        category: 'contact',
-        label: 'contact_form_close'
-      });
-      // Reset form data when closing
+      trackEvent('contact_form_closed', { event_category: 'contact' });
       setFormData({ name: "", email: "", phone: "", message: "" });
     }
     onOpenChange(open);

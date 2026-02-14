@@ -7,10 +7,9 @@ export function GithubRibbon() {
   const { trackEvent } = useGoogleAnalytics()
 
   const handleClick = () => {
-    trackEvent({
-      action: 'click',
-      category: 'social',
-      label: 'github_ribbon'
+    trackEvent('github_repo_click', {
+      event_category: 'social',
+      link_url: 'https://github.com/daniel-baez/ai-resume',
     });
   };
 
