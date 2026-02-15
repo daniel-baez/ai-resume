@@ -37,7 +37,34 @@ The data is specified in the `src/data` folder. Each language has its own folder
 
 ## How to configure API keys
 
-Follow the instructions in the [.env.template](.env.template) file.
+Copy the [.env.template](.env.template) file to `.env` and fill in the values.
+
+### Environment Variables
+
+| Variable | Description | Required |
+|---|---|---|
+| **Site URL** | | |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL used for SEO (sitemap, robots, og tags). Falls back to `VERCEL_URL` if not set. | No |
+| `VERCEL_URL` | Automatically provided by Vercel during deployment. Used as fallback for site URL. | No (auto) |
+| **Google Analytics** | | |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics measurement ID (e.g. `G-XXXXXXXXXX`) | No |
+| **reCAPTCHA** | | |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key (public, used in the browser) | Yes |
+| `RECAPTCHA_SECRET_KEY` | reCAPTCHA v3 secret key (server-side validation) | Yes |
+| **Resend** | | |
+| `RESEND_API_KEY` | API key for [Resend](https://resend.com) email service | Yes |
+| **Firebase (Client)** | | |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase API key | Yes |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | Yes |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Firebase project ID | Yes |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | Firebase storage bucket | Yes |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Firebase messaging sender ID | Yes |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | Firebase app ID | Yes |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | Firebase measurement ID | No |
+| **Firebase (Admin / Server-side)** | | |
+| `FIREBASE_PROJECT_ID` | Firebase project ID for Admin SDK | Yes |
+| `FIREBASE_CLIENT_EMAIL` | Firebase service account client email | Yes |
+| `FIREBASE_PRIVATE_KEY` | Firebase service account private key (with `\n` for newlines) | Yes |
 
 ## How to add a new experience
 
