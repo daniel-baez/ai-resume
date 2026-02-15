@@ -1,21 +1,21 @@
-import { db } from './firebase';
-import { collection, addDoc, updateDoc, doc, Timestamp } from 'firebase/firestore';
+import { adminDb } from './firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 interface ContactMessage {
   name: string;
   email: string;
   phone: string;
   message: string;
-  sent_at: Timestamp | null;
-  created_at: Timestamp;
+  sent_at: FieldValue | null;
+  created_at: FieldValue;
 }
 
 export const saveContactMessage = async (data: Omit<ContactMessage, 'sent_at' | 'created_at'>) => {
   try {
-    const docRef = await addDoc(collection(db, 'contact_messages'), {
+    const docRef = await adminDb.collection('contact_messages').add({
       ...data,
       sent_at: null,
-      created_at: Timestamp.now()
+      created_at: FieldValue.serverTimestamp()
     });
     return docRef.id;
   } catch (error) {
@@ -26,9 +26,8 @@ export const saveContactMessage = async (data: Omit<ContactMessage, 'sent_at' | 
 
 export const updateMessageSentStatus = async (messageId: string) => {
   try {
-    const messageRef = doc(db, 'contact_messages', messageId);
-    await updateDoc(messageRef, {
-      sent_at: Timestamp.now()
+    await adminDb.collection('contact_messages').doc(messageId).update({
+      sent_at: FieldValue.serverTimestamp()
     });
   } catch (error) {
     console.error('Error updating message sent status:', error);
