@@ -93,17 +93,40 @@ pdf: {{INCLUDED_IN_PDF}} # Whether the experience is included in the PDF version
 
 ## Local Development
 
-run the development server:
+Run the development server:
 
 ```bash
 npm run dev
 ```
+
+## Testing
+
+The project uses Node.js built-in test runner with `tsx` for TypeScript support. Tests are located in the `tests/` directory.
+
+Run all tests:
+
+```bash
+npm test
+```
+
+Run tests in watch mode (re-runs on file changes):
+
+```bash
+npm run test:watch
+```
+
+The integration tests validate PDF generation for each supported language, checking:
+- Valid PDF structure (magic number, size)
+- Content correctness (profile name, title, location, skills, summary)
+- Error handling for unsupported languages
 
 ## Build
 
 ```bash
 npm run build
 ```
+
+This will clean old PDFs, regenerate them for all languages, then build the Next.js app.
 
 ## To deploy production
 

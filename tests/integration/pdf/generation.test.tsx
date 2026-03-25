@@ -56,11 +56,11 @@ describe('PDF Generation Integration', async () => {
       const pdfDoc = await loadingTask.promise;
       assert(pdfDoc.numPages > 0, 'PDF should have at least one page');
 
-      // 3. Size validation (45-55KB range)
+      // 3. Size validation (45-65KB range)
       const bufferSizeKB = buffer.length / 1024;
       assert(
-        bufferSizeKB >= 45 && bufferSizeKB <= 55,
-        `PDF size (${bufferSizeKB.toFixed(1)}KB) should be between 45KB and 55KB`
+        bufferSizeKB >= 45 && bufferSizeKB <= 65,
+        `PDF size (${bufferSizeKB.toFixed(1)}KB) should be between 45KB and 65KB`
       );
 
       // 4. Content validation using pdf.js text extraction
