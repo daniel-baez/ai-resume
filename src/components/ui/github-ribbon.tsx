@@ -1,18 +1,6 @@
-"use client"
-
 import Link from "next/link"
-import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 
 export function GithubRibbon() {
-  const { trackEvent } = useGoogleAnalytics()
-
-  const handleClick = () => {
-    trackEvent('github_repo_click', {
-      event_category: 'social',
-      link_url: 'https://github.com/daniel-baez/ai-resume',
-    });
-  };
-
   return (
     <div className="absolute top-0 right-0 w-[150px] h-[150px] overflow-hidden z-[1000] hidden md:block">
       <Link
@@ -22,10 +10,12 @@ export function GithubRibbon() {
           hover:bg-[#e05a00] transition-colors duration-200"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={handleClick}
+        data-track-event="github_repo_click"
+        data-track-category="social"
+        data-track-url="https://github.com/daniel-baez/ai-resume"
       >
         Fork me on GitHub
       </Link>
     </div>
   )
-} 
+}

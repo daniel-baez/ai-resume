@@ -1,20 +1,7 @@
-// src/components/layout/footer.tsx
-"use client"
-
 import Link from "next/link"
 import { Linkedin, Github } from "lucide-react"
-import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 
 export function Footer() {
-  const { trackEvent } = useGoogleAnalytics()
-
-  const handleSocialClick = (platform: string, url: string) => {
-    trackEvent('social_link_click', {
-      event_label: platform,
-      link_url: url,
-    });
-  };
-
   return (
     <footer className="mt-8 py-6 border-t border-gray-200">
       <div className="container mx-auto px-4">
@@ -23,7 +10,9 @@ export function Footer() {
             href="https://linkedin.com/in/baezdaniel"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => handleSocialClick('linkedin', 'https://linkedin.com/in/baezdaniel')}
+            data-track-event="social_link_click"
+            data-track-label="linkedin"
+            data-track-url="https://linkedin.com/in/baezdaniel"
             className="text-gray-600 hover:text-blue-600 transition-colors"
           >
             <Linkedin className="h-6 w-6" />
@@ -34,7 +23,9 @@ export function Footer() {
             href="https://github.com/daniel-baez"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => handleSocialClick('github', 'https://github.com/daniel-baez')}
+            data-track-event="social_link_click"
+            data-track-label="github"
+            data-track-url="https://github.com/daniel-baez"
             className="text-gray-600 hover:text-blue-600 transition-colors"
           >
             <Github className="h-6 w-6" />
@@ -43,7 +34,7 @@ export function Footer() {
         </div>
         
         <p className="mt-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} Daniel Baez. All rights reserved.
+          &copy; {new Date().getFullYear()} Daniel Baez. All rights reserved.
         </p>
       </div>
     </footer>

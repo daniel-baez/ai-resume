@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import "../../globals.css";
 import GoogleAnalytics from "@/components/analytics/google-analytics";
 import Script from "next/script";
 import { Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { GithubRibbon } from "@/components/ui/github-ribbon";
+import { TrackClicks } from "@/components/analytics/track-clicks";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const Toaster = dynamic(
+  () => import("@/components/ui/toaster").then((mod) => mod.Toaster)
+);
 
 export const metadata: Metadata = {
   title: "Daniel Baez - Software Engineer",
@@ -30,6 +35,9 @@ export default async function MainLayout({
   return (
     <html lang={lang}>
       <head>
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
@@ -43,6 +51,7 @@ export default async function MainLayout({
         {children}
         <Toaster />
         <ScrollToTop />
+        <TrackClicks />
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>
