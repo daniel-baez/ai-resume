@@ -57,34 +57,20 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Too many requests', { status: 429 })
   }
 
-  // Get user's preferred languages and hostname
   const acceptLang = request.headers.get('accept-language')?.split(',')[0]
   const hostname = request.headers.get('host')
-  
-  // Check hostname first (highest priority)
+
   if (hostname === 'danielbaez.cl' || hostname === 'www.danielbaez.cl') {
-    if (!request.nextUrl.searchParams.has('lang')) {
-      const newUrl = new URL(request.url)
-      newUrl.searchParams.set('lang', 'es')
-      return NextResponse.redirect(newUrl)
-    }
-    return NextResponse.next()
+    return NextResponse.redirect(new URL('/es', request.url))
   }
 
-  // Then check geolocation and browser preference
   const { country } = geolocation(request)
-  const shouldUseSpanish = 
-    acceptLang?.startsWith('es') || 
+  const shouldUseSpanish =
+    acceptLang?.startsWith('es') ||
     (country && SPANISH_COUNTRIES.includes(country))
-  
-  // Only set language if not already set
-  if (!request.nextUrl.searchParams.has('lang')) {
-    const newUrl = new URL(request.url)
-    newUrl.searchParams.set('lang', shouldUseSpanish ? 'es' : 'en')
-    return NextResponse.redirect(newUrl)
-  }
 
-  return NextResponse.next()
+  const targetLang = shouldUseSpanish ? 'es' : 'en'
+  return NextResponse.redirect(new URL(`/${targetLang}`, request.url))
 }
 
 export const config = {

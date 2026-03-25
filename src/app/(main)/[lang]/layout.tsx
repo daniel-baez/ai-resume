@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "../../globals.css";
 import GoogleAnalytics from "@/components/analytics/google-analytics";
 import Script from "next/script";
@@ -9,18 +8,6 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { GithubRibbon } from "@/components/ui/github-ribbon";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
-const geistSans = localFont({
-  src: "../../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "../../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Daniel Baez - Software Engineer",
@@ -47,13 +34,11 @@ export default async function MainLayout({
           <GoogleAnalytics />
         </Suspense>
         <Script
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
           src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <GithubRibbon />
         {children}
         <Toaster />

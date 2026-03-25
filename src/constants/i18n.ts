@@ -12,7 +12,7 @@ export const AVAILABLE_LANGUAGES: { [key: string]: Language } = {
     },
     "es": {
         "name": "Español",
-        "flag": "/flags/cl.svg",
+        "flag": "/flags/es.svg",
         "code": "es"
     },
     "fr": {

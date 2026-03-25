@@ -6,12 +6,17 @@ import { Button } from "@/components/ui/button"
 import { Calendar, Download, Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { ContactForm } from "@/components/forms/contact-form"
+import dynamic from "next/dynamic"
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 import { Language, AVAILABLE_LANGUAGES } from "@/constants/i18n"
 import { useRouter } from "next/navigation"
 import { getTranslations } from "@/constants/translations"
 import { HeaderProps } from "@/types/portfolio"
+
+const ContactForm = dynamic(
+  () => import("@/components/forms/contact-form").then((mod) => mod.ContactForm),
+  { ssr: false }
+)
 
 
 export function Header({
