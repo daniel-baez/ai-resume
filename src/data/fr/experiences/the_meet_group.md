@@ -7,7 +7,7 @@ order: 3
 pdf: true
 ---
 
-Travailler chez The Meet Group a été une expérience intense et à fort impact où j'ai perfectionné mes compétences en intégration de systèmes et en leadership technique. J'ai rejoint l'entreprise au moment où elle venait de finaliser une [acquisition majeure (SKOUT a été acquis par TMG)](https://www.themeetgroup.com/blog/the-meet-group-acquires-skout), ce qui a apporté des défis uniques dans l'unification et la refonte des systèmes pour répondre à des exigences plus élevées en termes de performance et d'évolutivité.
+Travailler chez The Meet Group a été une expérience intense et à fort impact où j'ai perfectionné mes compétences en intégration de systèmes et en leadership technique. J'ai rejoint l'entreprise au moment où elle venait de finaliser une [acquisition majeure (SKOUT a été acquis par TMG)](https://www.themeetgroup.com/meetme-to-acquire-skout/), ce qui a apporté des défis uniques dans l'unification et la refonte des systèmes pour répondre à des exigences plus élevées en termes de performance et d'évolutivité.
 
 J'ai joué un rôle clé dans cette initiative d'intégration, travaillant sur des mises à jour critiques pour garantir une fonctionnalité fluide et continue entre les plateformes et services. Cette expérience m'a donné une solide base dans les migrations de systèmes et les intricacés de l'alignement de différentes technologies sous une architecture cohérente.
 
