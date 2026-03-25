@@ -19,12 +19,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const staticPath = path.join(process.cwd(), 'public', 'pdfs', `resume-${language}.pdf`);
 
   if (fs.existsSync(staticPath)) {
-    const pdfBuffer = fs.readFileSync(staticPath);
     context.res.setHeader('Content-Type', 'application/pdf');
     const date = new Date();
     const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
     context.res.setHeader('Content-Disposition', `inline; filename="resume-daniel-baez-${language}-${yearMonth}.pdf"`);
-    context.res.end(pdfBuffer);
+    const stream = fs.createReadStream(staticPath);
+    await new Promise<void>((resolve, reject) => {
+      stream.pipe(context.res);
+      stream.on('end', resolve);
+      stream.on('error', reject);
+    });
     return { props: {} };
   }
 
