@@ -16,10 +16,9 @@ export interface SoftSkillEntry {
   issuer: string;
 }
 
-export interface CertificationEntry {
+export interface LanguageCertification {
   name: string;
   url: string;
-  period: string;
 }
 
 export interface EducationEntry {
@@ -31,17 +30,16 @@ export interface EducationEntry {
 export interface LanguageEntry {
   name: string;
   level: string;
-  certifications?: CertificationEntry[];
+  certifications?: LanguageCertification[];
 }
 
 export interface SkillCategory {
   [key: string]: Skill[];
 }
 
-export interface CertificationEntry {
-  name: string;
-  issuer: string;
-}
+export type Certifications = {
+  [name: string]: { issuer: string; period: string };
+};
 
 export interface Skill {
   name: string;
@@ -61,7 +59,7 @@ export interface ExperienceProps {
 export interface EducationProps {
   softSkills: SoftSkillEntry[];
   educationEntries: EducationEntry[];
-  certifications: CertificationEntry[];
+  certifications: Certifications;
   languages: LanguageEntry[];
   currentLang: Language;
 }
@@ -75,7 +73,6 @@ export interface HeaderProps {
   name: string;
   title: string;
   subtitle: string;
-  resumeUrl: string;
   calendlyUrl: string;
   location: string;
 }
@@ -83,7 +80,7 @@ export interface HeaderProps {
 export type ProfileData = {
   info: HeaderProps;
   education: EducationEntry[];
-  certifications: CertificationEntry[];
+  certifications: Certifications;
   languages: LanguageEntry[];
   softSkills: SoftSkillEntry[];
   skills: { [key: string]: Skill[] };

@@ -1,0 +1,158 @@
+{
+  "info": {
+    "name": {
+      "en": "Daniel Baez",
+      "es": "Daniel Báez",
+      "fr": "Daniel Báez",
+      "de": "Daniel Báez"
+    },
+    "title": {
+      "en": "Software Engineer",
+      "es": "Ingeniero de Software",
+      "fr": "Ingénieur de Logiciel",
+      "de": "Software-Ingenieur"
+    },
+    "subtitle": {
+      "en": "Cloud-Native Architect & IoT Expert",
+      "es": "Arquitecto Cloud-Native & Experto en IoT",
+      "fr": "Architecte Cloud & Expert en IoT",
+      "de": "Cloud-Native Architekt & IoT-Experte"
+    },
+    "calendlyUrl": "https://calendly.com/daniel-baezdaniel",
+    "location": "San Francisco, CA | Remote"
+  },
+  "education": [
+    {
+      "title": {
+        "en": "Bachelor in Computer Science",
+        "es": "Ingeniero de Software, Ingeniería Informática",
+        "fr": "Licence en Informatique",
+        "de": "Bachelor in Informatik"
+      },
+      "period": "2005 - 2010",
+      "institution": "Universidad Tecnológica De Chile"
+    }
+  ],
+  "languages": [
+    {
+      "name": {
+        "en": "Spanish",
+        "es": "Español",
+        "fr": "Espagnol",
+        "de": "Spanisch"
+      },
+      "level": {
+        "en": "Native",
+        "es": "Nativo",
+        "fr": "Langue maternelle",
+        "de": "Muttersprache"
+      }
+    },
+    {
+      "name": {
+        "en": "English",
+        "es": "Inglés",
+        "fr": "Anglais",
+        "de": "Englisch"
+      },
+      "level": {
+        "en": "Fluent",
+        "es": "Fluido",
+        "fr": "Courant",
+        "de": "Fließend"
+      }
+    },
+    {
+      "name": {
+        "en": "French",
+        "es": "Francés",
+        "fr": "Français",
+        "de": "Französisch"
+      },
+      "level": {
+        "en": "Advanced",
+        "es": "Avanzado",
+        "fr": "Avancé",
+        "de": "Mittelstufe"
+      },
+      "certifications": [
+        {
+          "name": "B2",
+          "url": "/certificates/french-b2.pdf"
+        },
+        {
+          "name": "C1",
+          "url": "/certificates/french-c1.pdf"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "German",
+        "es": "Alemán",
+        "fr": "Allemand",
+        "de": "Deutsch"
+      },
+      "level": {
+        "en": "Beginner",
+        "es": "Principiante",
+        "fr": "Débutant",
+        "de": "Anfänger"
+      },
+      "certifications": [
+        {
+          "name": "A1",
+          "url": "/certificates/german-a1.pdf"
+        },
+        {
+          "name": "A2",
+          "url": "/certificates/german-a2.pdf"
+        }
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "name": {
+        "en": "Professional Cloud Architect",
+        "es": "Professional Cloud Architect",
+        "fr": "Architecte Cloud Professionnel",
+        "de": "Professional Cloud Architekt"
+      },
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
+    },
+    {
+      "name": {
+        "en": "Professional Cloud DevOps Engineer",
+        "es": "Professional Cloud DevOps Engineer",
+        "fr": "Ingénieur Cloud Professionnel",
+        "de": "Professional Cloud DevOps Engineer"
+      },
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
+    },
+    {
+      "name": {
+        "en": "Professional Cloud Developer",
+        "es": "Professional Cloud Developer",
+        "fr": "Développeur Cloud Professionnel",
+        "de": "Professional Cloud Developer"
+      },
+      "issuer": "Google Cloud",
+      "period": "2023 - 2025"
+    }
+  ],
+  "softSkills": [
+    {
+      "name": {
+        "en": "Yoga Instructor",
+        "es": "Instructor de Yoga",
+        "fr": "Enseignant de Yoga",
+        "de": "Yogalehrer"
+      },
+      "url": "/certificates/baptiste-yoga-teacher.pdf",
+      "issuer": "Baptiste Power Yoga San Francisco"
+    }
+  ]
+}
