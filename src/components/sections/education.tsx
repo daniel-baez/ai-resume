@@ -91,6 +91,7 @@ export function Education({ educationEntries, certifications, languages, current
                   >
                     {softSkill.name}
                   </Badge>
+                  {softSkill.url ? (
                     <a 
                       href={softSkill.url} 
                       target="_blank" 
@@ -99,6 +100,9 @@ export function Education({ educationEntries, certifications, languages, current
                     >
                       {softSkill.issuer}
                     </a>
+                  ) : (
+                    <span className="text-gray-600 text-sm ml-1">{softSkill.issuer}</span>
+                  )}
                 </div>
               );
             })}

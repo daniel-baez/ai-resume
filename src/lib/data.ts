@@ -60,7 +60,7 @@ export const getProfileData = (lang: Language): ProfileData => {
       ...(l.certifications && { certifications: l.certifications }),
     })),
     certifications,
-    softSkills: raw.softSkills.map((s: { name: TranslatableString; url: string; issuer: string }) => ({
+    softSkills: raw.softSkills.map((s: { name: TranslatableString; url?: string; issuer: string }) => ({
       name: resolve(s.name, lang.code),
       url: s.url,
       issuer: s.issuer,
