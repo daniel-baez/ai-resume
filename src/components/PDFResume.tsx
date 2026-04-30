@@ -459,7 +459,11 @@ export const PDFResume = ({
             {profileData.softSkills.map((softSkill, index) => (
               <Text key={index} style={styles.languageItem}>
                 {softSkill.name}: &nbsp;
-                <Link src={softSkill.url} style={styles.languageItem}>{softSkill.issuer}</Link>
+                {softSkill.url ? (
+                  <Link src={softSkill.url} style={styles.languageItem}>{softSkill.issuer}</Link>
+                ) : (
+                  softSkill.issuer
+                )}
               </Text>
             ))}
           </View>

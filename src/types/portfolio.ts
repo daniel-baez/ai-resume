@@ -12,7 +12,7 @@ export interface ExperienceEntry {
 
 export interface SoftSkillEntry {
   name: string;
-  url: string;
+  url?: string;
   issuer: string;
 }
 
