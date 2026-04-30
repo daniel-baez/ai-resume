@@ -153,6 +153,16 @@
       },
       "url": "/certificates/baptiste-yoga-teacher.pdf",
       "issuer": "Baptiste Power Yoga San Francisco"
+    },
+    {
+      "name": {
+        "en": "CrossFit Level 1 Trainer",
+        "es": "Entrenador CrossFit Nivel 1",
+        "fr": "Entraîneur CrossFit Niveau 1",
+        "de": "CrossFit Level 1 Trainer"
+      },
+      "url": "/certificates/crossfit-level1-trainer.pdf",
+      "issuer": "CrossFit"
     }
   ]
 }
