@@ -42,6 +42,21 @@ export function DocumentViewer({
     setZoom((current) => Math.min(MAX_ZOOM, current + ZOOM_STEP));
   }, []);
 
+  const downloadPdf = useCallback(async () => {
+    const response = await fetch(pdfUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to download ${pdfUrl}`);
+    }
+
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = objectUrl;
+    anchor.download = pdfFilename;
+    anchor.click();
+    URL.revokeObjectURL(objectUrl);
+  }, [pdfUrl, pdfFilename]);
+
   return (
     <div className="flex h-screen flex-col bg-[#1e1e1e] text-white">
       <header className="flex shrink-0 items-center justify-between gap-4 border-b border-white/10 bg-[#2d2d2d] px-4 py-3">
@@ -54,15 +69,17 @@ export function DocumentViewer({
         </div>
 
         <div className="flex shrink-0 items-center gap-1">
-          <a
-            href={pdfUrl}
-            download={pdfFilename}
+          <button
+            type="button"
+            onClick={() => {
+              void downloadPdf();
+            }}
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10"
             title="Download"
           >
             <Download className="h-4 w-4" />
             <span className="hidden sm:inline">Download</span>
-          </a>
+          </button>
           <a
             href={pdfUrl}
             target="_blank"
