@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { createCanvas } from "canvas";
+import { createCanvas, Image } from "canvas";
 import * as pdfjsLib from "pdfjs-dist";
 import { getAllPreviewDocuments } from "../src/lib/document-sources";
 
@@ -13,6 +13,33 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = path.join(
   "build",
   "pdf.worker.js"
 );
+
+// pdfjs needs node-canvas Image when rendering PDFs with embedded images.
+globalThis.Image = Image as unknown as typeof globalThis.Image;
+
+class NodeCanvasFactory {
+  create(width: number, height: number) {
+    const canvas = createCanvas(width, height);
+    const context = canvas.getContext("2d");
+    return { canvas, context };
+  }
+
+  reset(
+    canvasAndContext: { canvas: ReturnType<typeof createCanvas>; context: ReturnType<ReturnType<typeof createCanvas>["getContext"]> },
+    width: number,
+    height: number
+  ) {
+    canvasAndContext.canvas.width = width;
+    canvasAndContext.canvas.height = height;
+  }
+
+  destroy(
+    canvasAndContext: { canvas: ReturnType<typeof createCanvas> | null; context: ReturnType<ReturnType<typeof createCanvas>["getContext"]> | null }
+  ) {
+    canvasAndContext.canvas = null;
+    canvasAndContext.context = null;
+  }
+}
 
 async function renderPdfPreview(
   pdfPath: string,
@@ -35,16 +62,24 @@ async function renderPdfPreview(
   const scale = MAX_PREVIEW_WIDTH / baseViewport.width;
   const viewport = page.getViewport({ scale });
 
-  const canvas = createCanvas(viewport.width, viewport.height);
-  const context = canvas.getContext("2d");
+  const canvasFactory = new NodeCanvasFactory();
+  const canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
+
+  if (!canvasAndContext.context) {
+    throw new Error(`Failed to create 2D context for preview: ${pdfPath}`);
+  }
 
   await page.render({
-    canvasContext: context as unknown as CanvasRenderingContext2D,
+    canvasContext: canvasAndContext.context as unknown as CanvasRenderingContext2D,
     viewport,
+    canvasFactory,
   }).promise;
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, canvas.toBuffer("image/jpeg", { quality: 0.85 }));
+  fs.writeFileSync(
+    outputPath,
+    canvasAndContext.canvas.toBuffer("image/jpeg", { quality: 0.85 })
+  );
 }
 
 async function generatePreviewForDocument(
@@ -66,11 +101,11 @@ async function generatePreviewForDocument(
 (async () => {
   try {
     const documents = getAllPreviewDocuments();
-    await Promise.all(
-      documents.map((doc) =>
-        generatePreviewForDocument(doc.pdf, doc.previewRelativePath)
-      )
-    );
+
+    for (const doc of documents) {
+      await generatePreviewForDocument(doc.pdf, doc.previewRelativePath);
+    }
+
     console.log("All document previews have been generated successfully.");
   } catch (error) {
     console.error("Failed to generate document previews:", error);
