@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "baptiste-yoga-teacher",
+    "pdf": "/certificates/baptiste-yoga-teacher.pdf",
+    "issuer": "Baptiste Power Yoga San Francisco",
+    "title": {
+      "en": "Baptiste Power Yoga Instructor",
+      "es": "Instructor de Baptiste Power Yoga",
+      "fr": "Enseignant de Baptiste Power Yoga",
+      "de": "Baptiste Power Yoga Lehrer"
+    },
+    "description": {
+      "en": "Certificate issued by Baptiste Power Yoga San Francisco",
+      "es": "Certificado emitido por Baptiste Power Yoga San Francisco",
+      "fr": "Certificat délivré par Baptiste Power Yoga San Francisco",
+      "de": "Zertifikat ausgestellt von Baptiste Power Yoga San Francisco"
+    }
+  },
+  {
+    "slug": "crossfit-level1-trainer",
+    "pdf": "/certificates/crossfit-level1-trainer.pdf",
+    "issuer": "CrossFit Education",
+    "title": {
+      "en": "CrossFit Level 1 Trainer",
+      "es": "Entrenador CrossFit Nivel 1",
+      "fr": "Entraîneur CrossFit Niveau 1",
+      "de": "CrossFit Level 1 Trainer"
+    },
+    "description": {
+      "en": "Certificate issued by CrossFit Education",
+      "es": "Certificado emitido por CrossFit Education",
+      "fr": "Certificat délivré par CrossFit Education",
+      "de": "Zertifikat ausgestellt von CrossFit Education"
+    }
+  },
+  {
+    "slug": "french-b2",
+    "pdf": "/certificates/french-b2.pdf",
+    "issuer": "DELF",
+    "title": {
+      "en": "French B2 Certificate",
+      "es": "Certificado de Francés B2",
+      "fr": "Certificat de Français B2",
+      "de": "Französisch B2 Zertifikat"
+    },
+    "description": {
+      "en": "DELF B2 French language certification",
+      "es": "Certificación de francés DELF B2",
+      "fr": "Certification de français DELF B2",
+      "de": "DELF B2 Französisch-Zertifizierung"
+    }
+  },
+  {
+    "slug": "french-c1",
+    "pdf": "/certificates/french-c1.pdf",
+    "issuer": "DELF",
+    "title": {
+      "en": "French C1 Certificate",
+      "es": "Certificado de Francés C1",
+      "fr": "Certificat de Français C1",
+      "de": "Französisch C1 Zertifikat"
+    },
+    "description": {
+      "en": "DELF C1 French language certification",
+      "es": "Certificación de francés DELF C1",
+      "fr": "Certification de français DELF C1",
+      "de": "DELF C1 Französisch-Zertifizierung"
+    }
+  },
+  {
+    "slug": "german-a1",
+    "pdf": "/certificates/german-a1.pdf",
+    "issuer": "Goethe-Institut",
+    "title": {
+      "en": "German A1 Certificate",
+      "es": "Certificado de Alemán A1",
+      "fr": "Certificat d'Allemand A1",
+      "de": "Deutsch A1 Zertifikat"
+    },
+    "description": {
+      "en": "Goethe-Zertifikat A1 German language certification",
+      "es": "Certificación de alemán Goethe-Zertifikat A1",
+      "fr": "Certification d'allemand Goethe-Zertifikat A1",
+      "de": "Goethe-Zertifikat A1 Deutsch-Zertifizierung"
+    }
+  },
+  {
+    "slug": "german-a2",
+    "pdf": "/certificates/german-a2.pdf",
+    "issuer": "Goethe-Institut",
+    "title": {
+      "en": "German A2 Certificate",
+      "es": "Certificado de Alemán A2",
+      "fr": "Certificat d'Allemand A2",
+      "de": "Deutsch A2 Zertifikat"
+    },
+    "description": {
+      "en": "Goethe-Zertifikat A2 German language certification",
+      "es": "Certificación de alemán Goethe-Zertifikat A2",
+      "fr": "Certification d'allemand Goethe-Zertifikat A2",
+      "de": "Goethe-Zertifikat A2 Deutsch-Zertifizierung"
+    }
+  }
+]
