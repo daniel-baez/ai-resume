@@ -78,7 +78,7 @@ export default async function CertificatePage({
   return (
     <DocumentViewer
       title={title}
-      subtitle={certificate.issuer}
+      subtitle={certificate.subtitle}
       pdfUrl={certificate.pdf}
       pdfFilename={pdfFilename}
     />

@@ -78,7 +78,7 @@ export default async function ExperienceLetterPage({
   return (
     <DocumentViewer
       title={title}
-      subtitle={`${letter.role} · ${letter.company}`}
+      subtitle={letter.subtitle}
       pdfUrl={letter.pdf}
       pdfFilename={pdfFilename}
     />
