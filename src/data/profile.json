@@ -78,11 +78,11 @@
       "certifications": [
         {
           "name": "B2",
-          "url": "/certificates/french-b2.pdf"
+          "url": "/certificates/french-b2"
         },
         {
           "name": "C1",
-          "url": "/certificates/french-c1.pdf"
+          "url": "/certificates/french-c1"
         }
       ]
     },
@@ -102,11 +102,11 @@
       "certifications": [
         {
           "name": "A1",
-          "url": "/certificates/german-a1.pdf"
+          "url": "/certificates/german-a1"
         },
         {
           "name": "A2",
-          "url": "/certificates/german-a2.pdf"
+          "url": "/certificates/german-a2"
         }
       ]
     }
@@ -151,7 +151,7 @@
         "fr": "Enseignant de Baptiste Power Yoga",
         "de": "Baptiste Power Yoga Lehrer"
       },
-      "url": "/certificates/baptiste-yoga-teacher.pdf",
+      "url": "/certificates/baptiste-yoga-teacher",
       "issuer": "Baptiste Power Yoga San Francisco"
     },
     {
@@ -161,7 +161,7 @@
         "fr": "Entraîneur CrossFit Niveau 1",
         "de": "CrossFit Level 1 Trainer"
       },
-      "url": "/certificates/crossfit-level1-trainer.pdf",
+      "url": "/certificates/crossfit-level1-trainer",
       "issuer": "CrossFit Education"
     }
   ]
