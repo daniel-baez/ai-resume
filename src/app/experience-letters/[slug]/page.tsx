@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocumentViewer } from "@/components/documents/document-viewer";
+import { buildExperienceLetterDownloadFilename } from "@/lib/download-filename";
 import {
   getAllExperienceLetters,
   getExperienceLetterBySlug,
@@ -73,14 +74,13 @@ export default async function ExperienceLetterPage({
   }
 
   const title = resolveExperienceLetterText(letter.title);
-  const pdfFilename = `${slug}.pdf`;
 
   return (
     <DocumentViewer
       title={title}
       subtitle={letter.subtitle}
       pdfUrl={letter.pdf}
-      pdfFilename={pdfFilename}
+      pdfFilename={buildExperienceLetterDownloadFilename(slug)}
       previewImageUrl={`/${letter.previewRelativePath}`}
     />
   );

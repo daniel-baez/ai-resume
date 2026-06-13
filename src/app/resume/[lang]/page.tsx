@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocumentViewer } from "@/components/documents/document-viewer";
+import { buildResumeDownloadFilename } from "@/lib/download-filename";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 import {
   getResumeDocuments,
@@ -82,15 +83,13 @@ export default async function ResumePage({
   }
 
   const title = resolveDocumentText(resume.title, lang);
-  const date = new Date();
-  const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 
   return (
     <DocumentViewer
       title={title}
       subtitle={resume.subtitle}
       pdfUrl={resume.pdf}
-      pdfFilename={`resume-daniel-baez-${lang}-${yearMonth}.pdf`}
+      pdfFilename={buildResumeDownloadFilename(lang)}
       previewImageUrl={`/${resume.previewRelativePath}`}
       homeHref={`/${lang}`}
     />

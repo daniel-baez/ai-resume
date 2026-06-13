@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocumentViewer } from "@/components/documents/document-viewer";
+import { buildCertificateDownloadFilename } from "@/lib/download-filename";
 import {
   getAllCertificates,
   getCertificateBySlug,
@@ -73,14 +74,13 @@ export default async function CertificatePage({
   }
 
   const title = resolveCertificateText(certificate.title);
-  const pdfFilename = `${slug}.pdf`;
 
   return (
     <DocumentViewer
       title={title}
       subtitle={certificate.subtitle}
       pdfUrl={certificate.pdf}
-      pdfFilename={pdfFilename}
+      pdfFilename={buildCertificateDownloadFilename(slug)}
       previewImageUrl={`/${certificate.previewRelativePath}`}
     />
   );
