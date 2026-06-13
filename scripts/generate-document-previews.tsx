@@ -1,10 +1,18 @@
 import fs from "fs";
 import path from "path";
-import { createCanvas, Image } from "canvas";
+import Canvas from "canvas";
 import * as pdfjsLib from "pdfjs-dist";
 import { getAllPreviewDocuments } from "../src/lib/document-sources";
 
 const MAX_PREVIEW_WIDTH = 1200;
+const { createCanvas, Image } = Canvas;
+
+// pdfjs checks instanceof HTMLCanvasElement/HTMLImageElement when painting embedded images.
+globalThis.Image = Image as unknown as typeof globalThis.Image;
+globalThis.HTMLCanvasElement =
+  createCanvas(1, 1).constructor as unknown as typeof globalThis.HTMLCanvasElement;
+globalThis.HTMLImageElement =
+  Image as unknown as typeof globalThis.HTMLImageElement;
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = path.join(
   process.cwd(),
@@ -14,9 +22,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = path.join(
   "pdf.worker.js"
 );
 
-// pdfjs needs node-canvas Image when rendering PDFs with embedded images.
-globalThis.Image = Image as unknown as typeof globalThis.Image;
-
 class NodeCanvasFactory {
   create(width: number, height: number) {
     const canvas = createCanvas(width, height);
@@ -25,7 +30,7 @@ class NodeCanvasFactory {
   }
 
   reset(
-    canvasAndContext: { canvas: ReturnType<typeof createCanvas>; context: ReturnType<ReturnType<typeof createCanvas>["getContext"]> },
+    canvasAndContext: { canvas: ReturnType<typeof createCanvas> },
     width: number,
     height: number
   ) {
@@ -34,7 +39,7 @@ class NodeCanvasFactory {
   }
 
   destroy(
-    canvasAndContext: { canvas: ReturnType<typeof createCanvas> | null; context: ReturnType<ReturnType<typeof createCanvas>["getContext"]> | null }
+    canvasAndContext: { canvas: null; context: null }
   ) {
     canvasAndContext.canvas = null;
     canvasAndContext.context = null;
