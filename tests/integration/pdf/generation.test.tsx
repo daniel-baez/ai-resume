@@ -4,7 +4,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert';
 import { isValidPDFBuffer } from './test-utils';
 import { getProfileData, getSummaryData } from '@/lib/data';
-import * as pdfjsLib from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import type { TextItem, TextMarkedContent } from 'pdfjs-dist/types/src/display/api';
 import path from 'path';
 
@@ -23,8 +23,9 @@ describe('PDF Generation Integration', async () => {
     process.cwd(),
     'node_modules',
     'pdfjs-dist',
+    'legacy',
     'build',
-    'pdf.worker.js'
+    'pdf.worker.mjs'
   );
 
   // Set standard font data URL

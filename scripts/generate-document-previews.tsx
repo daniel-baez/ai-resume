@@ -1,50 +1,19 @@
 import fs from "fs";
 import path from "path";
-import Canvas from "canvas";
-import * as pdfjsLib from "pdfjs-dist";
+import { createCanvas } from "@napi-rs/canvas";
+import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { getAllPreviewDocuments } from "../src/lib/document-sources";
 
 const MAX_PREVIEW_WIDTH = 1200;
-const { createCanvas, Image } = Canvas;
 
-// pdfjs checks instanceof HTMLCanvasElement/HTMLImageElement when painting embedded images.
-globalThis.Image = Image as unknown as typeof globalThis.Image;
-globalThis.HTMLCanvasElement =
-  createCanvas(1, 1).constructor as unknown as typeof globalThis.HTMLCanvasElement;
-globalThis.HTMLImageElement =
-  Image as unknown as typeof globalThis.HTMLImageElement;
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = path.join(
+GlobalWorkerOptions.workerSrc = path.join(
   process.cwd(),
   "node_modules",
   "pdfjs-dist",
+  "legacy",
   "build",
-  "pdf.worker.js"
+  "pdf.worker.mjs"
 );
-
-class NodeCanvasFactory {
-  create(width: number, height: number) {
-    const canvas = createCanvas(width, height);
-    const context = canvas.getContext("2d");
-    return { canvas, context };
-  }
-
-  reset(
-    canvasAndContext: { canvas: ReturnType<typeof createCanvas> },
-    width: number,
-    height: number
-  ) {
-    canvasAndContext.canvas.width = width;
-    canvasAndContext.canvas.height = height;
-  }
-
-  destroy(
-    canvasAndContext: { canvas: null; context: null }
-  ) {
-    canvasAndContext.canvas = null;
-    canvasAndContext.context = null;
-  }
-}
 
 async function renderPdfPreview(
   pdfPath: string,
@@ -58,7 +27,7 @@ async function renderPdfPreview(
   );
 
   const data = new Uint8Array(fs.readFileSync(pdfPath));
-  const pdf = await pdfjsLib.getDocument({
+  const pdf = await getDocument({
     data,
     standardFontDataUrl,
   }).promise;
@@ -67,24 +36,24 @@ async function renderPdfPreview(
   const scale = MAX_PREVIEW_WIDTH / baseViewport.width;
   const viewport = page.getViewport({ scale });
 
-  const canvasFactory = new NodeCanvasFactory();
-  const canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
+  const canvas = createCanvas(
+    Math.floor(viewport.width),
+    Math.floor(viewport.height)
+  );
+  const context = canvas.getContext("2d");
 
-  if (!canvasAndContext.context) {
+  if (!context) {
     throw new Error(`Failed to create 2D context for preview: ${pdfPath}`);
   }
 
   await page.render({
-    canvasContext: canvasAndContext.context as unknown as CanvasRenderingContext2D,
+    canvasContext: context as unknown as CanvasRenderingContext2D,
+    canvas: canvas as unknown as HTMLCanvasElement,
     viewport,
-    canvasFactory,
   }).promise;
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(
-    outputPath,
-    canvasAndContext.canvas.toBuffer("image/jpeg", { quality: 0.85 })
-  );
+  fs.writeFileSync(outputPath, await canvas.toBuffer("image/jpeg"));
 }
 
 async function generatePreviewForDocument(
