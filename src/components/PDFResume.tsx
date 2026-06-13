@@ -276,7 +276,11 @@ const MarkdownContent = ({ content }: { content: string }) => {
     while ((match = boldRegex.exec(text)) !== null) {
       // Add text before bold
       if (match.index > lastIndex) {
-        parts.push(text.substring(lastIndex, match.index));
+        parts.push(
+          <Text key={`text-${localKey++}`}>
+            {text.substring(lastIndex, match.index)}
+          </Text>
+        );
       }
       // Add bold text
       parts.push(
@@ -289,7 +293,9 @@ const MarkdownContent = ({ content }: { content: string }) => {
 
     // Add remaining text
     if (lastIndex < text.length) {
-      parts.push(text.substring(lastIndex));
+      parts.push(
+        <Text key={`text-${localKey++}`}>{text.substring(lastIndex)}</Text>
+      );
     }
 
     return parts.length > 0 ? parts : [text];
@@ -442,11 +448,14 @@ export const PDFResume = ({
           <View style={styles.languagesContainer}>
             {profileData.languages.map((language, index) => (
               <Text key={index} style={styles.languageItem}>
-                {language.name}: {language.level} {language.certifications?.map((certification) => (
-                  <>
-                    &nbsp;|&nbsp;
-                    <Link src={certification.url} style={styles.languageItem}>{certification.name}</Link>
-                  </>
+                {language.name}: {language.level}{" "}
+                {language.certifications?.map((certification) => (
+                  <Text key={certification.name}>
+                    |{" "}
+                    <Link src={certification.url} style={styles.languageItem}>
+                      {certification.name}
+                    </Link>
+                  </Text>
                 ))}
               </Text>
             ))}

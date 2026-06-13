@@ -4,7 +4,7 @@ title: "Software Architect"
 location: "Santiago, Chile"
 period: "May 2011 - Nov 2012"
 order: 7
-experience_letter: /experience_letters/adexus.pdf
+experience_letter: /experience-letters/adexus
 ---
 
 Développé et géré des solutions critiques pour les clients gouvernementaux dans les domaines de l'évaluation des investissements publics et de la gestion du système de santé.

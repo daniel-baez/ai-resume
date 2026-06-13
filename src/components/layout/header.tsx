@@ -93,14 +93,11 @@ export function Header({
   };
 
   // For resume download
-  const handleResumeClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const resumeUrl = `/resume/${currentLang.code}`;
+  const handleResumeClick = async () => {
     await trackEvent('download_cv', {
       event_category: 'engagement',
-      link_url: resumeUrl,
+      link_url: `/resume/${currentLang.code}`,
     });
-    window.open(resumeUrl, '_blank', 'noopener,noreferrer');
   };
 
   // For calendly meeting
@@ -153,9 +150,7 @@ export function Header({
             <div className="flex flex-col items-stretch md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
               <ContactForm isOpen={isContactOpen} onOpenChange={handleContactOpen} currentLang={currentLang} />
               <Link 
-                href={`/resume/${currentLang.code}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
+                href={`/resume/${currentLang.code}`}
                 onClick={handleResumeClick}
                 prefetch={false}
               >

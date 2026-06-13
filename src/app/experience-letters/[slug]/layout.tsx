@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CertificateLayout({
+export default function ExperienceLetterLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

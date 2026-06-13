@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build:original": "next build",
-    "build": "npm test && npm run clean && npm run generate-pdfs && npm run build:original",
+    "build": "npm test && npm run clean && npm run generate-assets && npm run build:original",
     "start": "next start",
     "lint": "next lint",
     "generate-pdfs": "npx tsx scripts/generate-pdfs.tsx",
-    "clean": "rm -rf public/pdfs/*.pdf",
+    "generate-previews": "npx tsx scripts/generate-document-previews.tsx",
+    "generate-assets": "npm run generate-pdfs && npm run generate-previews",
+    "clean": "rm -rf public/pdfs/*.pdf public/pdfs/og public/certificates/og public/experience_letters/og",
     "test": "NODE_ENV=test tsx --test tests/integration/**/*.test.tsx",
     "test:watch": "NODE_ENV=test tsx --watch --test tests/integration/**/*.test.tsx"
   },
@@ -41,6 +43,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^0.1.78",
     "@types/next": "^9.0.0",
     "@types/node": "^20.17.47",
     "@types/pdfjs-dist": "^2.10.378",
@@ -48,10 +51,11 @@
     "@types/react-dom": "^18",
     "@types/validator": "^13.12.2",
     "autoprefixer": "^10.0.1",
+    "canvas": "^3.2.3",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "node-fetch": "^3.3.2",
-    "pdfjs-dist": "^3.11.174",
+    "pdfjs-dist": "^4.8.69",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.7.1",

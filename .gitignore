@@ -47,8 +47,10 @@ yarn-error.log*
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 
-# Generated PDFs
+# Generated PDFs and previews
 public/pdfs/
+public/certificates/og/
+public/experience_letters/og/
 
 # Firebase
 .firebase/
