@@ -16,6 +16,7 @@ type DocumentViewerProps = {
   subtitle: string;
   pdfUrl: string;
   pdfFilename: string;
+  previewImageUrl: string;
   homeHref?: string;
 };
 
@@ -28,6 +29,7 @@ export function DocumentViewer({
   subtitle,
   pdfUrl,
   pdfFilename,
+  previewImageUrl,
   homeHref = "/en",
 }: DocumentViewerProps) {
   const [zoom, setZoom] = useState(1);
@@ -39,8 +41,6 @@ export function DocumentViewer({
   const zoomIn = useCallback(() => {
     setZoom((current) => Math.min(MAX_ZOOM, current + ZOOM_STEP));
   }, []);
-
-  const pdfViewerUrl = `${pdfUrl}#toolbar=0&navpanes=0&view=FitH`;
 
   return (
     <div className="flex h-screen flex-col bg-[#1e1e1e] text-white">
@@ -86,14 +86,15 @@ export function DocumentViewer({
 
       <div className="relative flex flex-1 justify-center overflow-auto bg-[#1e1e1e] p-4 sm:p-8">
         <div
-          className="h-full w-full max-w-5xl origin-top transition-transform duration-150"
+          className="w-full max-w-5xl origin-top transition-transform duration-150"
           style={{ transform: `scale(${zoom})` }}
         >
-          <div className="h-full min-h-[calc(100vh-8rem)] overflow-hidden rounded-sm bg-white shadow-2xl">
-            <iframe
-              src={pdfViewerUrl}
-              title={title}
-              className="h-full w-full border-0"
+          <div className="overflow-hidden rounded-sm bg-white shadow-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={previewImageUrl}
+              alt={title}
+              className="h-auto w-full"
             />
           </div>
         </div>

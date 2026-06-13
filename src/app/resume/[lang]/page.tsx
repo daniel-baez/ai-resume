@@ -91,6 +91,7 @@ export default async function ResumePage({
       subtitle={resume.subtitle}
       pdfUrl={resume.pdf}
       pdfFilename={`resume-daniel-baez-${lang}-${yearMonth}.pdf`}
+      previewImageUrl={`/${resume.previewRelativePath}`}
       homeHref={`/${lang}`}
     />
   );
