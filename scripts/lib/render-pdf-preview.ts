@@ -54,8 +54,9 @@ async function renderWithNapiCanvas(
 
   await page.render({
     canvasContext: context as unknown as CanvasRenderingContext2D,
-    canvas: canvas as unknown as HTMLCanvasElement,
     viewport,
+    // pdfjs accepts `canvas` in Node runtimes; types only describe browser rendering.
+    ...({ canvas } as Record<string, unknown>),
   }).promise;
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
