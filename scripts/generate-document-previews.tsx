@@ -16,7 +16,7 @@ async function generatePreviewForDocument(
   }
 
   await renderPdfPreview(pdfPath, outputPath);
-  console.log(`Preview generated: ${outputPath}`);
+  console.log(`Preview generated: ${previewRelativePath}`);
 }
 
 (async () => {
