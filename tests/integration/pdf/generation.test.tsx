@@ -33,7 +33,7 @@ describe('PDF Generation Integration', async () => {
     process.cwd(),
     'node_modules',
     'pdfjs-dist',
-    'standard_fonts'
+    'standard_fonts/'
   );
 
   // Test for each supported language
