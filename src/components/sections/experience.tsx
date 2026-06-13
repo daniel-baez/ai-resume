@@ -39,7 +39,7 @@ export function Experience({ experienceEntries, currentLang }: ExperienceProps) 
                 <>
                   &nbsp;|&nbsp;
                   <span className="text-blue-600 hover:underline">
-                    <a href={experience.experience_letter} target="_blank" >
+                    <a href={experience.experience_letter}>
                       {t.sections.experience_letter}
                     </a>
                   </span>

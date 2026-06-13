@@ -4,7 +4,7 @@ title: "Senior Software Developer"
 location: "Santiago, Chile"
 period: "Nov 2012 - Oct 2013"
 order: 6
-experience_letter: /experience_letters/clear2pay.pdf
+experience_letter: /experience-letters/clear2pay
 ---
 
 Confiado con la extensión de las soluciones de pago basadas en J2EE para cumplir con los requisitos complejos de las principales bancos en Chile, incluyendo Banco Estado y Banco de Chile.

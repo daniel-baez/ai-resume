@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { getSiteUrl } from "@/lib/site-url";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 import { getAllCertificates } from "@/lib/certificates";
+import { getAllExperienceLetters } from "@/lib/experience-letters";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getSiteUrl();
@@ -21,5 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...languagePages, ...certificatePages];
+  const experienceLetterPages = getAllExperienceLetters().map((letter) => ({
+    url: `${baseUrl}/experience-letters/${letter.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.5,
+  }));
+
+  return [...languagePages, ...certificatePages, ...experienceLetterPages];
 }

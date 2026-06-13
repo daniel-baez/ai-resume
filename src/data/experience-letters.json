@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "adexus",
+    "pdf": "/experience_letters/adexus.pdf",
+    "company": "Adexus",
+    "role": "Software Architect",
+    "title": {
+      "en": "Experience Letter — Adexus",
+      "es": "Carta de experiencia — Adexus",
+      "fr": "Lettre de recommandation — Adexus",
+      "de": "Arbeitszeugnis — Adexus"
+    },
+    "description": {
+      "en": "Professional experience letter from Adexus, Santiago, Chile",
+      "es": "Carta de experiencia profesional de Adexus, Santiago, Chile",
+      "fr": "Lettre de recommandation professionnelle d'Adexus, Santiago, Chili",
+      "de": "Berufliches Arbeitszeugnis von Adexus, Santiago, Chile"
+    }
+  },
+  {
+    "slug": "clear2pay",
+    "pdf": "/experience_letters/clear2pay.pdf",
+    "company": "Clear2Pay",
+    "role": "Senior Software Developer",
+    "title": {
+      "en": "Experience Letter — Clear2Pay",
+      "es": "Carta de experiencia — Clear2Pay",
+      "fr": "Lettre de recommandation — Clear2Pay",
+      "de": "Arbeitszeugnis — Clear2Pay"
+    },
+    "description": {
+      "en": "Professional experience letter from Clear2Pay, Santiago, Chile",
+      "es": "Carta de experiencia profesional de Clear2Pay, Santiago, Chile",
+      "fr": "Lettre de recommandation professionnelle de Clear2Pay, Santiago, Chili",
+      "de": "Berufliches Arbeitszeugnis von Clear2Pay, Santiago, Chile"
+    }
+  },
+  {
+    "slug": "santiago-stock-exchange",
+    "pdf": "/experience_letters/santiago-stock-exchange.pdf",
+    "company": "Santiago Stock Exchange",
+    "role": "Senior Software Engineer",
+    "title": {
+      "en": "Experience Letter — Santiago Stock Exchange",
+      "es": "Carta de experiencia — Bolsa de Santiago",
+      "fr": "Lettre de recommandation — Bourse de Santiago",
+      "de": "Arbeitszeugnis — Santiago Stock Exchange"
+    },
+    "description": {
+      "en": "Professional experience letter from the Santiago Stock Exchange, Chile",
+      "es": "Carta de experiencia profesional de la Bolsa de Santiago, Chile",
+      "fr": "Lettre de recommandation professionnelle de la Bourse de Santiago, Chili",
+      "de": "Berufliches Arbeitszeugnis der Santiago Stock Exchange, Chile"
+    }
+  }
+]

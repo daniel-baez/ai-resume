@@ -2,15 +2,15 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocumentViewer } from "@/components/documents/document-viewer";
 import {
-  getAllCertificates,
-  getCertificateBySlug,
-  getCertificateOgImageUrl,
-  getCertificateShareUrl,
-  resolveCertificateText,
-} from "@/lib/certificates";
+  getAllExperienceLetters,
+  getExperienceLetterBySlug,
+  getExperienceLetterOgImageUrl,
+  getExperienceLetterShareUrl,
+  resolveExperienceLetterText,
+} from "@/lib/experience-letters";
 
 export function generateStaticParams() {
-  return getAllCertificates().map((cert) => ({ slug: cert.slug }));
+  return getAllExperienceLetters().map((letter) => ({ slug: letter.slug }));
 }
 
 export async function generateMetadata({
@@ -19,16 +19,16 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const certificate = getCertificateBySlug(slug);
+  const letter = getExperienceLetterBySlug(slug);
 
-  if (!certificate) {
+  if (!letter) {
     return {};
   }
 
-  const title = resolveCertificateText(certificate.title);
-  const description = resolveCertificateText(certificate.description);
-  const url = getCertificateShareUrl(slug);
-  const imageUrl = getCertificateOgImageUrl(slug);
+  const title = resolveExperienceLetterText(letter.title);
+  const description = resolveExperienceLetterText(letter.description);
+  const url = getExperienceLetterShareUrl(slug);
+  const imageUrl = getExperienceLetterOgImageUrl(slug);
 
   return {
     title,
@@ -60,26 +60,26 @@ export async function generateMetadata({
   };
 }
 
-export default async function CertificatePage({
+export default async function ExperienceLetterPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const certificate = getCertificateBySlug(slug);
+  const letter = getExperienceLetterBySlug(slug);
 
-  if (!certificate) {
+  if (!letter) {
     notFound();
   }
 
-  const title = resolveCertificateText(certificate.title);
+  const title = resolveExperienceLetterText(letter.title);
   const pdfFilename = `${slug}.pdf`;
 
   return (
     <DocumentViewer
       title={title}
-      subtitle={certificate.issuer}
-      pdfUrl={certificate.pdf}
+      subtitle={`${letter.role} · ${letter.company}`}
+      pdfUrl={letter.pdf}
       pdfFilename={pdfFilename}
     />
   );

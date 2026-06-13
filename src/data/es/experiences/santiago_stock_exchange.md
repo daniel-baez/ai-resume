@@ -4,7 +4,7 @@ company: "Bolsa de Comercio de Santiago"
 period: "May 2010 - May 2011"
 location: "Santiago, Chile"
 order: 90
-experience_letter: /experience_letters/santiago-stock-exchange.pdf
+experience_letter: /experience-letters/santiago-stock-exchange
 ---
 
 Desarrollé y mantuve una aplicación de escritorio Java Swing utilizada por corredores para facilitar el comercio en tiempo real y la supervisión del mercado.
