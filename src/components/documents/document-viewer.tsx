@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 
 import { PdfCanvasViewer } from "@/components/documents/pdf-canvas-viewer";
+import { AVAILABLE_LANGUAGES, Language } from "@/constants/i18n";
+import { getTranslations } from "@/constants/translations";
 
 type DocumentViewerProps = {
   title: string;
@@ -19,6 +21,7 @@ type DocumentViewerProps = {
   pdfUrl: string;
   pdfFilename: string;
   homeHref?: string;
+  currentLang?: Language;
 };
 
 const MIN_ZOOM = 0.5;
@@ -31,7 +34,10 @@ export function DocumentViewer({
   pdfUrl,
   pdfFilename,
   homeHref = "/en",
+  currentLang = AVAILABLE_LANGUAGES.en,
 }: DocumentViewerProps) {
+  const t = getTranslations(currentLang);
+  const labels = t.documentViewer;
   const [zoom, setZoom] = useState(1);
 
   const zoomOut = useCallback(() => {
@@ -75,35 +81,40 @@ export function DocumentViewer({
               void downloadPdf();
             }}
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10"
-            title="Download"
+            title={labels.download}
           >
             <Download className="h-4 w-4" />
-            <span className="hidden sm:inline">Download</span>
+            <span className="hidden sm:inline">{labels.download}</span>
           </button>
           <a
             href={pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10"
-            title="Open in new tab"
+            title={labels.openInNewTab}
           >
             <ExternalLink className="h-4 w-4" />
-            <span className="hidden sm:inline">Open</span>
+            <span className="hidden sm:inline">{labels.open}</span>
           </a>
           <Link
             href={homeHref}
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10"
-            title="Back to portfolio"
+            title={labels.backToHome}
           >
             <Home className="h-4 w-4" />
-            <span className="hidden sm:inline">Portfolio</span>
+            <span className="hidden sm:inline">{labels.home}</span>
           </Link>
         </div>
       </header>
 
       <div className="relative flex flex-1 justify-center overflow-auto bg-[#1e1e1e] p-4 sm:p-8">
         <div className="w-full max-w-5xl">
-          <PdfCanvasViewer pdfUrl={pdfUrl} zoom={zoom} title={title} />
+          <PdfCanvasViewer
+            pdfUrl={pdfUrl}
+            zoom={zoom}
+            title={title}
+            labels={labels}
+          />
         </div>
       </div>
 
@@ -114,7 +125,7 @@ export function DocumentViewer({
             onClick={zoomOut}
             disabled={zoom <= MIN_ZOOM}
             className="rounded-full p-1 text-white/80 transition-colors hover:bg-white/10 disabled:opacity-40"
-            aria-label="Zoom out"
+            aria-label={labels.zoomOut}
           >
             <Minus className="h-4 w-4" />
           </button>
@@ -126,7 +137,7 @@ export function DocumentViewer({
             onClick={zoomIn}
             disabled={zoom >= MAX_ZOOM}
             className="rounded-full p-1 text-white/80 transition-colors hover:bg-white/10 disabled:opacity-40"
-            aria-label="Zoom in"
+            aria-label={labels.zoomIn}
           >
             <Plus className="h-4 w-4" />
           </button>

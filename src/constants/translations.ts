@@ -55,6 +55,20 @@ export type TranslationKeys = {
       website: string
     }
   }
+  documentViewer: {
+    download: string
+    open: string
+    openInNewTab: string
+    home: string
+    backToHome: string
+    zoomIn: string
+    zoomOut: string
+    loadingDocument: string
+    pdfRenderError: string
+    openPdfDirectly: string
+    openLink: string
+    page: string
+  }
 }
 
 const translations: Record<string, TranslationKeys> = {
@@ -112,6 +126,20 @@ const translations: Record<string, TranslationKeys> = {
         github: "GitHub",
         website: "Website"
       }
+    },
+    documentViewer: {
+      download: "Download",
+      open: "Open",
+      openInNewTab: "Open in new tab",
+      home: "Home",
+      backToHome: "Back to home",
+      zoomIn: "Zoom in",
+      zoomOut: "Zoom out",
+      loadingDocument: "Loading document…",
+      pdfRenderError: "Could not render the PDF preview.",
+      openPdfDirectly: "Open the PDF directly",
+      openLink: "Open link",
+      page: "page"
     }
   },
   es: {
@@ -168,6 +196,20 @@ const translations: Record<string, TranslationKeys> = {
         github: "GitHub",
         website: "Sitio Web"
       }
+    },
+    documentViewer: {
+      download: "Descargar",
+      open: "Abrir",
+      openInNewTab: "Abrir en una nueva pestaña",
+      home: "Inicio",
+      backToHome: "Volver al inicio",
+      zoomIn: "Acercar",
+      zoomOut: "Alejar",
+      loadingDocument: "Cargando documento…",
+      pdfRenderError: "No se pudo renderizar la vista previa del PDF.",
+      openPdfDirectly: "Abrir el PDF directamente",
+      openLink: "Abrir enlace",
+      page: "página"
     }
   },
   fr: {
@@ -224,6 +266,20 @@ const translations: Record<string, TranslationKeys> = {
         github: "GitHub",
         website: "Site Web"
       }
+    },
+    documentViewer: {
+      download: "Télécharger",
+      open: "Ouvrir",
+      openInNewTab: "Ouvrir dans un nouvel onglet",
+      home: "Accueil",
+      backToHome: "Retour à l'accueil",
+      zoomIn: "Zoomer",
+      zoomOut: "Dézoomer",
+      loadingDocument: "Chargement du document…",
+      pdfRenderError: "Impossible d'afficher l'aperçu du PDF.",
+      openPdfDirectly: "Ouvrir le PDF directement",
+      openLink: "Ouvrir le lien",
+      page: "page"
     }
   }
 }

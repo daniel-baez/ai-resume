@@ -18,10 +18,19 @@ type PdfPageData = {
   links: LinkOverlay[];
 };
 
+type PdfCanvasViewerLabels = {
+  loadingDocument: string;
+  pdfRenderError: string;
+  openPdfDirectly: string;
+  openLink: string;
+  page: string;
+};
+
 type PdfCanvasViewerProps = {
   pdfUrl: string;
   zoom: number;
   title: string;
+  labels: PdfCanvasViewerLabels;
 };
 
 async function loadPdfJs() {
@@ -72,7 +81,12 @@ async function extractLinks(
   return links;
 }
 
-export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
+export function PdfCanvasViewer({
+  pdfUrl,
+  zoom,
+  title,
+  labels,
+}: PdfCanvasViewerProps) {
   const [pages, setPages] = useState<PdfPageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -188,7 +202,7 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
   if (loading) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-sm text-white/60">
-        Loading document…
+        {labels.loadingDocument}
       </div>
     );
   }
@@ -196,14 +210,14 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
   if (error) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-sm text-white/70">
-        <p>Could not render the PDF preview.</p>
+        <p>{labels.pdfRenderError}</p>
         <a
           href={pdfUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sky-300 underline"
         >
-          Open the PDF directly
+          {labels.openPdfDirectly}
         </a>
       </div>
     );
@@ -231,7 +245,7 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
                   canvasRefs.current.delete(page.pageNumber);
                 }
               }}
-              aria-label={`${title} — page ${page.pageNumber}`}
+              aria-label={`${title} — ${labels.page} ${page.pageNumber}`}
               className="block h-full w-full"
             />
             <div className="pointer-events-none absolute inset-0">
@@ -248,7 +262,7 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
                     width: link.width * scale,
                     height: link.height * scale,
                   }}
-                  aria-label="Open link"
+                  aria-label={labels.openLink}
                 />
               ))}
             </div>

@@ -91,6 +91,7 @@ export default async function ResumePage({
       pdfUrl={resume.pdf}
       pdfFilename={buildResumeDownloadFilename(lang)}
       homeHref={`/${lang}`}
+      currentLang={AVAILABLE_LANGUAGES[lang]}
     />
   );
 }
