@@ -1,0 +1,28 @@
+---
+description: Conventions de test (node test runner + tsx)
+globs: tests/**/*.ts,tests/**/*.tsx
+alwaysApply: false
+---
+
+# Tests
+
+Le projet utilise le **test runner natif de Node** via `tsx` — pas de Jest, Vitest ni Mocha.
+N'introduis pas de framework de test supplémentaire.
+
+- **Imports standards** :
+
+```ts
+import { test, describe } from "node:test";
+import assert from "node:assert";
+import { getResumeDocuments } from "@/lib/document-sources"; // alias @/
+```
+
+- **Emplacement** : logique pure → `tests/unit` ; génération de PDF / I/O lourde →
+  `tests/integration`. Utilitaires partagés dans `tests/helpers`.
+- **Nommage** : `*.test.ts` (ou `.test.tsx`). Les fichiers sont découverts par `npm test`.
+- **Assertions** : `assert.strictEqual`, `assert.deepStrictEqual`, `assert.match`,
+  `assert.ok` avec un message d'échec explicite.
+- **Privilégie les invariants** plutôt que les valeurs figées fragiles : unicité des slugs,
+  cohérence des chemins, parité entre langues, existence des assets committés. Exemple :
+  boucler sur `Object.keys(AVAILABLE_LANGUAGES)` au lieu de coder les langues en dur.
+- **Toute nouvelle fonction de `src/lib`** arrive avec son test unitaire dans la même PR.

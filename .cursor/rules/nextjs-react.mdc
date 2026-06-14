@@ -1,0 +1,30 @@
+---
+description: Conventions Next.js 15 App Router et React 19
+globs: src/app/**/*.tsx,src/components/**/*.tsx
+alwaysApply: false
+---
+
+# Next.js 15 / React 19
+
+- **Server Components par défaut.** N'ajoute `"use client"` que si tu as besoin d'état,
+  d'effets ou d'API navigateur (ex. `contact-form.tsx`, viewers PDF).
+- **`params` est asynchrone.** Dans les pages/layouts, `params` est une `Promise` ; toujours
+  l'`await`.
+
+```tsx
+export default async function LangPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: langCode } = await params;
+  const lang = AVAILABLE_LANGUAGES[langCode as keyof typeof AVAILABLE_LANGUAGES]
+    ?? AVAILABLE_LANGUAGES["en"]; // toujours un repli
+}
+```
+
+- **Routes statiques.** Toute route dynamique de langue/slug expose `generateStaticParams`
+  pour le rendu au build.
+- **SEO obligatoire pour les pages publiques.** Fournis `generateMetadata` (title,
+  description, openGraph, twitter, `alternates.canonical` + `languages`) et les composants
+  `JsonLd*` quand c'est pertinent. Construis les URLs via `getSiteUrl()`, jamais en dur.
+- **Styles.** Tailwind uniquement ; compose les classes conditionnelles avec `cn()`
+  (`src/lib/utils`). Réutilise les primitives de `src/components/ui` (shadcn) au lieu d'en
+  recréer.
+- **Imports.** Utilise l'alias `@/` (jamais de chemins relatifs profonds `../../`).

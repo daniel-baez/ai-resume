@@ -1,0 +1,41 @@
+---
+description: Vue d'ensemble du projet et standards de qualité non négociables
+alwaysApply: true
+---
+
+# AI Resume — Principes du projet
+
+Générateur de CV multilingue : un site Next.js + des PDF générés à partir de données
+Markdown/JSON dans `src/data`. Le contenu est la source de vérité, le code ne fait que le
+rendre (web, PDF, OG, SEO).
+
+## Tenets
+
+- **Le contenu pilote tout.** Toute donnée (profil, expériences, compétences, certificats)
+  vit dans `src/data`, jamais codée en dur dans les composants.
+- **Multilingue par défaut.** Chaque chaîne destinée à l'utilisateur passe par le système
+  i18n avec repli sur `en`. Voir `i18n.mdc`.
+- **Server-first.** Lecture de fichiers et secrets côté serveur uniquement. Voir
+  `data-layer.mdc` et `server-actions.mdc`.
+- **Build déterministe.** `npm run build` lance les tests, nettoie puis régénère tous les
+  assets (PDF, previews). Ne jamais committer d'assets générés qui dérivent des données.
+
+## Barrières de qualité (ne jamais contourner)
+
+Avant de considérer une tâche terminée, le code doit passer :
+
+```bash
+npm run lint        # eslint, max-warnings 0
+npm run typecheck   # tsc app + tests
+npm test            # node test runner via tsx
+```
+
+Ces trois commandes tournent en pre-commit (Husky + lint-staged) et en CI. Si tu touches au
+code, lance-les. N'ajoute pas de `eslint-disable` ni de `@ts-ignore` pour faire taire une
+erreur sans justification écrite.
+
+## Pour faire monter la qualité
+
+- Toute logique pure (parsing, slugs, repli de langue, noms de fichiers) doit être extraite
+  dans `src/lib` et couverte par un test unitaire.
+- Préfère étendre les types de `src/types` plutôt que des `any` ou des objets anonymes.

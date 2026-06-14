@@ -1,0 +1,23 @@
+---
+description: Server Actions, validation des entrées et gestion des secrets
+globs: src/app/actions.ts,src/lib/captcha.ts,src/lib/firebase-admin.ts,src/lib/firebase-service.ts,src/lib/firebase.ts
+alwaysApply: false
+---
+
+# Server Actions & sécurité
+
+- **Frontière des secrets.** Seules les variables `NEXT_PUBLIC_*` peuvent atteindre le
+  navigateur. Les clés serveur (`RESEND_API_KEY`, `RECAPTCHA_SECRET_KEY`, `FIREBASE_PRIVATE_KEY`,
+  Admin SDK) restent dans du code serveur (`"use server"`, `src/lib/firebase-admin.ts`).
+  Ne logge jamais un secret.
+- **Valider toute entrée non fiable** côté serveur avant traitement : format
+  (`isEmail`, `parsePhoneNumberFromString`), longueurs maximales, et toujours vérifier le
+  reCAPTCHA avant tout effet de bord.
+- **Messages d'erreur traduits** : renvoie une clé de `t.contact.*` (via `getTranslations(lang)`),
+  jamais un message technique brut à l'utilisateur.
+- **Faire monter la qualité (à corriger / éviter)** :
+  - Logger avec `console.error` (pas `console.log`) pour les erreurs.
+  - Ne pas avaler silencieusement une erreur d'écriture en base ; au minimum la remonter ou
+    la signaler explicitement.
+  - Préférer `throw new Error(...)` à `throw "string"` pour préserver la stack ; convertir en
+    message utilisateur à la frontière de l'action.

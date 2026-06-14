@@ -1,0 +1,28 @@
+---
+description: Couche de données et code server-only (fs, génération)
+globs: src/lib/**/*.ts,src/lib/**/*.tsx,scripts/**/*.tsx,scripts/**/*.ts
+alwaysApply: false
+---
+
+# Couche de données
+
+Le contenu est lu depuis le système de fichiers (`fs` + `gray-matter`) au moment du build /
+côté serveur. Ce code ne doit **jamais** s'exécuter dans le navigateur.
+
+- **Toujours résoudre les chemins via `process.cwd()`** et `path.join`, jamais de chemins
+  relatifs à un module.
+
+```ts
+const dataDir = path.join(process.cwd(), "src/data", lang.code);
+```
+
+- **Garder le parsing pur et testable.** Les fonctions de `src/lib` (slugs, repli de langue,
+  dérivation de sources de documents, noms de fichiers) doivent être déterministes et
+  exportées pour les tests unitaires. Pas d'effet de bord caché.
+- **Front-matter Markdown** : respecte le schéma documenté (`title`, `company`, `period`,
+  `order`, `pdf`, `experience_letter`). Donne un repli explicite aux champs optionnels
+  (`data.pdf || false`).
+- **Pas d'`fs` ni de secrets dans un Client Component.** Si une donnée doit atteindre le
+  client, sérialise-la depuis un Server Component.
+- **Assets dérivés** (PDF, previews OG) sont régénérés par les scripts ; ne les édite pas à
+  la main et ne fais pas diverger leur logique de `document-sources.ts`.

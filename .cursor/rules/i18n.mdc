@@ -1,0 +1,27 @@
+---
+description: Internationalisation et chaînes traduisibles
+globs: src/data/**,src/constants/translations.ts,src/constants/i18n.ts,src/lib/data.ts,src/lib/document-sources.ts
+alwaysApply: false
+---
+
+# i18n
+
+Les langues vivent dans `AVAILABLE_LANGUAGES` (`src/constants/i18n.ts`). Une `TranslatableString`
+est un `Record<langCode, string>`.
+
+- **Toujours replier sur `en`.** N'accède jamais à `value[lang]` sans repli.
+
+```ts
+const resolve = (v: TranslatableString | string, lang = "en") =>
+  typeof v === "string" ? v : v[lang] || v.en;
+```
+
+- **Garder les langues synchronisées.** Si tu ajoutes une clé traduite (titre, description),
+  fournis-la pour **toutes** les langues d'`AVAILABLE_LANGUAGES`. Une langue partiellement
+  câblée (présente dans certains dictionnaires mais absente d'`AVAILABLE_LANGUAGES`, ou
+  l'inverse) est un bug : préfère piloter les boucles par `Object.keys(AVAILABLE_LANGUAGES)`
+  plutôt que de lister les codes en dur.
+- **Ajouter une langue** = suivre le runbook du README : dossier `src/data/{code}`, entrées
+  dans `i18n.ts` ET `translations.ts`. Un test unitaire doit rester vert sans modification.
+- **Aucune chaîne UI en dur** dans les composants : passe par `getTranslations(lang)` /
+  `TranslationKeys`.
