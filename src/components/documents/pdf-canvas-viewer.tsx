@@ -76,7 +76,25 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
   const [pages, setPages] = useState<PdfPageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
   const canvasRefs = useRef<Map<number, HTMLCanvasElement>>(new Map());
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const updateWidth = () => {
+      setContainerWidth(node.clientWidth);
+    };
+
+    updateWidth();
+
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [pages.length]);
 
   useEffect(() => {
     let cancelled = false;
@@ -127,7 +145,7 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
   }, [pdfUrl]);
 
   useEffect(() => {
-    if (pages.length === 0) return;
+    if (pages.length === 0 || containerWidth <= 0) return;
 
     let cancelled = false;
 
@@ -142,7 +160,9 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
         if (!canvas) continue;
 
         const page = await pdf.getPage(pageInfo.pageNumber);
-        const viewport = page.getViewport({ scale: zoom });
+        const fitScale = containerWidth / pageInfo.width;
+        const scale = fitScale * zoom;
+        const viewport = page.getViewport({ scale });
         const context = canvas.getContext("2d");
         if (!context) continue;
 
@@ -158,7 +178,12 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
     return () => {
       cancelled = true;
     };
-  }, [pages, pdfUrl, zoom]);
+  }, [pages, pdfUrl, zoom, containerWidth]);
+
+  const getPageScale = (pageWidth: number) => {
+    if (containerWidth <= 0) return zoom;
+    return (containerWidth / pageWidth) * zoom;
+  };
 
   if (loading) {
     return (
@@ -185,47 +210,51 @@ export function PdfCanvasViewer({ pdfUrl, zoom, title }: PdfCanvasViewerProps) {
   }
 
   return (
-    <div className="flex w-full max-w-5xl flex-col gap-4">
-      {pages.map((page) => (
-        <div
-          key={page.pageNumber}
-          className="relative overflow-hidden rounded-sm bg-white shadow-2xl"
-          style={{
-            width: page.width * zoom,
-            height: page.height * zoom,
-          }}
-        >
-          <canvas
-            ref={(node) => {
-              if (node) {
-                canvasRefs.current.set(page.pageNumber, node);
-              } else {
-                canvasRefs.current.delete(page.pageNumber);
-              }
+    <div ref={containerRef} className="flex w-full flex-col gap-4">
+      {pages.map((page) => {
+        const scale = getPageScale(page.width);
+
+        return (
+          <div
+            key={page.pageNumber}
+            className="relative overflow-hidden rounded-sm bg-white shadow-2xl"
+            style={{
+              width: page.width * scale,
+              height: page.height * scale,
             }}
-            aria-label={`${title} — page ${page.pageNumber}`}
-            className="block"
-          />
-          <div className="pointer-events-none absolute inset-0">
-            {page.links.map((link) => (
-              <a
-                key={link.id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pointer-events-auto absolute block"
-                style={{
-                  left: link.left * zoom,
-                  top: link.top * zoom,
-                  width: link.width * zoom,
-                  height: link.height * zoom,
-                }}
-                aria-label="Open link"
-              />
-            ))}
+          >
+            <canvas
+              ref={(node) => {
+                if (node) {
+                  canvasRefs.current.set(page.pageNumber, node);
+                } else {
+                  canvasRefs.current.delete(page.pageNumber);
+                }
+              }}
+              aria-label={`${title} — page ${page.pageNumber}`}
+              className="block h-full w-full"
+            />
+            <div className="pointer-events-none absolute inset-0">
+              {page.links.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pointer-events-auto absolute block"
+                  style={{
+                    left: link.left * scale,
+                    top: link.top * scale,
+                    width: link.width * scale,
+                    height: link.height * scale,
+                  }}
+                  aria-label="Open link"
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

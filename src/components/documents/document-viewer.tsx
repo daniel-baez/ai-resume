@@ -102,7 +102,9 @@ export function DocumentViewer({
       </header>
 
       <div className="relative flex flex-1 justify-center overflow-auto bg-[#1e1e1e] p-4 sm:p-8">
-        <PdfCanvasViewer pdfUrl={pdfUrl} zoom={zoom} title={title} />
+        <div className="w-full max-w-5xl">
+          <PdfCanvasViewer pdfUrl={pdfUrl} zoom={zoom} title={title} />
+        </div>
       </div>
 
       <footer className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
