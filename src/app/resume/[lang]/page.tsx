@@ -90,7 +90,6 @@ export default async function ResumePage({
       subtitle={resume.subtitle}
       pdfUrl={resume.pdf}
       pdfFilename={buildResumeDownloadFilename(lang)}
-      previewImageUrl={`/${resume.previewRelativePath}`}
       homeHref={`/${lang}`}
     />
   );

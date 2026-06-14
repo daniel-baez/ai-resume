@@ -81,7 +81,6 @@ export default async function CertificatePage({
       subtitle={certificate.subtitle}
       pdfUrl={certificate.pdf}
       pdfFilename={buildCertificateDownloadFilename(slug)}
-      previewImageUrl={`/${certificate.previewRelativePath}`}
     />
   );
 }

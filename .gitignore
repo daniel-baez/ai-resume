@@ -49,6 +49,7 @@ yarn-error.log*
 
 # Generated PDFs and previews
 public/pdfs/
+public/pdf.worker.mjs
 public/certificates/og/
 public/experience_letters/og/
 

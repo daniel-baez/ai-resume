@@ -82,8 +82,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: colors.background,
   },
-  linkText: {
-    color: colors.accent,
+  headerLink: {
+    color: colors.background,
+    textDecoration: 'underline',
+  },
+  bodyLink: {
+    color: colors.text,
     textDecoration: 'underline',
   },
   sectionTitle: {
@@ -208,6 +212,11 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     color: colors.text,
   },
+  languageLink: {
+    fontSize: fontSizes.sm,
+    color: colors.text,
+    textDecoration: 'underline',
+  },
   certificationEntry: {
     marginBottom: 10,
   },
@@ -249,7 +258,7 @@ const MarkdownContent = ({ content }: { content: string }) => {
       }
       // Add link
       parts.push(
-        <Link key={`link-${inlineKey++}`} src={linkMatch[2]} style={styles.linkText}>
+        <Link key={`link-${inlineKey++}`} src={linkMatch[2]} style={styles.bodyLink}>
           {linkMatch[1]}
         </Link>
       );
@@ -399,9 +408,9 @@ export const PDFResume = ({
           <Text style={styles.location}>{profileData.info.location}</Text>
           <View style={styles.links}>
             <Text>
-              <Link src={socialLinks.linkedin} style={styles.linkText}>{socialLinks.linkedin}</Link> | {' '}
-              <Link src={socialLinks.github} style={styles.linkText}>{socialLinks.github}</Link> | {' '}
-              <Link src={socialLinks.website} style={styles.linkText}>{socialLinks.website}</Link>
+              <Link src={socialLinks.linkedin} style={styles.headerLink}>{socialLinks.linkedin}</Link> | {' '}
+              <Link src={socialLinks.github} style={styles.headerLink}>{socialLinks.github}</Link> | {' '}
+              <Link src={socialLinks.website} style={styles.headerLink}>{socialLinks.website}</Link>
             </Text>
           </View>
         </View>
@@ -452,7 +461,7 @@ export const PDFResume = ({
                 {language.certifications?.map((certification) => (
                   <Text key={certification.name}>
                     |{" "}
-                    <Link src={certification.url} style={styles.languageItem}>
+                    <Link src={certification.url} style={styles.languageLink}>
                       {certification.name}
                     </Link>
                   </Text>
@@ -469,7 +478,7 @@ export const PDFResume = ({
               <Text key={index} style={styles.languageItem}>
                 {softSkill.name}: &nbsp;
                 {softSkill.url ? (
-                  <Link src={softSkill.url} style={styles.languageItem}>{softSkill.issuer}</Link>
+                  <Link src={softSkill.url} style={styles.languageLink}>{softSkill.issuer}</Link>
                 ) : (
                   softSkill.issuer
                 )}

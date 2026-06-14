@@ -81,7 +81,6 @@ export default async function ExperienceLetterPage({
       subtitle={letter.subtitle}
       pdfUrl={letter.pdf}
       pdfFilename={buildExperienceLetterDownloadFilename(slug)}
-      previewImageUrl={`/${letter.previewRelativePath}`}
     />
   );
 }
