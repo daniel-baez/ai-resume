@@ -101,12 +101,26 @@ npm run dev
 
 ## Testing
 
-The project uses Node.js built-in test runner with `tsx` for TypeScript support. Tests are located in the `tests/` directory.
+The project uses Node.js built-in test runner with `tsx` for TypeScript support.
+
+```
+tests/
+├── unit/           # Pure logic (download filenames, document sources, data, site URL)
+├── integration/    # PDF generation
+└── helpers/        # Shared test utilities
+```
 
 Run all tests:
 
 ```bash
 npm test
+```
+
+Run only unit or integration tests:
+
+```bash
+npm run test:unit
+npm run test:integration
 ```
 
 Run tests in watch mode (re-runs on file changes):
@@ -115,10 +129,23 @@ Run tests in watch mode (re-runs on file changes):
 npm run test:watch
 ```
 
-The integration tests validate PDF generation for each supported language, checking:
-- Valid PDF structure (magic number, size)
-- Content correctness (profile name, title, location, skills, summary)
-- Error handling for unsupported languages
+Other quality checks:
+
+```bash
+npm run lint
+npm run typecheck
+```
+
+### Pre-commit hooks
+
+After `npm install`, Husky runs on every commit:
+
+1. `npm run typecheck` — TypeScript for app and tests
+2. `lint-staged` — ESLint with auto-fix on staged `.ts`/`.tsx` files
+
+### CI (GitHub Actions)
+
+On every push/PR to `main`, the workflow runs lint, typecheck, unit tests, and integration tests.
 
 ## Build
 
@@ -126,7 +153,7 @@ The integration tests validate PDF generation for each supported language, check
 npm run build
 ```
 
-This will clean old PDFs, regenerate them for all languages, then build the Next.js app.
+This runs the full test suite first, then cleans old PDFs, regenerates them for all languages, and builds the Next.js app.
 
 ## To deploy production
 

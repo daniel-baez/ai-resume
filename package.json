@@ -8,13 +8,20 @@
     "build": "npm test && npm run clean && npm run generate-assets && npm run build:original",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/tsconfig.json",
+    "prepare": "husky",
     "generate-pdfs": "npx tsx scripts/generate-pdfs.tsx",
     "generate-previews": "npx tsx scripts/generate-document-previews.tsx",
     "copy-pdf-worker": "cp node_modules/pdfjs-dist/build/pdf.worker.mjs public/pdf.worker.mjs",
     "generate-assets": "npm run generate-pdfs && npm run generate-previews && npm run copy-pdf-worker",
     "clean": "rm -rf public/pdfs/*.pdf public/pdfs/og public/certificates/og public/experience_letters/og",
-    "test": "NODE_ENV=test tsx --test tests/integration/**/*.test.tsx",
-    "test:watch": "NODE_ENV=test tsx --watch --test tests/integration/**/*.test.tsx"
+    "test": "NODE_ENV=test tsx --test tests/unit/**/*.test.ts tests/integration/**/*.test.tsx",
+    "test:unit": "NODE_ENV=test tsx --test tests/unit/**/*.test.ts",
+    "test:integration": "NODE_ENV=test tsx --test tests/integration/**/*.test.tsx",
+    "test:watch": "NODE_ENV=test tsx --watch --test tests/unit/**/*.test.ts tests/integration/**/*.test.tsx"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix --max-warnings 0"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
@@ -55,7 +62,8 @@
     "canvas": "^3.2.3",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
-    "node-fetch": "^3.3.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.7.1",
