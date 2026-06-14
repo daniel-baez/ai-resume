@@ -5,10 +5,16 @@ import { Experience } from "@/components/sections/experience";
 import { Skills } from "@/components/sections/skills";
 import { Education } from "@/components/sections/education";
 import { JsonLdPerson } from "@/components/seo/json-ld-person";
+import { JsonLdWebSite } from "@/components/seo/json-ld-website";
 
 import { getProfileData, getSummaryData, getExperienceEntries } from "@/lib/data";
 import { AVAILABLE_LANGUAGES } from "@/constants/i18n";
 import { getSiteUrl } from "@/lib/site-url";
+import {
+  getLanguageAlternates,
+  getOgLocale,
+  getOgLocaleAlternates,
+} from "@/lib/seo";
 import { Metadata } from "next";
 
 // This generates all supported language routes at build time
@@ -33,6 +39,7 @@ export async function generateMetadata({
   const baseUrl = getSiteUrl();
   const title = `${profileData.info.name} - ${profileData.info.title}`;
   const description = profileData.info.subtitle;
+  const ogLocale = getOgLocale(langCode);
 
   return {
     title,
@@ -42,23 +49,27 @@ export async function generateMetadata({
       description,
       url: `${baseUrl}/${langCode}`,
       siteName: profileData.info.name,
-      locale: langCode,
+      locale: ogLocale,
+      alternateLocale: getOgLocaleAlternates(langCode),
       type: "profile",
-      images: [{ url: `${baseUrl}/og-image.png`, width: 1200, height: 630 }],
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [`${baseUrl}/og-image.png`],
+      images: ["/og-image.png"],
     },
     alternates: {
       canonical: `${baseUrl}/${langCode}`,
-      languages: {
-        en: `${baseUrl}/en`,
-        es: `${baseUrl}/es`,
-        fr: `${baseUrl}/fr`,
-      },
+      languages: getLanguageAlternates(baseUrl),
     },
   };
 }
@@ -74,6 +85,10 @@ export default async function LangPage({
   const profileData = getProfileData(lang);
   const summaryContent = getSummaryData(lang);
   const experienceEntries = getExperienceEntries(lang);
+  const knowsAbout = Object.values(profileData.skills)
+    .flat()
+    .map((skill) => skill.name);
+  const currentExperience = experienceEntries.find((entry) => entry.period.includes("Present"));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -83,7 +98,10 @@ export default async function LangPage({
         description={profileData.info.subtitle}
         location={profileData.info.location}
         lang={langCode}
+        knowsAbout={knowsAbout}
+        worksFor={currentExperience?.company}
       />
+      <JsonLdWebSite name={profileData.info.name} lang={langCode} />
       <div className="max-w-4xl mx-auto">
         <Header {...profileData.info} currentLang={lang} />
 
