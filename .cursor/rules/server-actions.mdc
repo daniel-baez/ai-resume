@@ -10,9 +10,11 @@ alwaysApply: false
   navigateur. Les clés serveur (`RESEND_API_KEY`, `RECAPTCHA_SECRET_KEY`, `FIREBASE_PRIVATE_KEY`,
   Admin SDK) restent dans du code serveur (`"use server"`, `src/lib/firebase-admin.ts`).
   Ne logge jamais un secret.
-- **Valider toute entrée non fiable** côté serveur avant traitement : format
-  (`isEmail`, `parsePhoneNumberFromString`), longueurs maximales, et toujours vérifier le
-  reCAPTCHA avant tout effet de bord.
+- **Valider toute entrée non fiable** côté serveur avant traitement : format (`isEmail`),
+  longueurs maximales (`name` / `email` ≤ 200, `message` ≤ 1000 pour le formulaire contact),
+  et toujours vérifier le reCAPTCHA avant tout effet de bord.
+- **Formulaire contact** (`verifyAndSendEmail`) : champs `name`, `email`, `message` uniquement —
+  pas de téléphone. Persistance Firestore (`contact_messages`) puis envoi Resend.
 - **Messages d'erreur traduits** : renvoie une clé de `t.contact.*` (via `getTranslations(lang)`),
   jamais un message technique brut à l'utilisateur.
 - **Faire monter la qualité (à corriger / éviter)** :

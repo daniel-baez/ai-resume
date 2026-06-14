@@ -1,7 +1,7 @@
 // src/components/forms/contact-form.tsx
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
 import {
@@ -18,8 +18,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { getCaptchaToken } from "@/lib/captcha"
 import { verifyAndSendEmail } from "@/app/actions"
 import { toast } from "@/hooks/use-toast"
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics'
 import { getTranslations } from "@/constants/translations"
 import { Language } from "@/constants/i18n"
@@ -35,35 +33,14 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
     message: "",
   })
   const [isLoading, setIsLoading] = useState(false)
   const t = getTranslations(currentLang)
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        const emailInput = document.getElementById("email")
-        const phoneInput = document.getElementById("phone")
-
-        // get the width of the email input
-        const emailWidth = emailInput?.offsetWidth
-        // set the width of the phone input to the width of the email input
-        if (phoneInput) {
-          phoneInput.style.width = `${emailWidth}px`
-        }
-      })
-    }
-  }, [isOpen])
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-  }
-
-  const handlePhoneChange = (value: string) => {
-    setFormData(prev => ({ ...prev, phone: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,7 +78,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
       description: t.contact.successDescription,
     })
     onOpenChange(false)
-    setFormData({ name: "", email: "", phone: "", message: "" })
+    setFormData({ name: "", email: "", message: "" })
     setIsLoading(false)
   }
 
@@ -110,7 +87,7 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
       trackEvent('contact_form_opened', { event_category: 'contact' });
     } else {
       trackEvent('contact_form_closed', { event_category: 'contact' });
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", message: "" });
     }
     onOpenChange(open);
     setIsLoading(false);
@@ -136,21 +113,6 @@ export function ContactForm({ isOpen, onOpenChange, currentLang }: ContactFormPr
           <div className="space-y-2">
             <Label htmlFor="email">{t.contact.email}</Label>
             <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required maxLength={200} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="phone">{t.contact.phone}</Label>
-            <PhoneInput
-              country={'us'}
-              value={formData.phone}
-              onChange={handlePhoneChange}
-              inputProps={{
-                id: 'phone',
-                name: 'phone',
-                required: true,
-                maxLength: 200,
-              }}
-              containerClass="phone-input-container"
-            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="message">{t.contact.message}</Label>

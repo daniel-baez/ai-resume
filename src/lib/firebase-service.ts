@@ -4,7 +4,6 @@ import { collection, addDoc, updateDoc, doc, Timestamp } from 'firebase/firestor
 interface ContactMessage {
   name: string;
   email: string;
-  phone: string;
   message: string;
   sent_at: Timestamp | null;
   created_at: Timestamp;

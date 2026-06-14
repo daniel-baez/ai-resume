@@ -27,7 +27,6 @@ export type TranslationKeys = {
     description: string
     name: string
     email: string
-    phone: string
     message: string
     submit: string
     success: string
@@ -38,7 +37,6 @@ export type TranslationKeys = {
     sendEmailError: string
     lengthError: string
     emailError: string
-    phoneError: string
   }
   pdf: {
     title: string
@@ -99,7 +97,6 @@ const translations: Record<string, TranslationKeys> = {
       description: "I'd love to hear from you! Fill out this form and I'll get back to you as soon as possible.",
       name: "Name",
       email: "Email",
-      phone: "Phone Number",
       message: "Message",
       submit: "Send Message",
       success: "Email sent successfully!",
@@ -109,8 +106,7 @@ const translations: Record<string, TranslationKeys> = {
       captchaError: "Error verifying captcha",
       sendEmailError: "Error sending email",
       lengthError: "Input exceeds maximum length",
-      emailError: "Invalid email format",
-      phoneError: "Invalid phone number"
+      emailError: "Invalid email format"
     },
     pdf: {
       title: "Software Engineer",
@@ -169,7 +165,6 @@ const translations: Record<string, TranslationKeys> = {
       description: "¡Me encantaría saber de ti! Completa este formulario y te responderé lo antes posible.",
       name: "Nombre",
       email: "Correo",
-      phone: "Teléfono",
       message: "Mensaje",
       submit: "Enviar Mensaje",
       success: "¡Mensaje enviado!",
@@ -179,8 +174,7 @@ const translations: Record<string, TranslationKeys> = {
       captchaError: "Error al validar el captcha",
       sendEmailError: "Error al enviar el correo",
       lengthError: "El input excede el máximo de caracteres",
-      emailError: "Formato de correo inválido",
-      phoneError: "Número de teléfono inválido"
+      emailError: "Formato de correo inválido"
     },
     pdf: {
       title: "Ingeniero de Software",
@@ -239,7 +233,6 @@ const translations: Record<string, TranslationKeys> = {
       description: "Je vous contacterai le plus tôt possible.",
       name: "Nom",
       email: "Email",
-      phone: "Téléphone",
       message: "Message",
       submit: "Envoyer",
       success: "Message envoyé !",
@@ -249,8 +242,7 @@ const translations: Record<string, TranslationKeys> = {
       captchaError: "Erreur lors de la vérification du captcha",
       sendEmailError: "Erreur lors de l'envoi de l'email",
       lengthError: "Le champ dépasse la longueur maximale",
-      emailError: "Format d'email invalide",
-      phoneError: "Numéro de téléphone invalide"
+      emailError: "Format d'email invalide"
     },
     pdf: {
       title: "Ingénieur Logiciel",

@@ -3,7 +3,6 @@
 import { Resend } from 'resend';
 import { isCaptchaValid } from '@/lib/captcha';
 import { isEmail } from 'validator';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { saveContactMessage, updateMessageSentStatus } from '@/lib/firebase-service';
 import { getTranslations, TranslationKeys } from '@/constants/translations';
 import { Language } from '@/constants/i18n';
@@ -13,37 +12,25 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 interface FormDataObject {
   name: string;
   email: string;
-  phone: string;
   message: string;
 }
 
 async function validateAndProcessFormData(formData: FormDataObject, t: TranslationKeys) {
-  const { name, email, phone, message } = formData;
+  const { name, email, message } = formData;
 
   // Validate email
   if (!isEmail(email)) {
     throw t.contact.emailError;
   }
 
-  // Validate phone number
-  const phoneNumber = parsePhoneNumberFromString(phone);
-  if (!phoneNumber || !phoneNumber.isValid()) {
-    throw t.contact.phoneError;
-  }
-
   // Validate lengths
-  if (name.length > 200 || email.length > 200 || phone.length > 200 || message.length > 1000) {
+  if (name.length > 200 || email.length > 200 || message.length > 1000) {
     throw t.contact.lengthError;
   }
 }
 
 export async function verifyAndSendEmail(token: string, formData: FormDataObject, lang: Language): Promise<boolean | string> {
   const t = getTranslations(lang);
-
-  // if the phone number doesn't start with +, prepend +
-  if (!formData.phone.startsWith("+")) {
-    formData.phone = `+${formData.phone}`;
-  }
 
   // Validate reCAPTCHA token
   if (!(await isCaptchaValid(token))) {
@@ -65,7 +52,6 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
     messageId = await saveContactMessage({
       name: formData.name,
       email: formData.email,
-      phone: formData.phone,
       message: formData.message,
     });
   } catch (error) {
@@ -81,7 +67,6 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
       subject: "New Contact Form Submission",
       html: `<p>Name: ${formData.name}</p>
              <p>Email: ${formData.email}</p>
-             <p>Phone: ${formData.phone}</p>
              <p>Message: ${formData.message}</p>`,
     });
     // Update Firebase document with sent_at timestamp
