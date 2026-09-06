@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { isCaptchaValid } from '@/lib/captcha';
 import { isEmail } from 'validator';
 import { saveContactMessage, updateMessageSentStatus } from '@/lib/firebase-service';
+import { formatReplyTo } from '@/lib/email-reply-to';
 import { getTranslations, TranslationKeys } from '@/constants/translations';
 import { Language } from '@/constants/i18n';
 
@@ -64,6 +65,7 @@ export async function verifyAndSendEmail(token: string, formData: FormDataObject
     await resend.emails.send({
       from: "Contact <contact@baezdaniel.cl>",
       to: ["daniel@baezdaniel.cl"],
+      replyTo: formatReplyTo(formData.name, formData.email),
       subject: "New Contact Form Submission",
       html: `<p>Name: ${formData.name}</p>
              <p>Email: ${formData.email}</p>
