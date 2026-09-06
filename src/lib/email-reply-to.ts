@@ -3,13 +3,14 @@
  * not the verified From mailbox (`contact@baezdaniel.cl`).
  *
  * Resend accepts `email@example.com` or `Name <email@example.com>`.
- * Newlines and angle brackets in the display name are stripped so they
- * cannot break the header or 422 the send.
+ * The display name is quoted (RFC 5322 quoted-string) so commas and other
+ * specials are not parsed as address-list separators. Newlines and angle
+ * brackets are stripped so they cannot inject a second mailbox.
  */
 export function formatReplyTo(name: string, email: string): string {
   const mailbox = email.trim();
   const displayName = name
-    .replace(/[\r\n<>"\\]/g, " ")
+    .replace(/[\r\n<>]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
@@ -17,5 +18,6 @@ export function formatReplyTo(name: string, email: string): string {
     return mailbox;
   }
 
-  return `${displayName} <${mailbox}>`;
+  const quoted = `"${displayName.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+  return `${quoted} <${mailbox}>`;
 }
